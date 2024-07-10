@@ -4,3 +4,11 @@ from django.http import HttpResponse
 
 def index(request):
     return HttpResponse("Hello FinAPP.com")
+
+def registration(request):
+    if request.method == "POST":
+        name = request.POST.get("username")
+        passw = request.POST.get("pass")
+        return HttpResponse(f"<h2>Привет, {name}, твой пароль: {passw}</h2>")
+    else:
+        return render(request, "registration.html")
