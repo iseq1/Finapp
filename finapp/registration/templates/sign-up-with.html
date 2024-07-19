@@ -5,7 +5,8 @@
 	<title>FinApp</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<!--===============================================================================================-->
 	<link rel="icon" type="image/png" href="{% static 'images/icons/favicon.ico' %}"/>
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
@@ -15,27 +16,48 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'fonts/Linearicons-Free-v1.0.0/icon-font.min.css' %}">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.css' %}">
-<!--===============================================================================================-->	
+<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{% static 'vendor/animsition/css/animsition.min.css' %}">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{% static 'vendor/select2/select2.min.css' %}">
-<!--===============================================================================================-->	
+<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{% static 'vendor/daterangepicker/daterangepicker.css' %}">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 <!--===============================================================================================-->
+	<style>
+        .github-btn {
+            display: inline-block;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .github-btn i {
+            margin-right: 8px;
+        }
+
+        .github-btn:hover {
+            background-color: #555;
+        }
+    </style>
 </head>
 <body>
-	
+
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
 				<div class="login100-form-title" style="background-image: url(static/images/bg-01.jpg);">
 					<span class="login100-form-title-1">
-						Sign Up
+						Sign Up With
 					</span>
 				</div>
 
@@ -47,43 +69,24 @@
 						<span class="focus-input100"></span>
 					</div>
 
-					<div class="wrap-input100 validate-input m-b-18" data-validate = "Password is required">
-						<span class="label-input100">Password</span>
-						<input class="input100" type="password" name="password" placeholder="Enter password">
-						<span class="focus-input100"></span>
-					</div>
 
-					<div class="wrap-input100 validate-input m-b-18" data-validate = "Password is required">
-						<span class="label-input100">Password</span>
-						<input class="input100" type="password" name="password" placeholder="Repeat password">
-						<span class="focus-input100"></span>
-					</div>
 
 					<div class="flex-sb-m w-full p-b-30">
-						<div class="contact100-form-checkbox">
-							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
-							<label class="label-checkbox100" for="ckb1">
-								Remember me
-							</label>
-						</div>
 
 						<div>
-							<a href="{% url 'registr_with' %}" class="txt1">
-								Sign Up with
+							<a href="{% url 'social:begin' 'github' %}" class="github-btn">
+								<i class="fab fa-github"></i> Sign Up with GitHub
 							</a>
 						</div>
+
 					</div>
 
-					<div class="container-login100-form-btn">
-						<button class="login100-form-btn">
-							Sign Up
-						</button>
-					</div>
+
 				</form>
 			</div>
 		</div>
 	</div>
-	
+
 <!--===============================================================================================-->
 	<script src="static/vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->

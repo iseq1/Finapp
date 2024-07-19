@@ -37,8 +37,25 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social_django',
     'registration',
 ]
+
+AUTHENTICATION_BACKENDS = (
+    # 'social_core.backends.google.GoogleOpenIdConnect',  # Google
+    'social_core.backends.github.GithubOAuth2',  # GitHub
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+# SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = 'your_google_client_id'
+# SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'your_google_client_secret'
+
+SOCIAL_AUTH_GITHUB_KEY = 'Ov23li70GPeiH9KQY7Fu'
+SOCIAL_AUTH_GITHUB_SECRET = 'eb3cc57b4929bce0c653343648692e244cb6597d'
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = '/'  # Замените на ваш URL для успешного входа
+LOGOUT_REDIRECT_URL = '/'  # Замените на ваш URL для успешного выхода
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -82,9 +99,6 @@ DATABASES = {
         'PASSWORD': '123456',
         'HOST': '127.0.0.1',
         'PORT': '3306',
-        'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
-        }
     }
 }
 
@@ -129,3 +143,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'registration.CustomUser'
