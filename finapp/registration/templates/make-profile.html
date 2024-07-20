@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+	<title>FinApp</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="{% static 'images/icons/favicon.ico' %}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'fonts/Linearicons-Free-v1.0.0/icon-font.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/animsition/css/animsition.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/select2/select2.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/daterangepicker/daterangepicker.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+<!--===============================================================================================-->
+</head>
+<body>
+
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<div class="login100-form-title" style="background-image: url(static/images/bg-01.jpg);">
+					<span class="login100-form-title-1">
+						Tell about YOU
+					</span>
+				</div>
+
+				<form class="login100-form validate-form" method="post">
+					{% csrf_token %}
+					<div class="wrap-input100 validate-input m-b-26" data-validate="First Name is required">
+						<span class="label-input100">First Name</span>
+						<input class="input100" type="text" name="first_name" placeholder="Enter first name">
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input m-b-18" data-validate = "Second Name is required">
+						<span class="label-input100">Second Name</span>
+						<input class="input100" type="text" name="last_name" placeholder="Enter second name">
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input m-b-18" data-validate = "Date of birth is required">
+						<span class="label-input100">Date of birth</span>
+						<input class="input100" type="date" name="date_of_birth" placeholder="Enter date of birth">
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input m-b-18" data-validate = "Phone number is required">
+						<span class="label-input100">Phone number</span>
+						<input class="input100" type="number" name="phone_number" placeholder="Enter phone number">
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input m-b-18" data-validate = "Address is required">
+						<span class="label-input100">Address</span>
+						<input class="input100" type="text" name="address" placeholder="Enter address">
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="flex-sb-m w-full p-b-30">
+						<div class="contact100-form-checkbox">
+							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+							<label class="label-checkbox100" for="ckb1">
+								Remember me
+							</label>
+						</div>
+
+						<div>
+							<a href="{% url 'registr_with' %}" class="txt1">
+								Sign Up with
+							</a>
+						</div>
+					</div>
+
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn">
+							Sign Up
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+<!--===============================================================================================-->
+	<script src="static/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="static/vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="static/vendor/bootstrap/js/popper.js"></script>
+	<script src="static/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="static/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="static/vendor/daterangepicker/moment.min.js"></script>
+	<script src="static/vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="static/vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script src="static/js/main.js"></script>
+
+</body>
+</html>
