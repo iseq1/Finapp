@@ -3,18 +3,21 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from .models import CustomUser, UserProfile
 
+
 def index(request):
-    return HttpResponse("Hello FinAPP.com")
+    if request.user.is_authenticated:
+        user_id = request.user.email
+        user = CustomUser.objects.get(email=user_id)
+        person = UserProfile.objects.get(user=user)
+        return HttpResponse(f"Hello {person.first_name} {person.last_name} from {person.address}, you in FinAPP.com")
+    else:
+        return HttpResponse(f"Hello in FinAPP.com")
 
 
 def register_view(request):
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
-        # first_name = request.POST.get('first_name')
-        # last_name = request.POST.get('last_name')
-        # date_of_birth = request.POST.get('date_of_birth')
-
         if email and password:
             request.session['registration_email'] = email
             request.session['registration_password'] = password
@@ -34,16 +37,22 @@ def make_profile(request):
         password = request.session.get('registration_password')
 
         if not email or not password:
-            return redirect('registration')
+            try:
+                user = request.backend.do_auth(request.data)
+                if user and user.is_authenticated:
+                    # После аутентификации и получения данных пользователя
+                    email = user.email
+            except Exception as e:
+                print(f"Error creating user profile: {e}")
+                return render(request, 'make-profile.html', {'error': 'Ошибка при создании профиля. Попробуйте снова.'})
 
-        if first_name and last_name and date_of_birth and phone_number and address:
+        if email and first_name and last_name and date_of_birth and phone_number and address:
             try:
                 # Создание пользователя
                 user = CustomUser.objects.create_user(
                     email=email,
                     password=password,
                 )
-
                 # Создание профиля пользователя
                 UserProfile.objects.create(
                     user=user,
@@ -54,16 +63,58 @@ def make_profile(request):
                     address=address
                 )
 
+
                 # Аутентификация пользователя
                 user = authenticate(request, email=email, password=password)
                 if user is not None:
                     login(request, user)  # Вход пользователя
+
 
                 # Очистка данных из сессии
                 del request.session['registration_email']
                 del request.session['registration_password']
 
                 return redirect('/')  # Перенаправление на домашнюю страницу
+            except Exception as e:
+                print(f"Error creating user profile: {e}")
+                return render(request, 'make-profile.html', {'error': 'Ошибка при создании профиля. Попробуйте снова.'})
+    return render(request, 'make-profile.html')
+
+
+def sign_up_with_view(request):
+
+    return render(request, 'sign-up-with.html')
+
+
+def complete_social_registration(request, backend):
+    if request.method == 'POST':
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        date_of_birth = request.POST.get('date_of_birth')
+        phone_number = request.POST.get('phone_number')
+        address = request.POST.get('address')
+
+        if first_name and last_name and date_of_birth and phone_number and address:
+            try:
+                social_user = request.user.social_auth.get(provider=backend)
+                email = social_user.extra_data['email']
+
+                user, created = CustomUser.objects.get_or_create(email=email)
+                if created:
+                    user.set_unusable_password()
+                    user.save()
+
+                UserProfile.objects.create(
+                    user=user,
+                    first_name=first_name,
+                    last_name=last_name,
+                    date_of_birth=date_of_birth,
+                    phone_number=phone_number,
+                    address=address
+                )
+
+                login(request, user)
+                return redirect('/')
             except Exception as e:
                 print(f"Error creating user profile: {e}")
                 return render(request, 'make-profile.html', {'error': 'Ошибка при создании профиля. Попробуйте снова.'})
@@ -81,12 +132,6 @@ def login_view(request):
         else:
             return render(request, 'registration/login.html', {'error': 'Invalid email or password'})
     return render(request, 'registration/login.html')
-
-
-def sign_up_with_view(request):
-
-    return render(request, 'sign-up-with.html')
-
 
 
 def logout_view(request):

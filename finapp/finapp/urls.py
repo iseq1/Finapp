@@ -21,9 +21,10 @@ from registration import views as registration_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', registration_views.index, name='home'),
-    path('registration', registration_views.register_view, name='registr'),
-    path('make-profile', registration_views.make_profile, name='make_profile'),
-    path('login', registration_views.login, name='login'),
-    path('sign-up-with', registration_views.sign_up_with_view, name='registr_with'),
+    path('registration/', registration_views.register_view, name='register'),
+    path('make-profile/', registration_views.make_profile, name='make_profile'),
+    path('login/', registration_views.login, name='login'),
+    path('logout/', registration_views.logout_view, name='logout'),
+    path('sign-up-with/', registration_views.sign_up_with_view, name='register_with'),
     path('auth/', include('social_django.urls', namespace='social')),
 ]
