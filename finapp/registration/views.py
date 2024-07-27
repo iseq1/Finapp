@@ -4,21 +4,12 @@ from django.contrib.auth import login, authenticate, logout
 from .models import CustomUser, UserProfile
 
 
-def index(request):
-    if request.user.is_authenticated:
-        user_id = request.user.email
-        user = CustomUser.objects.get(email=user_id)
-        person = UserProfile.objects.get(user=user)
-        return HttpResponse(f"Hello {person.first_name} {person.last_name} from {person.address}, you in FinAPP.com")
-    else:
-        return HttpResponse(f"Hello in FinAPP.com")
-
-
 def register_view(request):
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
-        if email and password:
+        second_password = request.POST['second_password']
+        if email and password and second_password and password==second_password:
             request.session['registration_email'] = email
             request.session['registration_password'] = password
             return redirect('/make-profile')
@@ -74,7 +65,7 @@ def make_profile(request):
                 del request.session['registration_email']
                 del request.session['registration_password']
 
-                return redirect('/')  # Перенаправление на домашнюю страницу
+                return redirect('home')  # Перенаправление на домашнюю страницу
             except Exception as e:
                 print(f"Error creating user profile: {e}")
                 return render(request, 'make-profile.html', {'error': 'Ошибка при создании профиля. Попробуйте снова.'})
@@ -127,11 +118,11 @@ def login_view(request):
         password = request.POST['password']
         user = authenticate(request, username=email, password=password)
         if user is not None:
-            login(request, user)  # Logs the user in
-            return redirect('home')  # Replace 'home' with the name of your homepage URL
+            login(request, user)
+            return redirect('home')
         else:
-            return render(request, 'registration/login.html', {'error': 'Invalid email or password'})
-    return render(request, 'registration/login.html')
+            return render(request, 'login.html', {'error': 'Invalid email or password'})
+    return render(request, 'login.html')
 
 
 def logout_view(request):
