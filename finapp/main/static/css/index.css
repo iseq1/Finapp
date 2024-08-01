@@ -1282,6 +1282,9 @@ section {
     width: 100%;
     max-width: 380px;
 }
+.btn.btn-attn.btn-arrow.btn-normal.btn-hero-register:hover{
+    filter: brightness(90%)
+}
 
 
 
