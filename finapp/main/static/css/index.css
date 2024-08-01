@@ -308,7 +308,7 @@ section {
     right: 36px;
     width: 254px;
     height: 129px;
-    background: url(/wp-content/themes/RushAnalytics/assets/css/../img/bg-dots.svg) no-repeat center;
+    background: url(/static/images/bg-dots.svg) no-repeat center;
 }
 .hero .container {
     padding-left: 18px;
@@ -764,20 +764,7 @@ input, button, textarea, select {
 .btn-arrow.btn-attn::after {
     background-image: url(/static/icons/arrow-white.svg);
 }
-.btn-arrow::after {
-    content: "";
-    display: inline-block;
-    vertical-align: middle;
-    width: 20px;
-    height: 24px;
-    margin-left: 12px;
-    position: relative;
-    background-repeat: no-repeat;
-    background-position: center;
-    transition: .3s;
-    position: relative;
-    left: 0;
-}
+
 .tool-card-btn::after {
     width: 20px;
 }
@@ -936,20 +923,7 @@ input, button, textarea, select {
 .btn-arrow.btn-attn::after {
     background-image: url(/static/icons/arrow-white.svg);
 }
-.btn-arrow::after {
-    content: "";
-    display: inline-block;
-    vertical-align: middle;
-    width: 20px;
-    height: 24px;
-    margin-left: 12px;
-    position: relative;
-    background-repeat: no-repeat;
-    background-position: center;
-    transition: .3s;
-    position: relative;
-    left: 0;
-}
+
 .call-action-card img {
     position: relative;
     z-index: 2;
@@ -1076,17 +1050,6 @@ input, button, textarea, select {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
 .advantage.purple:hover,
 .advantage.purple:hover::after {
     background-color: #9767ff;
@@ -1129,6 +1092,198 @@ input, button, textarea, select {
 .advantages-items li:hover p {
     color: white; /* Изменяем цвет текста <p> на белый при наведении */
 }
+
+.pb-big {
+    padding-bottom: 150px;
+}
+
+.pt-extra {
+    padding-top: 170px;
+}
+.skills-list {
+    margin-top: 62px !important;
+    margin-bottom: 43px !important;
+}
+.skill-wrap {
+    border-bottom: 1px solid #ebedf1;
+    padding: 9px 0 10px;
+}
+.skill {
+    display: flex;
+    align-items: center;
+    padding: 36px 20px 35px;
+    margin-left: -20px;
+    margin-right: -20px;
+    text-decoration: none;
+    color: inherit;
+    transition: .3s;
+}
+.skill-info {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1;
+    min-height: 60px;
+    padding-left: 80px;
+    position: relative;
+}
+.skill-icon {
+    min-width: 60px;
+    height: 60px;
+    position: absolute;
+    top: 0;
+    left: -5px;
+}
+.skill-icon img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: .3s;
+}
+
+.skill-icon-default {
+    opacity: 1;
+}
+.skill-icon-active {
+    opacity: 0;
+}
+.skill-title {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 1;
+    margin-bottom: 8px;
+    transition: .3s;
+    width: 100%;
+}
+.skill-tag.green {
+    background-color: #00c27c;
+}
+.skill-tag {
+    display: inline-block;
+    border-radius: 14px;
+    color: #fff;
+    background-color: #9767ff;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 0 11px;
+    height: 28px;
+    line-height: 26px;
+}.skill p {
+    width: 100%;
+    max-width: 440px;
+    color: #696782;
+    font-size: 16px;
+    margin-right: 90px;
+    transition: .3s;
+}
+.skill .btn-next {
+    position: static;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    min-width: 50px;
+    height: 50px;
+    opacity: .15;
+    transition-duration: .3;
+}
+
+.btn-next {
+    right: -62px;
+    transform: rotate(180deg);
+}
+.btn-prev, .btn-next {
+    position: absolute;
+    top: 50%;
+    margin-top: -12px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    z-index: 100;
+    border: 2px solid #1d1c1d;
+    transition: background-color .3s;
+    background: none;
+}
+.skill .btn-next svg {
+    transition-duration: .3;
+}
+.btn-prev svg, .btn-next svg {
+    transition: .3s;
+}
+.skill .btn-link {
+    display: none;
+}
+.btn-link {
+    padding: 0;
+    border: none;
+    background: none;
+    color: #555455;
+    font-size: 16px;
+    font-weight: 600;
+}
+.btn, .save-rating {
+    display: inline-block;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: .3s;
+    text-align: center;
+}
+.skill-tag.purple {
+    background-color: #9767ff;
+}
+.skill-tag.pink {
+    background-color: #ed6f78;
+}
+.skill-tag.blue {
+    background-color: #267dff;
+}
+.text-right {
+    text-align: right;
+}
+.btn-bordered {
+    padding: 16px 28px 16px 32px;
+    background: none;
+    color: #e12d05;
+    border: 2px solid #e12d05;
+    font-size: 16px;
+    font-weight: 700;
+}
+.btn-arrow.btn-bordered::after {
+    background-image: url(/static/icons/arrow-orange.svg);
+}
+
+
+.call-action-full {
+    background: #9767ff url(/static/images/bg-purple.svg) no-repeat center;
+    color: #fff;
+    text-align: center;
+    padding-top: 60px;
+    padding-bottom: 63px;
+}
+
+section {
+    background-color: #fff;
+}
+.call-action-full h2 {
+    font-size: 52px;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+.call-action-full p {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 30px;
+}
+.btn-large {
+    width: 100%;
+    max-width: 380px;
+}
+
+
 
 
 
