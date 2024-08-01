@@ -924,7 +924,6 @@ input, button, textarea, select {
     max-width: 280px;
     font-size: 16px;
 }
-
 .btn, .save-rating {
     display: inline-block;
     text-decoration: none;
@@ -967,6 +966,114 @@ input, button, textarea, select {
     background: url(/static/images/call-action-bg.svg) no-repeat bottom right;
     background-size: contain;
 }
+.pb-big {
+    padding-bottom: 150px;
+}
+.pt-extra {
+    padding-top: 170px;
+}
+.advantages-wrap {
+    display: flex;
+}
+.advantages-title {
+    max-width: 385px;
+}
+.is-style-title-attn {
+    line-height: 1;
+    margin-bottom: 42px;
+}
+.is-style-title-attn small {
+    display: block;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+.is-style-title-attn b {
+    padding-left: 1px;
+    padding-right: 2px;
+    font-weight: inherit;
+    background: linear-gradient(to bottom, transparent 65%, #FFD02F 50%);
+}
+.advantages-items {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+.advantages-items li {
+    margin-top: 10px;
+    flex: 1;
+    flex-basis: 360px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    border: 1px solid #ebedf1;
+    border-radius: 10px;
+    padding: 36px 20px 45px 25px;
+}
+
+.advantage {
+    position: relative;
+    cursor: pointer;
+    transition: .3s;
+}
+.advantage-icon {
+    margin-bottom: 15px;
+    width: 60px;
+    height: 60px;
+    position: relative;
+}
+.advantage-icon img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: .3s;
+}
+.advantage-icon-default {
+    opacity: 1;
+}
+.advantage-icon-active {
+    opacity: 0;
+}
+.advantage-title {
+    font-weight: 700;
+    font-size: 24px;
+    margin-bottom: 13px;
+    line-height: 1.1;
+    transition: .3s;
+}
+.advantage p {
+    font-size: 16px;
+    font-weight: 400;
+    color: #696782;
+    transition: .3s;
+}
+.advantage.purple::after {
+    background-color: #9767ff;
+}
+.advantage::after {
+    content: "";
+    position: absolute;
+    top: 36px;
+    left: -1px;
+    width: 3px;
+    height: 60px;
+    border-radius: 3px;
+    background-color: #9767ff;
+}
+.advantage.orange::after {
+    background-color: #e12d05;
+}
+.advantage.pink::after {
+    background-color: #ed6f78;
+}
+.advantage.green::after {
+    background-color: #00c27c;
+}
+.advantage.blue::after {
+    background-color: #267dff;
+}
+.advantage.yellow::after {
+    background-color: #ffd02f;
+}
 
 
 
@@ -980,8 +1087,48 @@ input, button, textarea, select {
 
 
 
+.advantage.purple:hover,
+.advantage.purple:hover::after {
+    background-color: #9767ff;
+    color: white; /* Изменяем цвет шрифта на белый */
+}
 
+.advantage.orange:hover,
+.advantage.orange:hover::after {
+    background-color: #e12d05;
+    color: white;
+}
 
+.advantage.pink:hover,
+.advantage.pink:hover::after {
+    background-color: #ed6f78;
+    color: white;
+}
+
+.advantage.green:hover,
+.advantage.green:hover::after {
+    background-color: #00c27c;
+    color: white;
+}
+
+.advantage.blue:hover,
+.advantage.blue:hover::after {
+    background-color: #267dff;
+    color: white;
+}
+
+.advantage.yellow:hover,
+.advantage.yellow:hover::after {
+    background-color: #ffd02f;
+    color: white;
+}
+
+.advantages-items li:hover {
+    border-color: transparent; /* Убираем рамку при наведении */
+}
+.advantages-items li:hover p {
+    color: white; /* Изменяем цвет текста <p> на белый при наведении */
+}
 
 
 
