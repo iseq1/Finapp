@@ -1285,6 +1285,20 @@ section {
 .btn.btn-attn.btn-arrow.btn-normal.btn-hero-register:hover{
     filter: brightness(90%)
 }
+.btn.btn-attn.btn-arrow.btn-normal.tool-card-btn.tool-card-btn-try:hover{
+    filter: brightness(90%)
+}
+.btn.btn-attn.btn-arrow.btn-normal.js-try-btn:hover{
+    filter: brightness(90%)
+}
+.btn.btn-attn.btn-arrow.btn-large.btn-call-action-register:hover{
+    filter: brightness(90%)
+}
+.btn-bordered.btn-big.btn-arrow:hover {
+    background-color: #e12d05;
+    color: white;
+}
+
 
 
 
