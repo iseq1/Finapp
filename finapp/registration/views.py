@@ -2,17 +2,55 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from .models import CustomUser, UserProfile
+import re
+
+
+def is_valid_email(email):
+    # Регулярное выражение для проверки формата электронной почты
+    email_regex = (r'^[a-zA-Z0-9._%+-]+'
+                   r'@'
+                   r'[a-zA-Z0-9.-]+'
+                   r'\.[a-zA-Z]{2,}$')
+
+    if re.match(email_regex, email):
+        return True
+    else:
+        return False
+
+
+def is_valid_password(password):
+    # Регулярное выражение для проверки условий пароля
+    password_regex = (r'^(?=.*[a-z])'
+                      r'(?=.*[A-Z])'
+                      r'(?=.*\d)'
+                      r'(?=.*[!@#$%^&*()_+={}\[\]:;"\'<>,.?/\\|-])'
+                      r'.{8,}$')
+
+    if re.match(password_regex, password):
+        return True
+    else:
+        return False
 
 
 def register_view(request):
     if request.method == 'POST':
+
+        # Получили данные
         email = request.POST['email']
         password = request.POST['password']
-        second_password = request.POST['second_password']
-        if email and password and second_password and password==second_password:
-            request.session['registration_email'] = email
-            request.session['registration_password'] = password
-            return redirect('/make-profile')
+        print(email, password)
+
+        # Проверяем данные
+        try:
+            if is_valid_email(email) and is_valid_password(password):
+                request.session['registration_email'] = email
+                request.session['registration_password'] = password
+                return redirect('/make-profile')
+            else:
+                print('incorrect!')
+        except Exception as e:
+            print(e)
+
     return render(request, 'registration.html')
 
 

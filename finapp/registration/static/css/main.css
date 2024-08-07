@@ -135,7 +135,8 @@ audio, canvas, embed, iframe, img, object, svg, video {
     min-height: 100vh;
 }
 .login-page-wrap {
-    margin-left: 14%;
+    margin-top: 100px;
+    margin-left: 30%;
     max-width: 482px;
     width: 100%;
 }
@@ -165,7 +166,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .login-socials {
     display: grid;
-    margin-bottom: 45px;
+    margin-bottom: 10px;
 }
 .login-socials .btn-socials:first-child, .login-socials a:first-child {
     margin-left: 10px;
@@ -209,7 +210,7 @@ audio, canvas, embed, iframe, img, object, svg, video {
     vertical-align: middle;
 }
 .login-page .sep {
-    margin-bottom: 50px;
+    margin-bottom: 20px;
     position: relative;
     text-align: center;
 }
@@ -461,7 +462,7 @@ button, input, optgroup, select, textarea {
     padding: 0;
 }
 .btn-arrow.btn-attn:after {
-    background-image: url(/imgs/arrow-white.svg);
+    background-image: url(/static/icons/arrow-white.svg);
 }
 .btn-arrow:after {
     background-position: 50%;
@@ -571,7 +572,7 @@ button, input, optgroup, select, textarea {
     padding: 0;
 }
 .btn-arrow.btn-attn:after {
-    background-image: url(/imgs/arrow-white.svg);
+    background-image: url(/static/icons/arrow-white.svg);
 }
 .btn-arrow:after {
     background-position: 50%;
@@ -718,18 +719,35 @@ a {
     weight: 20px;
     height: 20px;
 }
+.input-icon-last {
+    position: absolute; /* Абсолютное позиционирование для картинки */
+    left: 90%; /* Расстояние от левого края поля */
+    top: 50%; /* Середина по вертикали */
+    transform: translateY(-50%); /* Центрирование изображения по вертикали */
+    weight: 20px;
+    height: 20px;
+}
 
 .email-input {
     width: 100%; /* Занятие всей ширины контейнера */
 }
 
+.btn.btn-attn.btn-arrow.btn-register:hover{
+    filter: brightness(90%)
+}
+
+.btn-social.btn-ra-register-go.overflow-hidden:hover{
+    background-color: #292929;
+    color: white;
+}
 
 
 
-
-
-
-
+.error-message {
+    color: red; /* Цвет текста ошибок */
+    display: none; /* Скрыть сообщения по умолчанию */
+    font-size: 12px; /* Размер шрифта для сообщений */
+}
 
 
 

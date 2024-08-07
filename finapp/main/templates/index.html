@@ -22,13 +22,13 @@
                     <h1 class="hero-title">Инструменты автоматизации<br>и аналитики для SEO и PPC</h1>
                     <p class="hero-slogon">Доверьте рутину нам — занимайтесь реальными задачами</p>
                     <div class="hero-call big-text">
-                        <a href="https://app.rush-analytics.ru/register" class="btn btn-attn btn-arrow btn-normal btn-hero-register">
+                        <a href="{% url 'register' %}" class="btn btn-attn btn-arrow btn-normal btn-hero-register">
                             Зарегистрироваться
                         </a>
                         <p>Первые 7 дней бесплатно.<br>Без привязки карты и лишней информации</p>
                     </div>
                 </div>
-                <img loading="lazy" class="hero-img" width="572" height="385" src="https://www.rush-analytics.ru/wp-content/themes/RushAnalytics/assets/img/hero-sections/home.svg" alt="Инструменты автоматизациии аналитики для SEO и PPC">
+                <img loading="lazy" class="hero-img" width="572" height="385" src="{% static 'images/home.svg' %}" alt="Инструменты автоматизациии аналитики для SEO и PPC">
             </section>
         </div>
 
@@ -67,7 +67,15 @@
             <div class="container">
                 <h2 class="is-style-title-attn text-center">
                     <small>Инструменты</small>
-                    Основные <b>возможности</b><br>нашего <b>сервиса</b>
+                    Основные
+                    <b>
+                        возможности
+                    </b>
+                    <br>
+                    нашего
+                    <b>
+                        сервиса
+                    </b>
                 </h2>
                 <div class="tools-tabs slick-initialized slick-slider">
                     <div class="slick-list draggable">
@@ -179,7 +187,7 @@
                                                 <ul class="tool-card-tags purple">
 
                                                 </ul>
-                                                <a href="https://app.rush-analytics.ru/register" class="btn btn-attn btn-arrow btn-normal tool-card-btn tool-card-btn-try" tabindex="0">
+                                                <a href="{% url 'register' %}" class="btn btn-attn btn-arrow btn-normal tool-card-btn tool-card-btn-try" tabindex="0">
                                                     Попробовать бесплатно
                                                 </a>
                                             </div>
@@ -202,7 +210,7 @@
                                                 <ul class="tool-card-tags green">
 
                                                 </ul>
-                                                <a href="https://app.rush-analytics.ru/register" class="btn btn-attn btn-arrow btn-normal tool-card-btn tool-card-btn-try" tabindex="-1">
+                                                <a href="{% url 'register' %}" class="btn btn-attn btn-arrow btn-normal tool-card-btn tool-card-btn-try" tabindex="-1">
                                                     Попробовать бесплатно
                                                 </a>
                                             </div>
@@ -225,7 +233,7 @@
                                                 <ul class="tool-card-tags pink">
 
                                                 </ul>
-                                                <a href="https://app.rush-analytics.ru/register" class="btn btn-attn btn-arrow btn-normal tool-card-btn tool-card-btn-try" tabindex="-1">
+                                                <a href="{% url 'register' %}" class="btn btn-attn btn-arrow btn-normal tool-card-btn tool-card-btn-try" tabindex="-1">
                                                     Попробовать бесплатно
                                                 </a>
                                             </div>
@@ -248,7 +256,7 @@
                                                 <ul class="tool-card-tags blue">
 
                                                 </ul>
-                                                <a href="https://app.rush-analytics.ru/register" class="btn btn-attn btn-arrow btn-normal tool-card-btn tool-card-btn-try" tabindex="-1">
+                                                <a href="{% url 'register' %}" class="btn btn-attn btn-arrow btn-normal tool-card-btn tool-card-btn-try" tabindex="-1">
                                                     Попробовать бесплатно
                                                 </a>
                                             </div>
@@ -332,7 +340,7 @@
                             <br>
                             Без привязки карты.
                         </p>
-                        <a class="btn btn-attn btn-arrow btn-normal js-try-btn" href="https://app.rush-analytics.ru/register">
+                        <a class="btn btn-attn btn-arrow btn-normal js-try-btn" href="{% url 'register' %}">
                             Попробовать бесплатно
                         </a>
                     </div>
@@ -666,7 +674,7 @@
                     Здесь вы можете собрать поисковые подсказки из Яндекс, Google или YouTube
                 </p>
 
-                <a class="btn btn-attn btn-arrow btn-large btn-call-action-register" href="https://app.rush-analytics.ru/register">
+                <a class="btn btn-attn btn-arrow btn-large btn-call-action-register" href="{% url 'register' %}">
                     Зарегистрироваться
                 </a>
             </div>

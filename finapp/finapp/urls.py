@@ -18,6 +18,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+
 from registration import views as registration_views
 from main import views as main_views
 
@@ -28,6 +29,5 @@ urlpatterns = [
     path('make-profile/', registration_views.make_profile, name='make_profile'),
     path('login/', registration_views.login_view, name='login'),
     path('logout/', registration_views.logout_view, name='logout'),
-    path('sign-up-with/', registration_views.sign_up_with_view, name='register_with'),
     path('auth/', include('social_django.urls', namespace='social')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
