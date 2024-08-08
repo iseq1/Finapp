@@ -255,12 +255,12 @@ button, input, optgroup, select, textarea {
 form .field, form .filed {
     flex: 1;
 }
-form input[type=email], form input[type=password], form input[type=tel], form input[type=text] {
+form input[type=email], form input[type=password], form input[type=tel], form input[type=text], form input[type=date] {
     height: 60px;
     line-height: 56px;
 }
 
-form input[type=email], form input[type=password], form input[type=tel], form input[type=text], form textarea {
+form input[type=email], form input[type=password], form input[type=tel], form input[type=text], form input[type=date], form textarea {
     -webkit-appearance: none;
     background-color: #fff;
     border: 2px solid #ebedf1;
@@ -411,7 +411,7 @@ form button[type=submit], form input[type=submit] {
     -webkit-appearance: none;
     border-radius: 10px;
     margin-top: 5px;
-    max-width: 290px;
+    max-width: 320px;
     width: 100%;
 }
 button[type=submit], input[type=submit] {
@@ -516,13 +516,7 @@ button, input, optgroup, select, textarea {
 .language-en .d-en-none, .language-ru .d-ru-none {
     display: none !important;
 }
-form button[type=submit], form input[type=submit] {
-    -webkit-appearance: none;
-    border-radius: 10px;
-    margin-top: 5px;
-    max-width: 290px;
-    width: 100%;
-}
+
 
 button[type=submit], input[type=submit] {
     -webkit-appearance: none;
@@ -732,6 +726,10 @@ a {
     width: 100%; /* Занятие всей ширины контейнера */
 }
 
+.date-of-birth-input{
+    width: 100%;
+}
+
 .btn.btn-attn.btn-arrow.btn-register:hover{
     filter: brightness(90%)
 }
@@ -741,15 +739,25 @@ a {
     color: white;
 }
 
-
-
 .error-message {
-    color: red; /* Цвет текста ошибок */
-    display: none; /* Скрыть сообщения по умолчанию */
-    font-size: 12px; /* Размер шрифта для сообщений */
+    margin-bottom: 10px;
+    border: 1mm ridge rgba(239, 207, 227, .6);
+    border-radius: 5px;
+    padding-bottom: 5px;
+    padding-top: 2px;
+    padding-left: 5px;
+    color: red; /
+    display: none;
+    font-size: 12px;
+    font-weight: 500;
 }
 
-
+.is-style-title-attn b {
+    padding-left: 1px;
+    padding-right: 2px;
+    font-weight: inherit;
+    background: linear-gradient(to bottom, transparent 65%, #FFD02F 50%);
+}
 
 
 
