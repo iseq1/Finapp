@@ -1,5 +1,5 @@
 from django.db import models
-from registration.models import CustomUser
+from registration.models import CustomUser, UserProfile
 
 
 class Category(models.Model):

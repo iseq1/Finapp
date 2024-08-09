@@ -14,18 +14,19 @@ def is_valid_email(email, type='registration'):
     if type == 'registration':
         try:
             # Если уже есть пользователь с таким email -> False
-            existing_email = CustomUser.objects.get(email=email)
+            existing_user = CustomUser.objects.get(email=email)
             return False
         except Exception as e:
             if re.match(email_regex, email):
                 return True
             else:
                 return False
+
     elif type == 'login':
         try:
             # Если уже есть пользователь с таким email -> True
-            existing_email = CustomUser.objects.get(email=email)
-            if re.match(email_regex, existing_email):
+            existing_user = CustomUser.objects.get(email=email)
+            if re.match(email_regex, email):
                 return True
             else:
                 return False
@@ -162,21 +163,20 @@ def login_view(request):
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
-
-        if is_valid_email(email, type='login') and is_valid_password(password):
-            # Аутентификация пользователя с использованием email и пароля
-            user = authenticate(request, username=email, password=password)
-
-            if user is not None:
-                # Если пользователь найден, выполняем логин
-                login(request, user)
-                return redirect('home')  # Перенаправление на главную страницу или другую
-
+        try:
+            if is_valid_email(email, type='login') and is_valid_password(password):
+                # Аутентификация пользователя с использованием email и пароля
+                user = authenticate(request, username=email, password=password)
+                if user is not None:
+                    # Если пользователь найден, выполняем логин
+                    login(request, user)
+                    return redirect('home')  # Перенаправление на главную страницу или другую
+                else:
+                    raise Exception("Неправильный email или пароль")
             else:
-                messages.error(request, "Неправильный email или пароль")
-        else:
-            messages.error(request, "Некорректный email или пароль")
-
+                raise Exception("Некорректный email или пароль")
+        except Exception as e:
+            return render(request, 'login.html', {'error': f'Ошибка при авторизации - {e}. Попробуйте снова.'})
     return render(request, 'login.html')
 
 
