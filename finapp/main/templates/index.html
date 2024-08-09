@@ -16,6 +16,25 @@
     <div id="sticky-wrapper" class="sticky-wrapper" style="height: 80px;"></div>
 
 	<main class="ra-main gg">
+        {% if name %}
+        <div class="pt-middle pb-normal">
+            <div class="container">
+                <h2 class="is-style-title-attn text-center">
+                    Привет
+                    <b>
+                        {{ name }} {{ surname }}
+                    </b>
+                    из города
+                    <b>
+                         {{ address }}
+                    </b>
+                    <br>
+                    Добро пожаловать на
+                    <b>finapp.com</b>
+                </h2>
+            </div>
+        </div>
+        {% endif %}
         <div class="out-container">
             <section class="hero">
                 <div class="container">
