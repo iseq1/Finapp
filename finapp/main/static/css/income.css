@@ -535,18 +535,196 @@ ul[class], ol[class] {
     justify-content: space-between;
 }
 .tariffs-switch {
-    margin-top: 59px;
+
     flex: 1;
-    border-top: 1px solid #ebedf1;
+
     padding-top: 30px;
     position: relative;
 }
 .tariffs-info-list, .tariff-lists {
     margin-top: 35px;
 }
+.tariffs-note-btn {
+    position: relative;
+    width: 24px;
+    max-width: 24px;
+    min-width: 24px;
+    height: 24px;
+    display: block;
+    -webkit-appearance: none;
+    padding: 0;
+    display: none;
+    text-align: center;
+    border: 1px solid #dcdcdc;
+    color: #dcdcdc;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: .3s;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+input, button, textarea, select {
+    font: inherit;
+}
+.tariffs-note p {
+    border-radius: 10px;
+    background-color: #f3f5fc;
+    color: #6c39db;
+    margin-top: 13px;
+    font-size: 14px;
+    font-weight: 500;
+    position: relative;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    line-height: 1;
+    max-width: 270px;
+}
+.tariffs-note p::before {
+    content: "";
+    width: 40px;
+    height: 40px;
+    margin-right: 8px;
+    background: url(https://www.rush-analytics.ru/wp-content/themes/RushAnalytics/assets/img/note-icon.svg) no-repeat center;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+.tariffs-info-list, .tariff-lists {
+    margin-top: 35px;
+}
+.tariffs-info-list li:first-child, .tariff-lists li:first-child {
+    border-top: 1px solid #ebedf1;
+}
+.tariffs-info-list li {
+    padding-right: 20px !important;
+}
+.tariffs-info-list li, .tariffs-mobile-key {
+    color: #696782;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.tariffs-info-list li, .tariff-lists li {
+    padding: 12px 0 15px;
+    border-bottom: 1px solid #ebedf1;
+    font-size: 14px;
+}
+.tariffs-info-list span {
+    white-space: nowrap;
+}
+.tooltip-info {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #dcdcdc;
+    color: #dcdcdc;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: .3s;
+}
+.tooltip-info::before {
+    content: "i";
+    font-weight: 600;
+    font-family: "Arial";
+    font-size: 10px;
+}
+.tooltip-info p {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    visibility: hidden;
+    opacity: 0;
+    background-color: #2d2d2d;
+    color: #fff;
+    font-weight: 500;
+    font-size: 14px;
+    z-index: 100;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, .1);
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    z-index: 100;
+}
+.tooltip-info::after {
+    content: "";
+    opacity: 0;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 6px solid rgba(0, 0, 0, 0);
+    border-right: 6px solid rgba(0, 0, 0, 0);
+    border-top: 6px solid #2d2d2d;
+}
+.tariff-title {
+    height: 60px;
+    line-height: 60px;
+    border-radius: 10px 10px 0 0;
+    border-bottom: 1px solid #ebedf1;
+    font-weight: 700;
+    font-size: 22px;
+}
+
+.tariff-title, .tariff-info, .tariff-value {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.tariff-price {
+    margin-bottom: 5px;
+    margin-top: 25px;
+}
+.tariff-price b {
+    font-size: 22px;
+}
+
+.tariff-price b, .tariff-price span {
+    color: #e12d05;
+    font-weight: 700;
+}
+.tariff-price span {
+    font-size: 14px;
+}
+.tariff-price-note {
+    font-size: 14px;
+    color: #696782;
+    line-height: 1.6;
+}
+.tariff-info-text {
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.4;
+}
 
 
 
+.tariffs-info-list-title {
+    margin-top: 35px;
+}
+
+.tariffs-info-list-title li {
+    padding-right: 20px !important;
+}
+.tariffs-info-list-title li {
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.tariffs-info-list-title li{
+    padding: 12px 0 15px;
+}
+.tariffs-info-list-title span {
+    white-space: nowrap;
+}
 
 
 
