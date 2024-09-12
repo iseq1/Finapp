@@ -302,7 +302,7 @@ section {
     height: 16px;
     overflow: hidden;
     text-indent: -1000px;
-    background: url(/wp-content/themes/RushAnalytics/assets/css/../img/home.svg) no-repeat left;
+    background: url(https://www.rush-analytics.ru/wp-content/themes/RushAnalytics/assets/img/home.svg) no-repeat left;
 }
 .breadcrumbs a {
     text-decoration: none;
@@ -317,6 +317,9 @@ a:not([class]) {
 .breadcrumbs li::before {
     content: "//";
     font-weight: 400;
+}
+.breadcrumbs li:first-child::before {
+    content: "";
 }
 .breadcrumbs li>span {
     opacity: .5;
@@ -535,9 +538,8 @@ ul[class], ol[class] {
     justify-content: space-between;
 }
 .tariffs-switch {
-
+    display: none;
     flex: 1;
-
     padding-top: 30px;
     position: relative;
 }
@@ -594,9 +596,7 @@ input, button, textarea, select {
 .tariffs-info-list, .tariff-lists {
     margin-top: 35px;
 }
-.tariffs-info-list li:first-child, .tariff-lists li:first-child {
-    border-top: 1px solid #ebedf1;
-}
+
 .tariffs-info-list li {
     padding-right: 20px !important;
 }
