@@ -20,3 +20,7 @@ def index(request):
         return render(request, 'index.html', context=user_data)
     else:
         return render(request, 'index.html', context={})
+
+
+def income_page(request):
+    return render(request, 'income_page.html')

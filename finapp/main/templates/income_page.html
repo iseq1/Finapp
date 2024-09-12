@@ -1,10 +1,896 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>FinApp</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/income.css' %}">
 </head>
-<body>
+<body class="page-template-default page page-id-709 _masterslider _ms_version_3.8.7">
+
+    <div id="sticky-wrapper" class="sticky-wrapper" style="height: 80px;">
+        <header class="ra-header" style="width: 1444px;">
+            <div class="out-container ra-header-wrap">
+                <div class="main-panel">
+                    <a href="/" class="ra-header-logo">
+                        <img loading="lazy" width="152" height="36" src="https://www.rush-analytics.ru/wp-content/uploads/2021/10/logo.svg" alt="" title="logo">
+                    </a>
+                    <button class="menu-burger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+                <div class="nav-panel">
+                    <nav class="menu" itemscope="" itemtype="http://schema.org/SiteNavigationElement">
+                        <div class="menu-title">
+                            Меню
+                        </div>
+                        <ul class="menu-list" itemprop="about" itemscope="" itemtype="http://schema.org/ItemList">
+                            <li class="menu-item">
+                                <a href="https://www.rush-analytics.ru/faq">
+                                    FAQ
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="https://www.rush-analytics.ru/pricing-plans">
+                                    Цены
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="https://www.rush-analytics.ru/about">
+                                    О компании
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="https://www.rush-analytics.ru/blog">
+                                    Блог
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="https://www.rush-analytics.ru/seo-prodvizhenie">
+                                    SEO продвижение
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="https://www.rush-analytics.ru/tender">
+                                    Тендер
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="user-panel">
+                            <a class="btn btn-white btn-login btn-no-logged" href="https://app.rush-analytics.ru/login">
+                                Войти                        </a>
+                            <a class="btn btn-black btn-register btn-no-logged" href="https://app.rush-analytics.ru/register">
+                                Зарегистрироваться                        </a>
+                            <a class="btn btn-black btn-register btn-logged" href="https://app.rush-analytics.ru/dashboard">
+                                Назад в сервис                        </a>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </header>
+    </div>
+	<main class="ra-main gg">
+
+        <section id="top" class="page-hero page-hero-tariffs">
+            <div class="breadcrumbs">
+                <div class="container">
+                    <ol itemscope="" itemtype="http://schema.org/BreadcrumbList">
+                        <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                            <a href="https://www.rush-analytics.ru/" itemprop="item">
+                                <span>
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2 7.14267L8 2L14 7.14267" stroke="#1D1C1D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path d="M2.85742 6.40794V13.9999H13.1428V6.408L10.5714 4.20394L8.00016 2L2.85742 6.40794Z" fill="#1D1C1D" stroke="#1D1C1D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M6.28613 15.0093V11.3612C6.28613 10.4511 6.8828 9.71387 7.61947 9.71387H8.38147C9.11813 9.71387 9.7148 10.4511 9.7148 11.3612V15.0093" fill="#E4F5FF"></path>
+                                </svg>
+                                <meta itemprop="name" content="Главная">
+                            </span>
+                        </a>
+                            <meta itemprop="position" content="1">
+                        </li>
+                        <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                            <span itemprop="name">Тарифные планы</span>
+                            <meta itemprop="position" content="2">
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="page-hero-wrap">
+                    <div class="hero-title">
+                        <h1>
+                            Тарифные ­ планы
+                        </h1>
+                    </div>
+                    <p class="hero-text">
+                        Созданные нами тарифы подойдут под любые задачи
+                    </p>
+                </div>
+                <img loading="lazy" src="https://www.rush-analytics.ru/wp-content/uploads/2021/10/tariffs-page-img.svg" alt="" width="249" height="258" title="tariffs-page-img">
+            </div>
+        </section>
+
+
+        <div class="tabs-panel">
+            <div class="container">
+                <ul class="tabs">
+                    <li class="js-tariff-tab tab is-active" data-id="it">
+                        <div class="tab-icons">
+                            <img loading="lazy" src="https://www.rush-analytics.ru/wp-content/uploads/2021/10/tariffs-icon-1.svg" alt="" title="tariffs-icon-1" width="50" height="50" class="default">
+                            <img loading="lazy" src="https://www.rush-analytics.ru/wp-content/uploads/2021/10/tariffs-icon-1-active.svg" alt="" title="tariffs-icon-1-active" width="50" height="50" class="active">
+                        </div>
+                        <div class="tab-info">
+                            <b>Индивидуальные тарифы</b>
+                            <span>Лучшие условия для бизнеса и фрилансеров</span>
+                        </div>
+                    </li>
+                                <li class="js-tariff-tab tab btn-corp-tariff" data-id="ct">
+                        <div class="tab-icons">
+                            <img loading="lazy" src="https://www.rush-analytics.ru/wp-content/uploads/2021/10/tariffs-icon-2.svg" alt="" title="tariffs-icon-2" width="50" height="50" class="default">
+                            <img loading="lazy" src="https://www.rush-analytics.ru/wp-content/uploads/2021/10/tariffs-icon-2-active.svg" alt="" title="tariffs-icon-2-active" width="50" height="50" class="active">
+                        </div>
+                        <div class="tab-info">
+                            <b>Корпоративные тарифы</b>
+                            <span>Подходит компаниям и корпоративным клиентам</span>
+                        </div>
+                    </li>
+                </ul>
+
+                <div class="tabs-mobile">
+                    <div class="tabs-active">
+                        <div class="tab-mobile" data-id="it">
+                            <img loading="lazy" src="https://www.rush-analytics.ru/wp-content/uploads/2021/10/tariffs-icon-1.svg" alt="" title="tariffs-icon-1" width="40">
+                            Индивидуальные тарифы                </div>
+                    </div>
+                    <div class="tabs-dropdown">
+                        <div class="tab-mobile" data-id="ct">
+                            <img loading="lazy" src="https://www.rush-analytics.ru/wp-content/uploads/2021/10/tariffs-icon-2.svg" alt="" title="tariffs-icon-2" width="40">
+                            Корпоративные тарифы                </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tariffs-table">
+            <div class="container">
+                <div class="tabs-contents">
+                    <div class="tabs-content is-active" id="it">
+                        <div class="tariffs" data-tariff-type="it" data-type="yearly">
+                            <div class="tariffs-info">
+                    <div class="tariffs-switch">
+                        <form>
+                            <div class="switcher switcher-tariffs-it">
+                                <label class="toggle-item on">
+                                    <input type="radio" name="tariffs-type-it" value="year">
+                                    <span>Ежегодно</span>
+                                </label>
+                                <div class="toggle">
+                                    <input name="it" type="checkbox" id="toggle-type-it" checked="">
+                                    <label for="toggle-type-it">Toggle</label>
+                                </div>
+                                <label class="toggle-item off">
+                                    <input type="radio" name="tariffs-type-it" value="month">
+                                    <span>Ежемесячно</span>
+                                </label>
+                            </div>
+                        </form>
+                        <div class="tariffs-note">
+                            <button class="tariffs-note-btn"></button>
+                            <p>Сэкономьте до 55%<br>
+            на годовой подписке </p>
+                        </div>
+                    </div>
+                    <ul class="tariffs-info-list">
+                                        <li>
+                                <span>
+                                    Лимитов                    </span>
+                                                        <div class="tooltip tooltip-info">
+                                        <p>Лимиты – внутренняя валюта в сервисе. Лимиты выдаются на баланс тарифного плана автоматически при покупке тарифа. Лимиты можно потратить на создание и обновление задач в сервисе</p>
+                                    </div>
+                                                </li>
+                                        <li>
+                                <span>
+                                    Сайтов                    </span>
+                                                        <div class="tooltip tooltip-info">
+                                        <p>Разрешенное количество задач по проверке позиций</p>
+                                    </div>
+                                                </li>
+                                        <li>
+                                <span>
+                                    Строк в отчете (позиции)                    </span>
+                                                        <div class="tooltip tooltip-info">
+                                        <p>Количество доступных строк в отчетах по проверке позиций, инструментах SERM и SERP монитор</p>
+                                    </div>
+                                                </li>
+                                        <li>
+                                <span>
+                                    Строк в отчете (семантика)                    </span>
+                                                        <div class="tooltip tooltip-info">
+                                        <p>Количество доступных строк в отчетах инструментов: Wordstat, Adwords, Сбор подсказок, Кластеризация, проверка индексации</p>
+                                    </div>
+                                                </li>
+                                        <li>
+                                <span>
+                                    PBN                    </span>
+                                                        <div class="tooltip tooltip-info">
+                                        <p>Модуль PBN включает в себя доступ к инструментам: Поиск Webarchive, Массовая проверка Whois, Поиск спама в Webarchive, Параметры ссылок, Спам в ссылках, Восстановление из Webarchive</p>
+                                    </div>
+                                                </li>
+                                        <li>
+                                <span>
+                                    Поддержка                    </span>
+                                                </li>
+                                        <li>
+                                <span>
+                                    Рассылка отчетов                    </span>
+                                                </li>
+                                        <li>
+                                <span>
+                                    API потоков                    </span>
+                                                        <div class="tooltip tooltip-info">
+                                        <p>Количество одновременных обращений к API сервиса</p>
+                                    </div>
+                                                </li>
+                                        <li>
+                                <span>
+                                    Дополнительных пользователей                    </span>
+                                                        <div class="tooltip tooltip-info">
+                                        <p>Количество разрешенных к созданию дополнительных аккаунтов</p>
+                                    </div>
+                                                </li>
+                                </ul>
+                </div>
+
+                            <div class="tariff tariff-purple">
+                        <div class="tariff-title">
+                            Lite            </div>
+
+                        <div class="tariff-info">
+
+                            <div class="tariff-price yearly">
+                                <b>500</b>
+                                <span>руб.</span>
+                                <p class="tariff-price-note">
+                                    в месяц                     </p>
+                            </div>
+                            <div class="tariff-price monthly">
+                                <b>500</b>
+                                <span>руб.</span>
+                                <p class="tariff-price-note">
+                                    в месяц                     </p>
+                            </div>
+                            <p class="tariff-info-text">
+                                Лучше всего подходит для<br>
+            личного использования и ознакомления с функционалом                </p>
+                        </div>
+
+                        <div class="tariff-lists">
+                            <ul class="tariff-list-over">
+                                                                            <li>
+                                        <div class="tariff-key">
+                                            Лимитов                                                                    <div class="tooltip tooltip-info">
+                                                    <p>Лимиты – внутренняя валюта в сервисе. Лимиты выдаются на баланс тарифного плана автоматически при покупке тарифа. Лимиты можно потратить на создание и обновление задач в сервисе</p>
+                                                </div>
+                                                                        </div>
+                                        <div class="tariff-value">
+                                            500                            </div>
+                                    </li>
+                                                                                                        <li>
+                                        <div class="tariff-key">
+                                            Сайтов                                                                    <div class="tooltip tooltip-info">
+                                                    <p>Разрешенное количество задач по проверке позиций</p>
+                                                </div>
+                                                                        </div>
+                                        <div class="tariff-value">
+                                            5                            </div>
+                                    </li>
+                                                                                                        <li>
+                                        <div class="tariff-key">
+                                            Строк в отчете (позиции)                                                                    <div class="tooltip tooltip-info">
+                                                    <p>Количество доступных строк в отчетах по проверке позиций, инструментах SERM и SERP монитор</p>
+                                                </div>
+                                                                        </div>
+                                        <div class="tariff-value">
+                                            100                            </div>
+                                    </li>
+                                                                                                        <li>
+                                        <div class="tariff-key">
+                                            Строк в отчете (семантика)                                                                    <div class="tooltip tooltip-info">
+                                                    <p>Количество доступных строк в отчетах инструментов: Wordstat, Adwords, Сбор подсказок, Кластеризация, проверка индексации</p>
+                                                </div>
+                                                                        </div>
+                                        <div class="tariff-value">
+                                            500                            </div>
+                                    </li>
+                                                                                                        <li>
+                                        <div class="tariff-key">
+                                            PBN                                                                    <div class="tooltip tooltip-info">
+                                                    <p>Модуль PBN включает в себя доступ к инструментам: Поиск Webarchive, Массовая проверка Whois, Поиск спама в Webarchive, Параметры ссылок, Спам в ссылках, Восстановление из Webarchive</p>
+                                                </div>
+                                                                        </div>
+                                        <div class="tariff-value">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L8 8M15 15L8 8M8 8L15 1L1 15" stroke="#1D1C1D" stroke-width="2"></path></svg>                            </div>
+                                    </li>
+                                                                </ul>
+                                        <ul class="tariff-list-secondary">
+                                                                                                        <li>
+                                        <div class="tariff-key">
+                                            Поддержка                                                            </div>
+                                        <div class="tariff-value">
+                                            <svg width="20" height="15" viewBox="0 0 20 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L7 13L19 1" stroke="#00C27C" stroke-width="2"></path></svg>                            </div>
+                                    </li>
+                                                                                                        <li>
+                                        <div class="tariff-key">
+                                            Рассылка отчетов                                                            </div>
+                                        <div class="tariff-value">
+                                            <svg width="20" height="15" viewBox="0 0 20 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L7 13L19 1" stroke="#00C27C" stroke-width="2"></path></svg>                            </div>
+                                    </li>
+                                                                                                        <li>
+                                        <div class="tariff-key">
+                                            API потоков                                                                    <div class="tooltip tooltip-info">
+                                                    <p>Количество одновременных обращений к API сервиса</p>
+                                                </div>
+                                                                        </div>
+                                        <div class="tariff-value">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L8 8M15 15L8 8M8 8L15 1L1 15" stroke="#1D1C1D" stroke-width="2"></path></svg>                            </div>
+                                    </li>
+                                                                                                        <li>
+                                        <div class="tariff-key">
+                                            Дополнительных пользователей                                                                    <div class="tooltip tooltip-info">
+                                                    <p>Количество разрешенных к созданию дополнительных аккаунтов</p>
+                                                </div>
+                                                                        </div>
+                                        <div class="tariff-value">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L8 8M15 15L8 8M8 8L15 1L1 15" stroke="#1D1C1D" stroke-width="2"></path></svg>                            </div>
+                                    </li>
+                                                                                                </ul>
+
+                            <button class="tariff-all-list">
+                                Все спецификации                </button>
+                        </div>
+
+                        <div class="tariff-btn">
+                            <a href="https://app.rush-analytics.ru/node/60/?balancetab=buysubscription&amp;planid=178" class="btn btn-attn btn-arrow btn-no-logged btn-choose-plan" data-tariff="Lite">
+                                Выбрать план                </a>
+                            <a href="https://app.rush-analytics.ru/node/60/?balancetab=buysubscription&amp;planid=178" class="btn btn-attn btn-arrow btn-logged btn-choose-plan" data-tariff="Lite">
+                                Выбрать план                </a>
+                        </div>
+                    </div>
+
+                            <div class="tariff tariff-green tariff-attn">
+                        <div class="tariff-title">
+                            Start            </div>
+
+                        <div class="tariff-info">
+
+                            <div class="tariff-price yearly">
+                                <b>799</b>
+                                <span>руб.</span>
+                                <p class="tariff-price-note">
+                                    в месяц при оплате ежегодно или 999 руб. при месячной оплате                    </p>
+                            </div>
+                            <div class="tariff-price monthly">
+                                <b>999</b>
+                                <span>руб.</span>
+                                <p class="tariff-price-note">
+                                    в месяц при оплате ежемесячно или 799 руб. при годовой оплате                    </p>
+                            </div>
+                            <p class="tariff-info-text">
+                                Лучше всего подходит для<br>
+            личного использования и ознакомления                </p>
+                        </div>
+
+                        <div class="tariff-lists">
+                            <ul class="tariff-list-over">
+                                                                            <li>
+                                        <div class="tariff-key">
+                                            Лимитов                                                                    <div class="tooltip tooltip-info">
+                                                    <p>Лимиты – внутренняя валюта в сервисе. Лимиты выдаются на баланс тарифного плана автоматически при покупке тарифа. Лимиты можно потратить на создание и обновление задач в сервисе</p>
+                                                </div>
+                                                                        </div>
+                                        <div class="tariff-value">
+                                            999                            </div>
+                                    </li>
+                                                                                                        <li>
+                                        <div class="tariff-key">
+                                            Сайтов                                                                    <div class="tooltip tooltip-info">
+                                                    <p>Разрешенное количество задач по проверке позиций</p>
+                                                </div>
+                                                                        </div>
+                                        <div class="tariff-value">
+                                            <svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.226 6.999C8.82933 6.999 8.456 6.92433 8.106 6.775C7.756 6.62567 7.43633 6.42033 7.147 6.159C6.86233 5.893 6.608 5.585 6.384 5.235C6.16467 4.885 5.985 4.507 5.845 4.101V3.478C6.03167 2.946 6.286 2.46067 6.608 2.022C6.93 1.58333 7.31033 1.23333 7.749 0.972C8.18767 0.705999 8.673 0.572999 9.205 0.572999C9.67633 0.572999 10.0893 0.656999 10.444 0.824999C10.8033 0.988333 11.102 1.217 11.34 1.511C11.5827 1.80033 11.7623 2.141 11.879 2.533C12.0003 2.92033 12.061 3.338 12.061 3.786C12.061 4.346 11.9583 4.871 11.753 5.361C11.5523 5.84633 11.242 6.24067 10.822 6.544C10.402 6.84733 9.87 6.999 9.226 6.999ZM3.486 6.999C2.996 6.999 2.57367 6.91267 2.219 6.74C1.86433 6.56267 1.57033 6.32467 1.337 6.026C1.10367 5.72267 0.928667 5.37967 0.812 4.997C0.7 4.60967 0.644 4.206 0.644 3.786C0.644 3.18867 0.751333 2.64733 0.966 2.162C1.18067 1.67667 1.498 1.29167 1.918 1.007C2.34267 0.717666 2.87 0.572999 3.5 0.572999C3.90133 0.572999 4.27467 0.649999 4.62 0.804C4.97 0.953333 5.28733 1.16333 5.572 1.434C5.86133 1.7 6.11333 2.008 6.328 2.358C6.54267 2.70333 6.72 3.07667 6.86 3.478V4.101C6.67333 4.64233 6.41433 5.13233 6.083 5.571C5.75633 6.00967 5.37367 6.35733 4.935 6.614C4.49633 6.87067 4.01333 6.999 3.486 6.999ZM3.57 5.774C4.00867 5.774 4.41 5.59667 4.774 5.242C5.138 4.88267 5.42033 4.39733 5.621 3.786C5.48567 3.38 5.313 3.03 5.103 2.736C4.893 2.43733 4.65733 2.20633 4.396 2.043C4.13467 1.87967 3.864 1.798 3.584 1.798C3.108 1.798 2.72767 1.97533 2.443 2.33C2.163 2.68 2.023 3.16533 2.023 3.786C2.023 4.192 2.086 4.54433 2.212 4.843C2.338 5.14167 2.51533 5.37267 2.744 5.536C2.97733 5.69467 3.25267 5.774 3.57 5.774ZM9.128 5.774C9.60867 5.774 9.98667 5.59667 10.262 5.242C10.542 4.88267 10.682 4.39733 10.682 3.786C10.682 3.37533 10.6167 3.023 10.486 2.729C10.36 2.43033 10.1803 2.20167 9.947 2.043C9.71367 1.87967 9.43833 1.798 9.121 1.798C8.841 1.798 8.57033 1.87967 8.309 2.043C8.05233 2.20633 7.819 2.43733 7.609 2.736C7.399 3.03 7.22867 3.38 7.098 3.786C7.28933 4.39267 7.567 4.87567 7.931 5.235C8.295 5.59433 8.694 5.774 9.128 5.774Z" fill="#1D1C1D"></path></svg>                            </div>
+                                    </li>
+                                                                                                        <li>
+                                        <div class="tariff-key">
+                                            Строк в отчете (позиции)                                                                    <div class="tooltip tooltip-info">
+                                                    <p>Количество доступных строк в отчетах по проверке позиций, инструментах SERM и SERP монитор</p>
+                                                </div>
+                                                                        </div>
+                                        <div class="tariff-value">
+                                            <svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.226 6.999C8.82933 6.999 8.456 6.92433 8.106 6.775C7.756 6.62567 7.43633 6.42033 7.147 6.159C6.86233 5.893 6.608 5.585 6.384 5.235C6.16467 4.885 5.985 4.507 5.845 4.101V3.478C6.03167 2.946 6.286 2.46067 6.608 2.022C6.93 1.58333 7.31033 1.23333 7.749 0.972C8.18767 0.705999 8.673 0.572999 9.205 0.572999C9.67633 0.572999 10.0893 0.656999 10.444 0.824999C10.8033 0.988333 11.102 1.217 11.34 1.511C11.5827 1.80033 11.7623 2.141 11.879 2.533C12.0003 2.92033 12.061 3.338 12.061 3.786C12.061 4.346 11.9583 4.871 11.753 5.361C11.5523 5.84633 11.242 6.24067 10.822 6.544C10.402 6.84733 9.87 6.999 9.226 6.999ZM3.486 6.999C2.996 6.999 2.57367 6.91267 2.219 6.74C1.86433 6.56267 1.57033 6.32467 1.337 6.026C1.10367 5.72267 0.928667 5.37967 0.812 4.997C0.7 4.60967 0.644 4.206 0.644 3.786C0.644 3.18867 0.751333 2.64733 0.966 2.162C1.18067 1.67667 1.498 1.29167 1.918 1.007C2.34267 0.717666 2.87 0.572999 3.5 0.572999C3.90133 0.572999 4.27467 0.649999 4.62 0.804C4.97 0.953333 5.28733 1.16333 5.572 1.434C5.86133 1.7 6.11333 2.008 6.328 2.358C6.54267 2.70333 6.72 3.07667 6.86 3.478V4.101C6.67333 4.64233 6.41433 5.13233 6.083 5.571C5.75633 6.00967 5.37367 6.35733 4.935 6.614C4.49633 6.87067 4.01333 6.999 3.486 6.999ZM3.57 5.774C4.00867 5.774 4.41 5.59667 4.774 5.242C5.138 4.88267 5.42033 4.39733 5.621 3.786C5.48567 3.38 5.313 3.03 5.103 2.736C4.893 2.43733 4.65733 2.20633 4.396 2.043C4.13467 1.87967 3.864 1.798 3.584 1.798C3.108 1.798 2.72767 1.97533 2.443 2.33C2.163 2.68 2.023 3.16533 2.023 3.786C2.023 4.192 2.086 4.54433 2.212 4.843C2.338 5.14167 2.51533 5.37267 2.744 5.536C2.97733 5.69467 3.25267 5.774 3.57 5.774ZM9.128 5.774C9.60867 5.774 9.98667 5.59667 10.262 5.242C10.542 4.88267 10.682 4.39733 10.682 3.786C10.682 3.37533 10.6167 3.023 10.486 2.729C10.36 2.43033 10.1803 2.20167 9.947 2.043C9.71367 1.87967 9.43833 1.798 9.121 1.798C8.841 1.798 8.57033 1.87967 8.309 2.043C8.05233 2.20633 7.819 2.43733 7.609 2.736C7.399 3.03 7.22867 3.38 7.098 3.786C7.28933 4.39267 7.567 4.87567 7.931 5.235C8.295 5.59433 8.694 5.774 9.128 5.774Z" fill="#1D1C1D"></path></svg>                            </div>
+                                    </li>
+                                                                                                        <li>
+                                        <div class="tariff-key">
+                                            Строк в отчете (семантика)                                                                    <div class="tooltip tooltip-info">
+                                                    <p>Количество доступных строк в отчетах инструментов: Wordstat, Adwords, Сбор подсказок, Кластеризация, проверка индексации</p>
+                                                </div>
+                                                                        </div>
+                                        <div class="tariff-value">
+                                            <svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.226 6.999C8.82933 6.999 8.456 6.92433 8.106 6.775C7.756 6.62567 7.43633 6.42033 7.147 6.159C6.86233 5.893 6.608 5.585 6.384 5.235C6.16467 4.885 5.985 4.507 5.845 4.101V3.478C6.03167 2.946 6.286 2.46067 6.608 2.022C6.93 1.58333 7.31033 1.23333 7.749 0.972C8.18767 0.705999 8.673 0.572999 9.205 0.572999C9.67633 0.572999 10.0893 0.656999 10.444 0.824999C10.8033 0.988333 11.102 1.217 11.34 1.511C11.5827 1.80033 11.7623 2.141 11.879 2.533C12.0003 2.92033 12.061 3.338 12.061 3.786C12.061 4.346 11.9583 4.871 11.753 5.361C11.5523 5.84633 11.242 6.24067 10.822 6.544C10.402 6.84733 9.87 6.999 9.226 6.999ZM3.486 6.999C2.996 6.999 2.57367 6.91267 2.219 6.74C1.86433 6.56267 1.57033 6.32467 1.337 6.026C1.10367 5.72267 0.928667 5.37967 0.812 4.997C0.7 4.60967 0.644 4.206 0.644 3.786C0.644 3.18867 0.751333 2.64733 0.966 2.162C1.18067 1.67667 1.498 1.29167 1.918 1.007C2.34267 0.717666 2.87 0.572999 3.5 0.572999C3.90133 0.572999 4.27467 0.649999 4.62 0.804C4.97 0.953333 5.28733 1.16333 5.572 1.434C5.86133 1.7 6.11333 2.008 6.328 2.358C6.54267 2.70333 6.72 3.07667 6.86 3.478V4.101C6.67333 4.64233 6.41433 5.13233 6.083 5.571C5.75633 6.00967 5.37367 6.35733 4.935 6.614C4.49633 6.87067 4.01333 6.999 3.486 6.999ZM3.57 5.774C4.00867 5.774 4.41 5.59667 4.774 5.242C5.138 4.88267 5.42033 4.39733 5.621 3.786C5.48567 3.38 5.313 3.03 5.103 2.736C4.893 2.43733 4.65733 2.20633 4.396 2.043C4.13467 1.87967 3.864 1.798 3.584 1.798C3.108 1.798 2.72767 1.97533 2.443 2.33C2.163 2.68 2.023 3.16533 2.023 3.786C2.023 4.192 2.086 4.54433 2.212 4.843C2.338 5.14167 2.51533 5.37267 2.744 5.536C2.97733 5.69467 3.25267 5.774 3.57 5.774ZM9.128 5.774C9.60867 5.774 9.98667 5.59667 10.262 5.242C10.542 4.88267 10.682 4.39733 10.682 3.786C10.682 3.37533 10.6167 3.023 10.486 2.729C10.36 2.43033 10.1803 2.20167 9.947 2.043C9.71367 1.87967 9.43833 1.798 9.121 1.798C8.841 1.798 8.57033 1.87967 8.309 2.043C8.05233 2.20633 7.819 2.43733 7.609 2.736C7.399 3.03 7.22867 3.38 7.098 3.786C7.28933 4.39267 7.567 4.87567 7.931 5.235C8.295 5.59433 8.694 5.774 9.128 5.774Z" fill="#1D1C1D"></path></svg>                            </div>
+                                    </li>
+                                                                                                        <li>
+                                        <div class="tariff-key">
+                                            PBN                                                                    <div class="tooltip tooltip-info">
+                                                    <p>Модуль PBN включает в себя доступ к инструментам: Поиск Webarchive, Массовая проверка Whois, Поиск спама в Webarchive, Параметры ссылок, Спам в ссылках, Восстановление из Webarchive</p>
+                                                </div>
+                                                                        </div>
+                                        <div class="tariff-value">
+                                            <svg width="20" height="15" viewBox="0 0 20 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L7 13L19 1" stroke="#00C27C" stroke-width="2"></path></svg>                            </div>
+                                    </li>
+                                                                </ul>
+                                        <ul class="tariff-list-secondary">
+                                                                                                        <li>
+                                        <div class="tariff-key">
+                                            Поддержка                                                            </div>
+                                        <div class="tariff-value">
+                                            <svg width="20" height="15" viewBox="0 0 20 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L7 13L19 1" stroke="#00C27C" stroke-width="2"></path></svg>                            </div>
+                                    </li>
+                                                                                                        <li>
+                                        <div class="tariff-key">
+                                            Рассылка отчетов                                                            </div>
+                                        <div class="tariff-value">
+                                            <svg width="20" height="15" viewBox="0 0 20 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L7 13L19 1" stroke="#00C27C" stroke-width="2"></path></svg>                            </div>
+                                    </li>
+                                                                                                        <li>
+                                        <div class="tariff-key">
+                                            API потоков                                                                    <div class="tooltip tooltip-info">
+                                                    <p>Количество одновременных обращений к API сервиса</p>
+                                                </div>
+                                                                        </div>
+                                        <div class="tariff-value">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L8 8M15 15L8 8M8 8L15 1L1 15" stroke="#1D1C1D" stroke-width="2"></path></svg>                            </div>
+                                    </li>
+                                                                                                        <li>
+                                        <div class="tariff-key">
+                                            Дополнительных пользователей                                                                    <div class="tooltip tooltip-info">
+                                                    <p>Количество разрешенных к созданию дополнительных аккаунтов</p>
+                                                </div>
+                                                                        </div>
+                                        <div class="tariff-value">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L8 8M15 15L8 8M8 8L15 1L1 15" stroke="#1D1C1D" stroke-width="2"></path></svg>                            </div>
+                                    </li>
+                                                                                                </ul>
+
+                            <button class="tariff-all-list">
+                                Все спецификации                </button>
+                        </div>
+
+                        <div class="tariff-btn">
+                            <a href="https://app.rush-analytics.ru/node/60/?balancetab=buysubscription&amp;planid=15" class="btn btn-attn btn-arrow btn-no-logged btn-choose-plan" data-tariff="Start">
+                                Выбрать план                </a>
+                            <a href="https://app.rush-analytics.ru/node/60/?balancetab=buysubscription&amp;planid=15" class="btn btn-attn btn-arrow btn-logged btn-choose-plan" data-tariff="Start">
+                                Выбрать план                </a>
+                        </div>
+                    </div>
+
+                            <div class="tariff tariff-blue">
+                        <div class="tariff-title">
+                            Pro            </div>
+
+                        <div class="tariff-info">
+
+                            <div class="tariff-price yearly">
+                                <b>2799</b>
+                                <span>руб.</span>
+                                <p class="tariff-price-note">
+                                    в месяц при оплате ежегодно или 3499 руб. при месячной оплате                    </p>
+                            </div>
+                            <div class="tariff-price monthly">
+                                <b>3499</b>
+                                <span>руб.</span>
+                                <p class="tariff-price-note">
+                                    в месяц при оплате ежемесячно или 2799 руб. при годовой оплате                    </p>
+                            </div>
+                            <p class="tariff-info-text">
+                                Для опытных пользователей и ведения серьёзных проектов                </p>
+                        </div>
+
+                        <div class="tariff-lists">
+                            <ul class="tariff-list-over">
+                                                                            <li>
+                                        <div class="tariff-key">
+                                            Лимитов                                                                    <div class="tooltip tooltip-info">
+                                                    <p>Лимиты – внутренняя валюта в сервисе. Лимиты выдаются на баланс тарифного плана автоматически при покупке тарифа. Лимиты можно потратить на создание и обновление задач в сервисе</p>
+                                                </div>
+                                                                        </div>
+                                        <div class="tariff-value">
+                                            3499                            </div>
+                                    </li>
+                                                                                                        <li>
+                                        <div class="tariff-key">
+                                            Сайтов                                                                    <div class="tooltip tooltip-info">
+                                                    <p>Разрешенное количество задач по проверке позиций</p>
+                                                </div>
+                                                                        </div>
+                                        <div class="tariff-value">
+                                            <svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.226 6.999C8.82933 6.999 8.456 6.92433 8.106 6.775C7.756 6.62567 7.43633 6.42033 7.147 6.159C6.86233 5.893 6.608 5.585 6.384 5.235C6.16467 4.885 5.985 4.507 5.845 4.101V3.478C6.03167 2.946 6.286 2.46067 6.608 2.022C6.93 1.58333 7.31033 1.23333 7.749 0.972C8.18767 0.705999 8.673 0.572999 9.205 0.572999C9.67633 0.572999 10.0893 0.656999 10.444 0.824999C10.8033 0.988333 11.102 1.217 11.34 1.511C11.5827 1.80033 11.7623 2.141 11.879 2.533C12.0003 2.92033 12.061 3.338 12.061 3.786C12.061 4.346 11.9583 4.871 11.753 5.361C11.5523 5.84633 11.242 6.24067 10.822 6.544C10.402 6.84733 9.87 6.999 9.226 6.999ZM3.486 6.999C2.996 6.999 2.57367 6.91267 2.219 6.74C1.86433 6.56267 1.57033 6.32467 1.337 6.026C1.10367 5.72267 0.928667 5.37967 0.812 4.997C0.7 4.60967 0.644 4.206 0.644 3.786C0.644 3.18867 0.751333 2.64733 0.966 2.162C1.18067 1.67667 1.498 1.29167 1.918 1.007C2.34267 0.717666 2.87 0.572999 3.5 0.572999C3.90133 0.572999 4.27467 0.649999 4.62 0.804C4.97 0.953333 5.28733 1.16333 5.572 1.434C5.86133 1.7 6.11333 2.008 6.328 2.358C6.54267 2.70333 6.72 3.07667 6.86 3.478V4.101C6.67333 4.64233 6.41433 5.13233 6.083 5.571C5.75633 6.00967 5.37367 6.35733 4.935 6.614C4.49633 6.87067 4.01333 6.999 3.486 6.999ZM3.57 5.774C4.00867 5.774 4.41 5.59667 4.774 5.242C5.138 4.88267 5.42033 4.39733 5.621 3.786C5.48567 3.38 5.313 3.03 5.103 2.736C4.893 2.43733 4.65733 2.20633 4.396 2.043C4.13467 1.87967 3.864 1.798 3.584 1.798C3.108 1.798 2.72767 1.97533 2.443 2.33C2.163 2.68 2.023 3.16533 2.023 3.786C2.023 4.192 2.086 4.54433 2.212 4.843C2.338 5.14167 2.51533 5.37267 2.744 5.536C2.97733 5.69467 3.25267 5.774 3.57 5.774ZM9.128 5.774C9.60867 5.774 9.98667 5.59667 10.262 5.242C10.542 4.88267 10.682 4.39733 10.682 3.786C10.682 3.37533 10.6167 3.023 10.486 2.729C10.36 2.43033 10.1803 2.20167 9.947 2.043C9.71367 1.87967 9.43833 1.798 9.121 1.798C8.841 1.798 8.57033 1.87967 8.309 2.043C8.05233 2.20633 7.819 2.43733 7.609 2.736C7.399 3.03 7.22867 3.38 7.098 3.786C7.28933 4.39267 7.567 4.87567 7.931 5.235C8.295 5.59433 8.694 5.774 9.128 5.774Z" fill="#1D1C1D"></path></svg>                            </div>
+                                    </li>
+                                                                                                        <li>
+                                        <div class="tariff-key">
+                                            Строк в отчете (позиции)                                                                    <div class="tooltip tooltip-info">
+                                                    <p>Количество доступных строк в отчетах по проверке позиций, инструментах SERM и SERP монитор</p>
+                                                </div>
+                                                                        </div>
+                                        <div class="tariff-value">
+                                            <svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.226 6.999C8.82933 6.999 8.456 6.92433 8.106 6.775C7.756 6.62567 7.43633 6.42033 7.147 6.159C6.86233 5.893 6.608 5.585 6.384 5.235C6.16467 4.885 5.985 4.507 5.845 4.101V3.478C6.03167 2.946 6.286 2.46067 6.608 2.022C6.93 1.58333 7.31033 1.23333 7.749 0.972C8.18767 0.705999 8.673 0.572999 9.205 0.572999C9.67633 0.572999 10.0893 0.656999 10.444 0.824999C10.8033 0.988333 11.102 1.217 11.34 1.511C11.5827 1.80033 11.7623 2.141 11.879 2.533C12.0003 2.92033 12.061 3.338 12.061 3.786C12.061 4.346 11.9583 4.871 11.753 5.361C11.5523 5.84633 11.242 6.24067 10.822 6.544C10.402 6.84733 9.87 6.999 9.226 6.999ZM3.486 6.999C2.996 6.999 2.57367 6.91267 2.219 6.74C1.86433 6.56267 1.57033 6.32467 1.337 6.026C1.10367 5.72267 0.928667 5.37967 0.812 4.997C0.7 4.60967 0.644 4.206 0.644 3.786C0.644 3.18867 0.751333 2.64733 0.966 2.162C1.18067 1.67667 1.498 1.29167 1.918 1.007C2.34267 0.717666 2.87 0.572999 3.5 0.572999C3.90133 0.572999 4.27467 0.649999 4.62 0.804C4.97 0.953333 5.28733 1.16333 5.572 1.434C5.86133 1.7 6.11333 2.008 6.328 2.358C6.54267 2.70333 6.72 3.07667 6.86 3.478V4.101C6.67333 4.64233 6.41433 5.13233 6.083 5.571C5.75633 6.00967 5.37367 6.35733 4.935 6.614C4.49633 6.87067 4.01333 6.999 3.486 6.999ZM3.57 5.774C4.00867 5.774 4.41 5.59667 4.774 5.242C5.138 4.88267 5.42033 4.39733 5.621 3.786C5.48567 3.38 5.313 3.03 5.103 2.736C4.893 2.43733 4.65733 2.20633 4.396 2.043C4.13467 1.87967 3.864 1.798 3.584 1.798C3.108 1.798 2.72767 1.97533 2.443 2.33C2.163 2.68 2.023 3.16533 2.023 3.786C2.023 4.192 2.086 4.54433 2.212 4.843C2.338 5.14167 2.51533 5.37267 2.744 5.536C2.97733 5.69467 3.25267 5.774 3.57 5.774ZM9.128 5.774C9.60867 5.774 9.98667 5.59667 10.262 5.242C10.542 4.88267 10.682 4.39733 10.682 3.786C10.682 3.37533 10.6167 3.023 10.486 2.729C10.36 2.43033 10.1803 2.20167 9.947 2.043C9.71367 1.87967 9.43833 1.798 9.121 1.798C8.841 1.798 8.57033 1.87967 8.309 2.043C8.05233 2.20633 7.819 2.43733 7.609 2.736C7.399 3.03 7.22867 3.38 7.098 3.786C7.28933 4.39267 7.567 4.87567 7.931 5.235C8.295 5.59433 8.694 5.774 9.128 5.774Z" fill="#1D1C1D"></path></svg>                            </div>
+                                    </li>
+                                                                                                        <li>
+                                        <div class="tariff-key">
+                                            Строк в отчете (семантика)                                                                    <div class="tooltip tooltip-info">
+                                                    <p>Количество доступных строк в отчетах инструментов: Wordstat, Adwords, Сбор подсказок, Кластеризация, проверка индексации</p>
+                                                </div>
+                                                                        </div>
+                                        <div class="tariff-value">
+                                            <svg width="13" height="7" viewBox="0 0 13 7" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.226 6.999C8.82933 6.999 8.456 6.92433 8.106 6.775C7.756 6.62567 7.43633 6.42033 7.147 6.159C6.86233 5.893 6.608 5.585 6.384 5.235C6.16467 4.885 5.985 4.507 5.845 4.101V3.478C6.03167 2.946 6.286 2.46067 6.608 2.022C6.93 1.58333 7.31033 1.23333 7.749 0.972C8.18767 0.705999 8.673 0.572999 9.205 0.572999C9.67633 0.572999 10.0893 0.656999 10.444 0.824999C10.8033 0.988333 11.102 1.217 11.34 1.511C11.5827 1.80033 11.7623 2.141 11.879 2.533C12.0003 2.92033 12.061 3.338 12.061 3.786C12.061 4.346 11.9583 4.871 11.753 5.361C11.5523 5.84633 11.242 6.24067 10.822 6.544C10.402 6.84733 9.87 6.999 9.226 6.999ZM3.486 6.999C2.996 6.999 2.57367 6.91267 2.219 6.74C1.86433 6.56267 1.57033 6.32467 1.337 6.026C1.10367 5.72267 0.928667 5.37967 0.812 4.997C0.7 4.60967 0.644 4.206 0.644 3.786C0.644 3.18867 0.751333 2.64733 0.966 2.162C1.18067 1.67667 1.498 1.29167 1.918 1.007C2.34267 0.717666 2.87 0.572999 3.5 0.572999C3.90133 0.572999 4.27467 0.649999 4.62 0.804C4.97 0.953333 5.28733 1.16333 5.572 1.434C5.86133 1.7 6.11333 2.008 6.328 2.358C6.54267 2.70333 6.72 3.07667 6.86 3.478V4.101C6.67333 4.64233 6.41433 5.13233 6.083 5.571C5.75633 6.00967 5.37367 6.35733 4.935 6.614C4.49633 6.87067 4.01333 6.999 3.486 6.999ZM3.57 5.774C4.00867 5.774 4.41 5.59667 4.774 5.242C5.138 4.88267 5.42033 4.39733 5.621 3.786C5.48567 3.38 5.313 3.03 5.103 2.736C4.893 2.43733 4.65733 2.20633 4.396 2.043C4.13467 1.87967 3.864 1.798 3.584 1.798C3.108 1.798 2.72767 1.97533 2.443 2.33C2.163 2.68 2.023 3.16533 2.023 3.786C2.023 4.192 2.086 4.54433 2.212 4.843C2.338 5.14167 2.51533 5.37267 2.744 5.536C2.97733 5.69467 3.25267 5.774 3.57 5.774ZM9.128 5.774C9.60867 5.774 9.98667 5.59667 10.262 5.242C10.542 4.88267 10.682 4.39733 10.682 3.786C10.682 3.37533 10.6167 3.023 10.486 2.729C10.36 2.43033 10.1803 2.20167 9.947 2.043C9.71367 1.87967 9.43833 1.798 9.121 1.798C8.841 1.798 8.57033 1.87967 8.309 2.043C8.05233 2.20633 7.819 2.43733 7.609 2.736C7.399 3.03 7.22867 3.38 7.098 3.786C7.28933 4.39267 7.567 4.87567 7.931 5.235C8.295 5.59433 8.694 5.774 9.128 5.774Z" fill="#1D1C1D"></path></svg>                            </div>
+                                    </li>
+                                                                                                        <li>
+                                        <div class="tariff-key">
+                                            PBN                                                                    <div class="tooltip tooltip-info">
+                                                    <p>Модуль PBN включает в себя доступ к инструментам: Поиск Webarchive, Массовая проверка Whois, Поиск спама в Webarchive, Параметры ссылок, Спам в ссылках, Восстановление из Webarchive</p>
+                                                </div>
+                                                                        </div>
+                                        <div class="tariff-value">
+                                            <svg width="20" height="15" viewBox="0 0 20 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L7 13L19 1" stroke="#00C27C" stroke-width="2"></path></svg>                            </div>
+                                    </li>
+                                                                </ul>
+                                        <ul class="tariff-list-secondary">
+                                                                                                        <li>
+                                        <div class="tariff-key">
+                                            Поддержка                                                            </div>
+                                        <div class="tariff-value">
+                                            <svg width="20" height="15" viewBox="0 0 20 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L7 13L19 1" stroke="#00C27C" stroke-width="2"></path></svg>                            </div>
+                                    </li>
+                                                                                                        <li>
+                                        <div class="tariff-key">
+                                            Рассылка отчетов                                                            </div>
+                                        <div class="tariff-value">
+                                            <svg width="20" height="15" viewBox="0 0 20 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L7 13L19 1" stroke="#00C27C" stroke-width="2"></path></svg>                            </div>
+                                    </li>
+                                                                                                        <li>
+                                        <div class="tariff-key">
+                                            API потоков                                                                    <div class="tooltip tooltip-info">
+                                                    <p>Количество одновременных обращений к API сервиса</p>
+                                                </div>
+                                                                        </div>
+                                        <div class="tariff-value">
+                                            1                            </div>
+                                    </li>
+                                                                                                        <li>
+                                        <div class="tariff-key">
+                                            Дополнительных пользователей                                                                    <div class="tooltip tooltip-info">
+                                                    <p>Количество разрешенных к созданию дополнительных аккаунтов</p>
+                                                </div>
+                                                                        </div>
+                                        <div class="tariff-value">
+                                            1                            </div>
+                                    </li>
+                                                                                                </ul>
+
+                            <button class="tariff-all-list">
+                                Все спецификации                </button>
+                        </div>
+
+                        <div class="tariff-btn">
+                            <a href="https://app.rush-analytics.ru/node/60/?balancetab=buysubscription&amp;planid=16" class="btn btn-attn btn-arrow btn-no-logged btn-choose-plan" data-tariff="Pro">
+                                Выбрать план                </a>
+                            <a href="https://app.rush-analytics.ru/node/60/?balancetab=buysubscription&amp;planid=16" class="btn btn-attn btn-arrow btn-logged btn-choose-plan" data-tariff="Pro">
+                                Выбрать план                </a>
+                        </div>
+                    </div>
+
+
+                        </div>
+                    </div>
+                    <div class="tabs-content" id="ct">
+                        <div class="tariffs" data-tariff-type="ct" data-type="yearly">
+
+            <div class="tariffs-info">
+                <div class="tariffs-switch">
+                    <form>
+                        <div class="switcher switcher-tariffs-ct">
+                            <label class="toggle-item on">
+                                <input type="radio" name="tariffs-type-ct" value="year">
+                                <span>Ежегодно</span>
+                            </label>
+                            <div class="toggle">
+                                <input name="ct" type="checkbox" id="toggle-type-ct" checked="">
+                                <label for="toggle-type-ct">Toggle</label>
+                            </div>
+                            <label class="toggle-item off">
+                                <input type="radio" name="tariffs-type-ct" value="month">
+                                <span>Ежемесячно</span>
+                            </label>
+                        </div>
+                    </form>
+                    <div class="tariffs-note">
+                        <button class="tariffs-note-btn"></button>
+                        <p>Сэкономьте до 55%<br>
+        на годовой подписке </p>
+                    </div>
+                </div>
+                <ul class="tariffs-info-list">
+                                    <li>
+                            <span>
+                                Лимитов                    </span>
+                                                    <div class="tooltip tooltip-info">
+                                    <p>Лимиты – внутренняя валюта в сервисе. Лимиты выдаются на баланс тарифного плана автоматически при покупке тарифа. Лимиты можно потратить на создание и обновление задач в сервисе</p>
+                                </div>
+                                            </li>
+                                    <li>
+                            <span>
+                                Поддержка                    </span>
+                                            </li>
+                                    <li>
+                            <span>
+                                Поддержка премиум класса                    </span>
+                                            </li>
+                                    <li>
+                            <span>
+                                Рассылка отчетов                    </span>
+                                            </li>
+                                    <li>
+                            <span>
+                                Мощное API                    </span>
+                                            </li>
+                                    <li>
+                            <span>
+                                API потоков                    </span>
+                                                    <div class="tooltip tooltip-info">
+                                    <p>Количество одновременных обращений к API сервиса</p>
+                                </div>
+                                            </li>
+                                    <li>
+                            <span>
+                                Дополнительных пользователей                    </span>
+                                                    <div class="tooltip tooltip-info">
+                                    <p>Количество разрешенных к созданию дополнительных аккаунтов</p>
+                                </div>
+                                            </li>
+                                    <li>
+                            <span>
+                                Персональный менеджер                    </span>
+                                            </li>
+                                    <li>
+                            <span>
+                                Обучение сотрудников в офисе<br>
+        клиента нашими экспертами                    </span>
+                                            </li>
+                            </ul>
+            </div>
+
+
+                <div class="tariff tariff-green">
+                    <div class="tariff-title">
+                        Team            </div>
+
+                    <div class="tariff-info">
+
+                        <div class="tariff-price yearly">
+                            <b>8799</b>
+                            <span>руб.</span>
+                            <p class="tariff-price-note">
+                                в месяц при оплате ежегодно или 10999 руб. при месячной оплате                    </p>
+                        </div>
+                        <div class="tariff-price monthly">
+                            <b>10999</b>
+                            <span>руб.</span>
+                            <p class="tariff-price-note">
+                                в месяц при оплате ежемесячно или 8799 руб. при годовой оплате                    </p>
+                        </div>
+                        <p class="tariff-info-text">
+                            Лучше всего подходит для проектов среднего бизнеса и небольших SEO агентств.                </p>
+                    </div>
+
+                    <div class="tariff-lists">
+                        <ul class="tariff-list-over">
+                                                                        <li>
+                                    <div class="tariff-key">
+                                        Лимитов                                                                    <div class="tooltip tooltip-info">
+                                                <p>Лимиты – внутренняя валюта в сервисе. Лимиты выдаются на баланс тарифного плана автоматически при покупке тарифа. Лимиты можно потратить на создание и обновление задач в сервисе</p>
+                                            </div>
+                                                                    </div>
+                                    <div class="tariff-value">
+                                        11699                            </div>
+                                </li>
+                                                                                                    <li>
+                                    <div class="tariff-key">
+                                        Поддержка                                                            </div>
+                                    <div class="tariff-value">
+                                        <svg width="20" height="15" viewBox="0 0 20 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L7 13L19 1" stroke="#00C27C" stroke-width="2"></path></svg>                            </div>
+                                </li>
+                                                                                                    <li>
+                                    <div class="tariff-key">
+                                        Поддержка премиум класса                                                            </div>
+                                    <div class="tariff-value">
+                                        <svg width="20" height="15" viewBox="0 0 20 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L7 13L19 1" stroke="#00C27C" stroke-width="2"></path></svg>                            </div>
+                                </li>
+                                                                                                    <li>
+                                    <div class="tariff-key">
+                                        Рассылка отчетов                                                            </div>
+                                    <div class="tariff-value">
+                                        <svg width="20" height="15" viewBox="0 0 20 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L7 13L19 1" stroke="#00C27C" stroke-width="2"></path></svg>                            </div>
+                                </li>
+                                                                                                    <li>
+                                    <div class="tariff-key">
+                                        Мощное API                                                            </div>
+                                    <div class="tariff-value">
+                                        <svg width="20" height="15" viewBox="0 0 20 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L7 13L19 1" stroke="#00C27C" stroke-width="2"></path></svg>                            </div>
+                                </li>
+                                                            </ul>
+                                    <ul class="tariff-list-secondary">
+                                                                                                    <li>
+                                    <div class="tariff-key">
+                                        API потоков                                                                    <div class="tooltip tooltip-info">
+                                                <p>Количество одновременных обращений к API сервиса</p>
+                                            </div>
+                                                                    </div>
+                                    <div class="tariff-value">
+                                        20                            </div>
+                                </li>
+                                                                                                    <li>
+                                    <div class="tariff-key">
+                                        Дополнительных пользователей                                                                    <div class="tooltip tooltip-info">
+                                                <p>Количество разрешенных к созданию дополнительных аккаунтов</p>
+                                            </div>
+                                                                    </div>
+                                    <div class="tariff-value">
+                                        5                            </div>
+                                </li>
+                                                                                                    <li>
+                                    <div class="tariff-key">
+                                        Персональный менеджер                                                            </div>
+                                    <div class="tariff-value">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L8 8M15 15L8 8M8 8L15 1L1 15" stroke="#1D1C1D" stroke-width="2"></path></svg>                            </div>
+                                </li>
+                                                                                                    <li>
+                                    <div class="tariff-key">
+                                        Обучение сотрудников в офисе<br>
+        клиента нашими экспертами                                                            </div>
+                                    <div class="tariff-value">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L8 8M15 15L8 8M8 8L15 1L1 15" stroke="#1D1C1D" stroke-width="2"></path></svg>                            </div>
+                                </li>
+                                                                                            </ul>
+
+                        <button class="tariff-all-list">
+                            Все спецификации                </button>
+                    </div>
+
+                    <div class="tariff-btn">
+                        <a href="https://app.rush-analytics.ru/node/60/?balancetab=buysubscription&amp;planid=22" class="btn btn-attn btn-arrow btn-no-logged btn-choose-plan" data-tariff="Team">
+                            Выбрать план                </a>
+                        <a href="https://app.rush-analytics.ru/node/60/?balancetab=buysubscription&amp;planid=22" class="btn btn-attn btn-arrow btn-logged btn-choose-plan" data-tariff="Team">
+                            Выбрать план                </a>
+                    </div>
+                </div>
+
+
+                <div class="tariff tariff-blue">
+                    <div class="tariff-title">
+                        Corp            </div>
+
+                    <div class="tariff-info">
+
+                        <div class="tariff-price yearly">
+                            <b>39999</b>
+                            <span>руб.</span>
+                            <p class="tariff-price-note">
+                                в месяц при оплате ежегодно или 49 999 руб. при месячной оплате                    </p>
+                        </div>
+                        <div class="tariff-price monthly">
+                            <b>49999</b>
+                            <span>руб.</span>
+                            <p class="tariff-price-note">
+                                в месяц при оплате ежемесячно или 39 999 руб. при годовой оплате                    </p>
+                        </div>
+                        <p class="tariff-info-text">
+                            Лучше всего подходит для крупных компаний, интернет магазинов и агентств.                </p>
+                    </div>
+
+                    <div class="tariff-lists">
+                        <ul class="tariff-list-over">
+                                                                        <li>
+                                    <div class="tariff-key">
+                                        Лимитов                                                                    <div class="tooltip tooltip-info">
+                                                <p>Лимиты – внутренняя валюта в сервисе. Лимиты выдаются на баланс тарифного плана автоматически при покупке тарифа. Лимиты можно потратить на создание и обновление задач в сервисе</p>
+                                            </div>
+                                                                    </div>
+                                    <div class="tariff-value">
+                                        61999                            </div>
+                                </li>
+                                                                                                    <li>
+                                    <div class="tariff-key">
+                                        Поддержка                                                            </div>
+                                    <div class="tariff-value">
+                                        <svg width="20" height="15" viewBox="0 0 20 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L7 13L19 1" stroke="#00C27C" stroke-width="2"></path></svg>                            </div>
+                                </li>
+                                                                                                    <li>
+                                    <div class="tariff-key">
+                                        Поддержка премиум класса                                                            </div>
+                                    <div class="tariff-value">
+                                        <svg width="20" height="15" viewBox="0 0 20 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L7 13L19 1" stroke="#00C27C" stroke-width="2"></path></svg>                            </div>
+                                </li>
+                                                                                                    <li>
+                                    <div class="tariff-key">
+                                        Рассылка отчетов                                                            </div>
+                                    <div class="tariff-value">
+                                        <svg width="20" height="15" viewBox="0 0 20 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L7 13L19 1" stroke="#00C27C" stroke-width="2"></path></svg>                            </div>
+                                </li>
+                                                                                                    <li>
+                                    <div class="tariff-key">
+                                        Мощное API                                                            </div>
+                                    <div class="tariff-value">
+                                        <svg width="20" height="15" viewBox="0 0 20 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L7 13L19 1" stroke="#00C27C" stroke-width="2"></path></svg>                            </div>
+                                </li>
+                                                            </ul>
+                                    <ul class="tariff-list-secondary">
+                                                                                                    <li>
+                                    <div class="tariff-key">
+                                        API потоков                                                                    <div class="tooltip tooltip-info">
+                                                <p>Количество одновременных обращений к API сервиса</p>
+                                            </div>
+                                                                    </div>
+                                    <div class="tariff-value">
+                                        100                            </div>
+                                </li>
+                                                                                                    <li>
+                                    <div class="tariff-key">
+                                        Дополнительных пользователей                                                                    <div class="tooltip tooltip-info">
+                                                <p>Количество разрешенных к созданию дополнительных аккаунтов</p>
+                                            </div>
+                                                                    </div>
+                                    <div class="tariff-value">
+                                        20                            </div>
+                                </li>
+                                                                                                    <li>
+                                    <div class="tariff-key">
+                                        Персональный менеджер                                                            </div>
+                                    <div class="tariff-value">
+                                        <svg width="20" height="15" viewBox="0 0 20 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L7 13L19 1" stroke="#00C27C" stroke-width="2"></path></svg>                            </div>
+                                </li>
+                                                                                                    <li>
+                                    <div class="tariff-key">
+                                        Обучение сотрудников в офисе<br>
+        клиента нашими экспертами                                                            </div>
+                                    <div class="tariff-value">
+                                        <svg width="20" height="15" viewBox="0 0 20 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L7 13L19 1" stroke="#00C27C" stroke-width="2"></path></svg>                            </div>
+                                </li>
+                                                                                            </ul>
+
+                        <button class="tariff-all-list">
+                            Все спецификации                </button>
+                    </div>
+
+                    <div class="tariff-btn">
+                        <a href="https://app.rush-analytics.ru/node/60/?balancetab=buysubscription&amp;planid=56" class="btn btn-attn btn-arrow btn-no-logged btn-choose-plan" data-tariff="Corp">
+                            Выбрать план                </a>
+                        <a href="https://app.rush-analytics.ru/node/60/?balancetab=buysubscription&amp;planid=56" class="btn btn-attn btn-arrow btn-logged btn-choose-plan" data-tariff="Corp">
+                            Выбрать план                </a>
+                    </div>
+                </div>
+
+            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </main>
+
 
 </body>
 </html>
