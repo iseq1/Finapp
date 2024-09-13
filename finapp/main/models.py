@@ -9,6 +9,8 @@ class Category(models.Model):
 
 class Subcategory(models.Model):
     name = models.CharField(max_length=30)
+    category = models.ForeignKey(Category, on_delete=models.PROTECT)
+
 
 
 class Income(models.Model):

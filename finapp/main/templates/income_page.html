@@ -160,493 +160,246 @@
                     <div class="tabs-content is-active" id="it">
                         <div class="tariffs" data-tariff-type="it" data-type="yearly">
 
-                            <div class="tariff tariff-purple">
-                                <div class="tariff-title">
-                                    <ul class="tariffs-info-list-title">
-                                        <li>
-                                            Категория
-                                            <span>
+                                <div class="tariff tariff-purple">
+                                    <div class="tariff-title">
+                                        <ul class="tariffs-info-list-title">
+                                            <li>
+                                                Категория
+                                                <span>
 
-                                            </span>
+                                                </span>
 
-                                            <div class="tooltip tooltip-info">
-                                                <p>
+                                                <div class="tooltip tooltip-info">
+                                                    <p>
 
-                                                </p>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                                    </p>
+                                                </div>
+                                            </li>
+                                        </ul>
 
-                                </div>
+                                    </div>
 
-                                <div class="tariffs-switch">
-                                    <div class="tariffs-note">
-                                        <button class="tariffs-note-btn"></button>
-                                        <p>Сэкономьте до 55%<br>на годовой подписке</p>
+                                    <div class="tariffs-switch">
+                                        <div class="tariffs-note">
+                                            <button class="tariffs-note-btn"></button>
+                                            <p>Сэкономьте до 55%<br>на годовой подписке</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="tariff-lists">
+                                        <ul class="tariff-list-over">
+                                            <li>
+                                                <div class="tariff-value">
+                                                    <form>
+                                                        {% csrf_token %}
+                                                        <select name="example" >
+                                                            {% for item in category %}
+                                                            <option value="{{ item.id }}">{{item.name}}</option>
+                                                            {% endfor %}
+                                                        </select>
+
+
+                                                    </form>
+
+
+
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="tariff-btn">
                                     </div>
                                 </div>
 
-                                <div class="tariff-lists">
-                                    <ul class="tariff-list-over">
-                                        <li>
-                                            <div class="tariff-value">
-                                                Транспорт
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="tariff-btn">
-                                </div>
-                            </div>
+                                <div class="tariff tariff-purple">
+                                    <div class="tariff-title">
+                                        <ul class="tariffs-info-list-title">
+                                            <li>
+                                                Подкатегория
+                                                <span>
 
-                            <div class="tariff tariff-purple">
-                                <div class="tariff-title">
-                                    <ul class="tariffs-info-list-title">
-                                        <li>
-                                            Подкатегория
-                                            <span>
+                                                </span>
 
-                                            </span>
+                                                <div class="tooltip tooltip-info">
+                                                    <p>
 
-                                            <div class="tooltip tooltip-info">
-                                                <p>
+                                                    </p>
+                                                </div>
+                                            </li>
+                                        </ul>
 
-                                                </p>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                    </div>
 
-                                </div>
+                                    <div class="tariffs-switch">
+                                        <div class="tariffs-note">
+                                            <button class="tariffs-note-btn"></button>
+                                            <p>Сэкономьте до 55%<br>на годовой подписке </p>
+                                        </div>
+                                    </div>
 
-                                <div class="tariffs-switch">
-                                    <div class="tariffs-note">
-                                        <button class="tariffs-note-btn"></button>
-                                        <p>Сэкономьте до 55%<br>на годовой подписке </p>
+                                    <div class="tariff-lists">
+                                        <ul class="tariff-list-over">
+                                            <li>
+                                                <div class="tariff-value">
+
+                                                    <form>
+                                                        {% csrf_token %}
+                                                        <select name="example" >
+                                                            <option value=0>Выбрать подкатегорию:</option>
+                                                            {% for item in subcategory %}
+                                                            <option value="{{ item.id }}">{{item.name}}</option>
+                                                            {% endfor %}
+                                                        </select>
+
+
+                                                    </form>
+                                                </div>
+                                            </li>
+                                        </ul></div>
+                                    <div class="tariff-btn">
                                     </div>
                                 </div>
 
-                                <div class="tariff-lists">
-                                    <ul class="tariff-list-over">
-                                        <li>
-                                            <div class="tariff-value">
-                                                Такси
-                                            </div>
-                                        </li>
-                                    </ul></div>
-                                <div class="tariff-btn">
-                                </div>
-                            </div>
+                                <div class="tariff tariff-purple">
+                                    <div class="tariff-title">
+                                        <ul class="tariffs-info-list-title">
+                                            <li>
+                                                Сумма
+                                                <span>
 
-                            <div class="tariff tariff-purple">
-                                <div class="tariff-title">
-                                    <ul class="tariffs-info-list-title">
-                                        <li>
-                                            Сумма
-                                            <span>
+                                                </span>
 
-                                            </span>
+                                                <div class="tooltip tooltip-info">
+                                                    <p>
 
-                                            <div class="tooltip tooltip-info">
-                                                <p>
+                                                    </p>
+                                                </div>
+                                            </li>
+                                        </ul>
 
-                                                </p>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                    </div>
 
-                                </div>
+                                    <div class="tariffs-switch">
+                                        <div class="tariffs-note">
+                                            <button class="tariffs-note-btn"></button>
+                                            <p>Сэкономьте до 55%<br>на годовой подписке </p>
+                                        </div>
+                                    </div>
 
-                                <div class="tariffs-switch">
-                                    <div class="tariffs-note">
-                                        <button class="tariffs-note-btn"></button>
-                                        <p>Сэкономьте до 55%<br>на годовой подписке </p>
+                                    <div class="tariff-lists">
+                                        <ul class="tariff-list-over">
+                                            <li>
+                                                <div class="tariff-value">
+
+                                                    <form>
+                                                        {% csrf_token %}
+                                                        <input class="email-input" id="email" placeholder="сумма" type="text" name="total" required="required">
+
+
+                                                    </form>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="tariff-btn">
                                     </div>
                                 </div>
 
-                                <div class="tariff-lists">
-                                    <ul class="tariff-list-over">
-                                        <li>
-                                            <div class="tariff-value">
-                                                329
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="tariff-btn">
-                                </div>
-                            </div>
+                                <div class="tariff tariff-purple">
+                                    <div class="tariff-title">
+                                        <ul class="tariffs-info-list-title">
+                                            <li>
+                                                Дата
+                                                <span>
 
-                            <div class="tariff tariff-purple">
-                                <div class="tariff-title">
-                                    <ul class="tariffs-info-list-title">
-                                        <li>
-                                            Дата
-                                            <span>
+                                                </span>
 
-                                            </span>
+                                                <div class="tooltip tooltip-info">
+                                                    <p>
 
-                                            <div class="tooltip tooltip-info">
-                                                <p>
+                                                    </p>
+                                                </div>
+                                            </li>
+                                        </ul>
 
-                                                </p>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                    </div>
 
-                                </div>
+                                    <div class="tariffs-switch">
+                                        <div class="tariffs-note">
+                                            <button class="tariffs-note-btn"></button>
+                                            <p>Сэкономьте до 55%<br>на годовой подписке </p>
+                                        </div>
+                                    </div>
 
-                                <div class="tariffs-switch">
-                                    <div class="tariffs-note">
-                                        <button class="tariffs-note-btn"></button>
-                                        <p>Сэкономьте до 55%<br>на годовой подписке </p>
+                                    <div class="tariff-lists">
+                                        <ul class="tariff-list-over">
+                                            <li>
+                                                <div class="tariff-value">
+                                                    <form>
+                                                        {% csrf_token %}
+                                                        <input class="email-input" id="date" placeholder="сумма" type="date" name="total" required="required">
+
+
+                                                    </form>
+
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="tariff-btn">
                                     </div>
                                 </div>
 
-                                <div class="tariff-lists">
-                                    <ul class="tariff-list-over">
-                                        <li>
-                                            <div class="tariff-value">
-                                                12/09/2024 22:25
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
+                                <div class="tariff tariff-purple">
+                                    <div class="tariff-title">
+                                        <ul class="tariffs-info-list-title">
+                                            <li>
+                                                Комментарий
+                                                <span>
 
-                                <div class="tariff-btn">
-                                </div>
-                            </div>
+                                                </span>
 
-                            <div class="tariff tariff-purple">
-                                <div class="tariff-title">
-                                    <ul class="tariffs-info-list-title">
-                                        <li>
-                                            Комментарий
-                                            <span>
+                                                <div class="tooltip tooltip-info">
+                                                    <p>
 
-                                            </span>
+                                                    </p>
+                                                </div>
+                                            </li>
+                                        </ul>
 
-                                            <div class="tooltip tooltip-info">
-                                                <p>
+                                    </div>
 
-                                                </p>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                    <div class="tariffs-switch">
+                                        <div class="tariffs-note">
+                                            <button class="tariffs-note-btn"></button>
+                                            <p>Сэкономьте до 55%<br>на годовой подписке </p>
+                                        </div>
+                                    </div>
 
-                                </div>
+                                    <div class="tariff-lists">
+                                        <ul class="tariff-list-over">
+                                            <li>
+                                                <div class="tariff-value">
+                                                    <form>
+                                                        {% csrf_token %}
+                                                        <input class="email-input" id="com" placeholder="сумма" type="text" name="total" required="required">
 
-                                <div class="tariffs-switch">
-                                    <div class="tariffs-note">
-                                        <button class="tariffs-note-btn"></button>
-                                        <p>Сэкономьте до 55%<br>на годовой подписке </p>
+
+                                                    </form>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="tariff-btn">
                                     </div>
                                 </div>
 
-                                <div class="tariff-lists">
-                                    <ul class="tariff-list-over">
-                                        <li>
-                                            <div class="tariff-value">
-                                                Поездка в SunriceCity
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <div class="tariff-btn">
-                                </div>
-                            </div>
-
                         </div>
                     </div>
-                    <div class="tabs-content" id="ct">
-                        <div class="tariffs" data-tariff-type="ct" data-type="yearly">
-
-            <div class="tariffs-info">
-                <div class="tariffs-switch">
-                    <form>
-                        <div class="switcher switcher-tariffs-ct">
-                            <label class="toggle-item on">
-                                <input type="radio" name="tariffs-type-ct" value="year">
-                                <span>Ежегодно</span>
-                            </label>
-                            <div class="toggle">
-                                <input name="ct" type="checkbox" id="toggle-type-ct" checked="">
-                                <label for="toggle-type-ct">Toggle</label>
-                            </div>
-                            <label class="toggle-item off">
-                                <input type="radio" name="tariffs-type-ct" value="month">
-                                <span>Ежемесячно</span>
-                            </label>
-                        </div>
-                    </form>
-                    <div class="tariffs-note">
-                        <button class="tariffs-note-btn"></button>
-                        <p>Сэкономьте до 55%<br>
-        на годовой подписке </p>
-                    </div>
-                </div>
-                <ul class="tariffs-info-list">
-                                    <li>
-                            <span>
-                                Лимитов                    </span>
-                                                    <div class="tooltip tooltip-info">
-                                    <p>Лимиты – внутренняя валюта в сервисе. Лимиты выдаются на баланс тарифного плана автоматически при покупке тарифа. Лимиты можно потратить на создание и обновление задач в сервисе</p>
-                                </div>
-                                            </li>
-                                    <li>
-                            <span>
-                                Поддержка                    </span>
-                                            </li>
-                                    <li>
-                            <span>
-                                Поддержка премиум класса                    </span>
-                                            </li>
-                                    <li>
-                            <span>
-                                Рассылка отчетов                    </span>
-                                            </li>
-                                    <li>
-                            <span>
-                                Мощное API                    </span>
-                                            </li>
-                                    <li>
-                            <span>
-                                API потоков                    </span>
-                                                    <div class="tooltip tooltip-info">
-                                    <p>Количество одновременных обращений к API сервиса</p>
-                                </div>
-                                            </li>
-                                    <li>
-                            <span>
-                                Дополнительных пользователей                    </span>
-                                                    <div class="tooltip tooltip-info">
-                                    <p>Количество разрешенных к созданию дополнительных аккаунтов</p>
-                                </div>
-                                            </li>
-                                    <li>
-                            <span>
-                                Персональный менеджер                    </span>
-                                            </li>
-                                    <li>
-                            <span>
-                                Обучение сотрудников в офисе<br>
-        клиента нашими экспертами                    </span>
-                                            </li>
-                            </ul>
-            </div>
 
 
-                <div class="tariff tariff-green">
-                    <div class="tariff-title">
-                        Team            </div>
-
-                    <div class="tariff-info">
-
-                        <div class="tariff-price yearly">
-                            <b>8799</b>
-                            <span>руб.</span>
-                            <p class="tariff-price-note">
-                                в месяц при оплате ежегодно или 10999 руб. при месячной оплате                    </p>
-                        </div>
-                        <div class="tariff-price monthly">
-                            <b>10999</b>
-                            <span>руб.</span>
-                            <p class="tariff-price-note">
-                                в месяц при оплате ежемесячно или 8799 руб. при годовой оплате                    </p>
-                        </div>
-                        <p class="tariff-info-text">
-                            Лучше всего подходит для проектов среднего бизнеса и небольших SEO агентств.                </p>
-                    </div>
-
-                    <div class="tariff-lists">
-                        <ul class="tariff-list-over">
-                                                                        <li>
-                                    <div class="tariff-key">
-                                        Лимитов                                                                    <div class="tooltip tooltip-info">
-                                                <p>Лимиты – внутренняя валюта в сервисе. Лимиты выдаются на баланс тарифного плана автоматически при покупке тарифа. Лимиты можно потратить на создание и обновление задач в сервисе</p>
-                                            </div>
-                                                                    </div>
-                                    <div class="tariff-value">
-                                        11699                            </div>
-                                </li>
-                                                                                                    <li>
-                                    <div class="tariff-key">
-                                        Поддержка                                                            </div>
-                                    <div class="tariff-value">
-                                        <svg width="20" height="15" viewBox="0 0 20 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L7 13L19 1" stroke="#00C27C" stroke-width="2"></path></svg>                            </div>
-                                </li>
-                                                                                                    <li>
-                                    <div class="tariff-key">
-                                        Поддержка премиум класса                                                            </div>
-                                    <div class="tariff-value">
-                                        <svg width="20" height="15" viewBox="0 0 20 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L7 13L19 1" stroke="#00C27C" stroke-width="2"></path></svg>                            </div>
-                                </li>
-                                                                                                    <li>
-                                    <div class="tariff-key">
-                                        Рассылка отчетов                                                            </div>
-                                    <div class="tariff-value">
-                                        <svg width="20" height="15" viewBox="0 0 20 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L7 13L19 1" stroke="#00C27C" stroke-width="2"></path></svg>                            </div>
-                                </li>
-                                                                                                    <li>
-                                    <div class="tariff-key">
-                                        Мощное API                                                            </div>
-                                    <div class="tariff-value">
-                                        <svg width="20" height="15" viewBox="0 0 20 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L7 13L19 1" stroke="#00C27C" stroke-width="2"></path></svg>                            </div>
-                                </li>
-                                                            </ul>
-                                    <ul class="tariff-list-secondary">
-                                                                                                    <li>
-                                    <div class="tariff-key">
-                                        API потоков                                                                    <div class="tooltip tooltip-info">
-                                                <p>Количество одновременных обращений к API сервиса</p>
-                                            </div>
-                                                                    </div>
-                                    <div class="tariff-value">
-                                        20                            </div>
-                                </li>
-                                                                                                    <li>
-                                    <div class="tariff-key">
-                                        Дополнительных пользователей                                                                    <div class="tooltip tooltip-info">
-                                                <p>Количество разрешенных к созданию дополнительных аккаунтов</p>
-                                            </div>
-                                                                    </div>
-                                    <div class="tariff-value">
-                                        5                            </div>
-                                </li>
-                                                                                                    <li>
-                                    <div class="tariff-key">
-                                        Персональный менеджер                                                            </div>
-                                    <div class="tariff-value">
-                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L8 8M15 15L8 8M8 8L15 1L1 15" stroke="#1D1C1D" stroke-width="2"></path></svg>                            </div>
-                                </li>
-                                                                                                    <li>
-                                    <div class="tariff-key">
-                                        Обучение сотрудников в офисе<br>
-        клиента нашими экспертами                                                            </div>
-                                    <div class="tariff-value">
-                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L8 8M15 15L8 8M8 8L15 1L1 15" stroke="#1D1C1D" stroke-width="2"></path></svg>                            </div>
-                                </li>
-                                                                                            </ul>
-
-                        <button class="tariff-all-list">
-                            Все спецификации                </button>
-                    </div>
-
-                    <div class="tariff-btn">
-                        <a href="https://app.rush-analytics.ru/node/60/?balancetab=buysubscription&amp;planid=22" class="btn btn-attn btn-arrow btn-no-logged btn-choose-plan" data-tariff="Team">
-                            Выбрать план                </a>
-                        <a href="https://app.rush-analytics.ru/node/60/?balancetab=buysubscription&amp;planid=22" class="btn btn-attn btn-arrow btn-logged btn-choose-plan" data-tariff="Team">
-                            Выбрать план                </a>
-                    </div>
-                </div>
-
-
-                <div class="tariff tariff-blue">
-                    <div class="tariff-title">
-                        Corp            </div>
-
-                    <div class="tariff-info">
-
-                        <div class="tariff-price yearly">
-                            <b>39999</b>
-                            <span>руб.</span>
-                            <p class="tariff-price-note">
-                                в месяц при оплате ежегодно или 49 999 руб. при месячной оплате                    </p>
-                        </div>
-                        <div class="tariff-price monthly">
-                            <b>49999</b>
-                            <span>руб.</span>
-                            <p class="tariff-price-note">
-                                в месяц при оплате ежемесячно или 39 999 руб. при годовой оплате                    </p>
-                        </div>
-                        <p class="tariff-info-text">
-                            Лучше всего подходит для крупных компаний, интернет магазинов и агентств.                </p>
-                    </div>
-
-                    <div class="tariff-lists">
-                        <ul class="tariff-list-over">
-                                                                        <li>
-                                    <div class="tariff-key">
-                                        Лимитов                                                                    <div class="tooltip tooltip-info">
-                                                <p>Лимиты – внутренняя валюта в сервисе. Лимиты выдаются на баланс тарифного плана автоматически при покупке тарифа. Лимиты можно потратить на создание и обновление задач в сервисе</p>
-                                            </div>
-                                                                    </div>
-                                    <div class="tariff-value">
-                                        61999                            </div>
-                                </li>
-                                                                                                    <li>
-                                    <div class="tariff-key">
-                                        Поддержка                                                            </div>
-                                    <div class="tariff-value">
-                                        <svg width="20" height="15" viewBox="0 0 20 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L7 13L19 1" stroke="#00C27C" stroke-width="2"></path></svg>                            </div>
-                                </li>
-                                                                                                    <li>
-                                    <div class="tariff-key">
-                                        Поддержка премиум класса                                                            </div>
-                                    <div class="tariff-value">
-                                        <svg width="20" height="15" viewBox="0 0 20 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L7 13L19 1" stroke="#00C27C" stroke-width="2"></path></svg>                            </div>
-                                </li>
-                                                                                                    <li>
-                                    <div class="tariff-key">
-                                        Рассылка отчетов                                                            </div>
-                                    <div class="tariff-value">
-                                        <svg width="20" height="15" viewBox="0 0 20 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L7 13L19 1" stroke="#00C27C" stroke-width="2"></path></svg>                            </div>
-                                </li>
-                                                                                                    <li>
-                                    <div class="tariff-key">
-                                        Мощное API                                                            </div>
-                                    <div class="tariff-value">
-                                        <svg width="20" height="15" viewBox="0 0 20 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L7 13L19 1" stroke="#00C27C" stroke-width="2"></path></svg>                            </div>
-                                </li>
-                                                            </ul>
-                                    <ul class="tariff-list-secondary">
-                                                                                                    <li>
-                                    <div class="tariff-key">
-                                        API потоков                                                                    <div class="tooltip tooltip-info">
-                                                <p>Количество одновременных обращений к API сервиса</p>
-                                            </div>
-                                                                    </div>
-                                    <div class="tariff-value">
-                                        100                            </div>
-                                </li>
-                                                                                                    <li>
-                                    <div class="tariff-key">
-                                        Дополнительных пользователей                                                                    <div class="tooltip tooltip-info">
-                                                <p>Количество разрешенных к созданию дополнительных аккаунтов</p>
-                                            </div>
-                                                                    </div>
-                                    <div class="tariff-value">
-                                        20                            </div>
-                                </li>
-                                                                                                    <li>
-                                    <div class="tariff-key">
-                                        Персональный менеджер                                                            </div>
-                                    <div class="tariff-value">
-                                        <svg width="20" height="15" viewBox="0 0 20 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L7 13L19 1" stroke="#00C27C" stroke-width="2"></path></svg>                            </div>
-                                </li>
-                                                                                                    <li>
-                                    <div class="tariff-key">
-                                        Обучение сотрудников в офисе<br>
-        клиента нашими экспертами                                                            </div>
-                                    <div class="tariff-value">
-                                        <svg width="20" height="15" viewBox="0 0 20 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 7L7 13L19 1" stroke="#00C27C" stroke-width="2"></path></svg>                            </div>
-                                </li>
-                                                                                            </ul>
-
-                        <button class="tariff-all-list">
-                            Все спецификации                </button>
-                    </div>
-
-                    <div class="tariff-btn">
-                        <a href="https://app.rush-analytics.ru/node/60/?balancetab=buysubscription&amp;planid=56" class="btn btn-attn btn-arrow btn-no-logged btn-choose-plan" data-tariff="Corp">
-                            Выбрать план                </a>
-                        <a href="https://app.rush-analytics.ru/node/60/?balancetab=buysubscription&amp;planid=56" class="btn btn-attn btn-arrow btn-logged btn-choose-plan" data-tariff="Corp">
-                            Выбрать план                </a>
-                    </div>
-                </div>
-
-            </div>
-                    </div>
                 </div>
             </div>
         </div>
