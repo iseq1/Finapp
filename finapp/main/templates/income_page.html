@@ -118,7 +118,7 @@
         <div class="tabs-panel">
             <div class="container">
                 <ul class="tabs">
-                    <li class="js-tariff-tab tab is-active" data-id="it">
+                    <li class="js-tariff-tab tab is-active" data-id="add">
                         <div class="tab-icons">
                             <img loading="lazy" src="https://www.rush-analytics.ru/wp-content/uploads/2021/10/tariffs-icon-1.svg" alt="" title="tariffs-icon-1" width="50" height="50" class="default">
                             <img loading="lazy" src="https://www.rush-analytics.ru/wp-content/uploads/2021/10/tariffs-icon-1-active.svg" alt="" title="tariffs-icon-1-active" width="50" height="50" class="active">
@@ -128,7 +128,7 @@
                             <span>Лучшие условия для бизнеса и фрилансеров</span>
                         </div>
                     </li>
-                                <li class="js-tariff-tab tab btn-corp-tariff" data-id="ct">
+                                <li class="js-tariff-tab tab btn-corp-tariff" data-id="show">
                         <div class="tab-icons">
                             <img loading="lazy" src="https://www.rush-analytics.ru/wp-content/uploads/2021/10/tariffs-icon-2.svg" alt="" title="tariffs-icon-2" width="50" height="50" class="default">
                             <img loading="lazy" src="https://www.rush-analytics.ru/wp-content/uploads/2021/10/tariffs-icon-2-active.svg" alt="" title="tariffs-icon-2-active" width="50" height="50" class="active">
@@ -142,12 +142,12 @@
 
                 <div class="tabs-mobile">
                     <div class="tabs-active">
-                        <div class="tab-mobile" data-id="it">
+                        <div class="tab-mobile" data-id="add">
                             <img loading="lazy" src="https://www.rush-analytics.ru/wp-content/uploads/2021/10/tariffs-icon-1.svg" alt="" title="tariffs-icon-1" width="40">
                             Индивидуальные тарифы                </div>
                     </div>
                     <div class="tabs-dropdown">
-                        <div class="tab-mobile" data-id="ct">
+                        <div class="tab-mobile" data-id="show">
                             <img loading="lazy" src="https://www.rush-analytics.ru/wp-content/uploads/2021/10/tariffs-icon-2.svg" alt="" title="tariffs-icon-2" width="40">
                             Корпоративные тарифы                </div>
                     </div>
@@ -157,7 +157,7 @@
         <div class="tariffs-table">
             <div class="container">
                 <div class="tabs-contents">
-                    <div class="tabs-content is-active" id="it">
+                    <div class="tabs-content is-active" id="add">
                         <div class="tariffs" data-tariff-type="it" data-type="yearly">
 
                                 <div class="tariff tariff-purple">
@@ -398,16 +398,235 @@
 
                         </div>
                     </div>
+                    <div class="tabs-content " id="show">
+                        <div class="tariffs" data-tariff-type="it" data-type="yearly">
+
+                                <div class="tariff tariff-purple">
+                                    <div class="tariff-title">
+                                        <ul class="tariffs-info-list-title">
+                                            <li>
+                                                Категория
+                                                <span>
+
+                                                </span>
+
+                                                <div class="tooltip tooltip-info">
+                                                    <p>
+
+                                                    </p>
+                                                </div>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+
+                                    <div class="tariffs-switch">
+                                        <div class="tariffs-note">
+                                            <button class="tariffs-note-btn"></button>
+                                            <p>Сэкономьте до 55%<br>на годовой подписке</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="tariff-lists">
+                                        <ul class="tariff-list-over">
+                                            {% for income in last_incomes %}
+                                            <li>
+                                                <div class="tariff-value">
+                                                    {% for item in category %}
+                                                        {% if item.id == income.category_id %}
+                                                            {{ item.name }}
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </div>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                    <div class="tariff-btn">
+                                    </div>
+                                </div>
+
+                                <div class="tariff tariff-purple">
+                                    <div class="tariff-title">
+                                        <ul class="tariffs-info-list-title">
+                                            <li>
+                                                Подкатегория
+                                                <span>
+
+                                                </span>
+
+                                                <div class="tooltip tooltip-info">
+                                                    <p>
+
+                                                    </p>
+                                                </div>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+
+                                    <div class="tariffs-switch">
+                                        <div class="tariffs-note">
+                                            <button class="tariffs-note-btn"></button>
+                                            <p>Сэкономьте до 55%<br>на годовой подписке </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="tariff-lists">
+                                        <ul class="tariff-list-over">
+                                            {% for income in last_incomes %}
+                                            <li>
+                                                <div class="tariff-value">
+                                                    {% for item in subcategory %}
+                                                        {% if item.id == income.subcategory_id %}
+                                                            {{ item.name }}
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </div>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                    <div class="tariff-btn">
+                                    </div>
+                                </div>
+
+                                <div class="tariff tariff-purple">
+                                    <div class="tariff-title">
+                                        <ul class="tariffs-info-list-title">
+                                            <li>
+                                                Сумма
+                                                <span>
+
+                                                </span>
+
+                                                <div class="tooltip tooltip-info">
+                                                    <p>
+
+                                                    </p>
+                                                </div>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+
+                                    <div class="tariffs-switch">
+                                        <div class="tariffs-note">
+                                            <button class="tariffs-note-btn"></button>
+                                            <p>Сэкономьте до 55%<br>на годовой подписке </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="tariff-lists">
+                                        <ul class="tariff-list-over">
+                                            {% for income in last_incomes %}
+                                            <li>
+                                                <div class="tariff-value">
+                                                    {{ income.total }}
+                                                </div>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                    <div class="tariff-btn">
+                                    </div>
+                                </div>
+
+                                <div class="tariff tariff-purple">
+                                    <div class="tariff-title">
+                                        <ul class="tariffs-info-list-title">
+                                            <li>
+                                                Дата
+                                                <span>
+
+                                                </span>
+
+                                                <div class="tooltip tooltip-info">
+                                                    <p>
+
+                                                    </p>
+                                                </div>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+
+                                    <div class="tariffs-switch">
+                                        <div class="tariffs-note">
+                                            <button class="tariffs-note-btn"></button>
+                                            <p>Сэкономьте до 55%<br>на годовой подписке </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="tariff-lists">
+                                        <ul class="tariff-list-over">
+                                            {% for income in last_incomes %}
+                                            <li>
+                                                <div class="tariff-value">
+                                                    {{ income.date }}
+                                                </div>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+
+                                    <div class="tariff-btn">
+                                    </div>
+                                </div>
+
+                                <div class="tariff tariff-purple">
+                                    <div class="tariff-title">
+                                        <ul class="tariffs-info-list-title">
+                                            <li>
+                                                Комментарий
+                                                <span>
+
+                                                </span>
+
+                                                <div class="tooltip tooltip-info">
+                                                    <p>
+
+                                                    </p>
+                                                </div>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+
+                                    <div class="tariffs-switch">
+                                        <div class="tariffs-note">
+                                            <button class="tariffs-note-btn"></button>
+                                            <p>Сэкономьте до 55%<br>на годовой подписке </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="tariff-lists">
+                                        <ul class="tariff-list-over">
+                                            {% for income in last_incomes %}
+                                            <li>
+                                                <div class="tariff-value">
+                                                    {{ income.comment }}
+                                                </div>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+
+                                    <div class="tariff-btn">
+                                    </div>
+                                </div>
+
+                        </div>
+                    </div>
 
 
                 </div>
             </div>
         </div>
 
-
-
     </main>
 
+    <script src="{% static 'js/tabs-content-shower.js' %}"></script>
     <script src="{% static 'js/income-info-shower.js' %}"></script>
 </body>
 </html>

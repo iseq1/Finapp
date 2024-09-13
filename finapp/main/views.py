@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.shortcuts import render, redirect
-from .models import CustomUser, UserProfile, Category, Subcategory
+from .models import CustomUser, UserProfile, Category, Subcategory, Income
 
 
 # Create your views here.
@@ -24,15 +24,15 @@ def index(request):
 
 def income_page(request):
     category = Category.objects.all()
-    for item in category:
-        print(f'{item.id}.{item.name} - {item.type}')
     subcategory = Subcategory.objects.all()
-    for item in subcategory:
-        print(f'{item.id}.{item.name}')
+    # в инком user = айди CustomЮзера
+    last_incomes = Income.objects.filter(user=(CustomUser.objects.get(email=request.user)).id).order_by('-date')[:10]
+
 
     data = {
         "category": category,
-        "subcategory": subcategory
+        "subcategory": subcategory,
+        "last_incomes": last_incomes
     }
 
     return render(request, 'income_page.html', context=data)
