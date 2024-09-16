@@ -2,6 +2,25 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.shortcuts import render, redirect
 from .models import CustomUser, UserProfile, Category, Subcategory, Income
+import re
+from datetime import datetime
+
+
+def is_valid_date(date_str, date_format="%Y-%m-%d"):
+    try:
+        # Попробуем преобразовать строку в дату по указанному формату
+        datetime.strptime(date_str, date_format)
+        return True
+    except ValueError:
+        return False
+
+
+def is_valid_price(price_str):
+    # Регулярное выражение для проверки формата числа с точкой или запятой
+    pattern = r'^\d+([.,]\d{1,2})?$'
+    if re.match(pattern, price_str):
+        return True
+    return False
 
 
 # Create your views here.
@@ -34,17 +53,22 @@ def income_page(request):
         "last_incomes": last_incomes
     }
     if request.method == 'POST':
-        selected_category = request.POST.get('category')
-        selected_subcategory = request.POST.get('subcategory')
-        selected_total = request.POST.get('total_sum')
-        selected_date = request.POST.get('date')
-        selected_comment = request.POST.get('comment')
-
-        Income.objects.create(category=Category.objects.get(id=selected_category),
-                              subcategory=Subcategory.objects.get(id=selected_subcategory),
-                              total=selected_total, date=selected_date, comment=selected_comment,
-                              user=CustomUser.objects.get(email=request.user))
-
-        return render(request, 'income_page.html', context=data)
+        try:
+            selected_category = request.POST.get('category')
+            selected_subcategory = request.POST.get('subcategory')
+            selected_total = request.POST.get('total_sum')
+            selected_date = request.POST.get('date')
+            selected_comment = request.POST.get('comment')
+            if int(selected_category) != 0 and int(selected_subcategory) != 0 and is_valid_price(selected_total) and is_valid_date(selected_date):
+                # Income.objects.create(category=Category.objects.get(id=selected_category),
+                #                       subcategory=Subcategory.objects.get(id=selected_subcategory),
+                #                       total=selected_total, date=selected_date, comment=selected_comment,
+                #                       user=CustomUser.objects.get(email=request.user))
+                return render(request, 'income_page.html', context=data)
+            else:
+                raise Exception("Некорректно введены данные для записи!")
+        except Exception as e:
+            print(f"Ошибка при записи доходов: {e}")
+            return render(request, 'income_page.html', context=data)
 
     return render(request, 'income_page.html', context=data)

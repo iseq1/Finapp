@@ -191,8 +191,9 @@
                                                 <li>
                                                     <div class="tariff-value">
                                                         <select name="category" >
+                                                            <option value=0>Выбрать категорию:</option>
                                                             {% for item in category %}
-                                                            <option value="{{ item.id }}">{{item.name}}</option>
+                                                            <option value={{ item.id }}>{{item.name}}</option>
                                                             {% endfor %}
                                                         </select>
                                                     </div>
@@ -234,7 +235,7 @@
                                                         <select name="subcategory" >
                                                             <option value=0>Выбрать подкатегорию:</option>
                                                             {% for item in subcategory %}
-                                                            <option value="{{ item.id }}">{{item.name}}</option>
+                                                            <option value={{ item.id }}>{{item.name}}</option>
                                                             {% endfor %}
                                                         </select>
                                                     </div>
