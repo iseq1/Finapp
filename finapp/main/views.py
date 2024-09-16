@@ -23,16 +23,28 @@ def index(request):
 
 
 def income_page(request):
-    category = Category.objects.all()
-    subcategory = Subcategory.objects.all()
+    categories = Category.objects.all()
+    subcategories = Subcategory.objects.all()
     # в инком user = айди CustomЮзера
     last_incomes = Income.objects.filter(user=(CustomUser.objects.get(email=request.user)).id).order_by('-date')[:10]
 
-
     data = {
-        "category": category,
-        "subcategory": subcategory,
+        "category": categories,
+        "subcategory": subcategories,
         "last_incomes": last_incomes
     }
+    if request.method == 'POST':
+        selected_category = request.POST.get('category')
+        selected_subcategory = request.POST.get('subcategory')
+        selected_total = request.POST.get('total_sum')
+        selected_date = request.POST.get('date')
+        selected_comment = request.POST.get('comment')
+
+        Income.objects.create(category=Category.objects.get(id=selected_category),
+                              subcategory=Subcategory.objects.get(id=selected_subcategory),
+                              total=selected_total, date=selected_date, comment=selected_comment,
+                              user=CustomUser.objects.get(email=request.user))
+
+        return render(request, 'income_page.html', context=data)
 
     return render(request, 'income_page.html', context=data)

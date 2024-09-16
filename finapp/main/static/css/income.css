@@ -725,7 +725,47 @@ input, button, textarea, select {
 .tariffs-info-list-title span {
     white-space: nowrap;
 }
-
-
-
-
+.about-worth-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 155px;
+}
+.btn-bordered {
+    padding: 16px 28px 16px 32px;
+    background: none;
+    color: #e12d05;
+    border: 2px solid #e12d05;
+    font-size: 16px;
+    font-weight: 700;
+}
+.btn, .save-rating {
+    display: inline-block;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: .3s;
+    text-align: center;
+}
+.btn-arrow.btn-bordered::after {
+    background-image: url(https://www.rush-analytics.ru/wp-content/themes/RushAnalytics/assets/img/arrow-orange.svg);
+}
+.btn-arrow::after {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    width: 20px;
+    height: 24px;
+    margin-left: 12px;
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: .3s;
+    position: relative;
+    left: 0;
+}
+.pink-button:hover {
+    background-color: #FDF5E6; /* Более яркий розовый при наведении */
+}
