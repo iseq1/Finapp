@@ -44,7 +44,6 @@ def index(request):
 def expenses_page(request):
     categories = Category.objects.all()
     subcategories = Subcategory.objects.all()
-    # в инком user = айди CustomЮзера
     last_incomes = Expenses.objects.filter(user=(CustomUser.objects.get(email=request.user)).id).order_by('-date')[:10]
 
     data = {
@@ -60,11 +59,12 @@ def expenses_page(request):
             selected_date = request.POST.get('date')
             selected_comment = request.POST.get('comment')
             if int(selected_category) != 0 and int(selected_subcategory) != 0 and is_valid_price(selected_total) and is_valid_date(selected_date):
-                # Expenses.objects.create(category=Category.objects.get(id=selected_category),
-                #                       subcategory=Subcategory.objects.get(id=selected_subcategory),
-                #                       total=selected_total, date=selected_date, comment=selected_comment,
-                #                       user=CustomUser.objects.get(email=request.user))
-                return render(request, 'expenses_page.html', context=data)
+                Expenses.objects.create(category=Category.objects.get(id=selected_category),
+                                      subcategory=Subcategory.objects.get(id=selected_subcategory),
+                                      total=selected_total, date=selected_date, comment=selected_comment,
+                                      user=CustomUser.objects.get(email=request.user))
+
+                return redirect('expenses')
             else:
                 raise Exception("Некорректно введены данные для записи!")
         except Exception as e:
