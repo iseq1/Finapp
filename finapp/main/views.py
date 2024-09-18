@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.shortcuts import render, redirect
-from .models import CustomUser, UserProfile, Category, Subcategory, Income
+from .models import CustomUser, UserProfile, Category, Subcategory, Income, Expenses
 import re
 from datetime import datetime
 
@@ -41,11 +41,11 @@ def index(request):
         return render(request, 'index.html', context={})
 
 
-def income_page(request):
+def expenses_page(request):
     categories = Category.objects.all()
     subcategories = Subcategory.objects.all()
     # в инком user = айди CustomЮзера
-    last_incomes = Income.objects.filter(user=(CustomUser.objects.get(email=request.user)).id).order_by('-date')[:10]
+    last_incomes = Expenses.objects.filter(user=(CustomUser.objects.get(email=request.user)).id).order_by('-date')[:10]
 
     data = {
         "category": categories,
@@ -60,15 +60,15 @@ def income_page(request):
             selected_date = request.POST.get('date')
             selected_comment = request.POST.get('comment')
             if int(selected_category) != 0 and int(selected_subcategory) != 0 and is_valid_price(selected_total) and is_valid_date(selected_date):
-                # Income.objects.create(category=Category.objects.get(id=selected_category),
+                # Expenses.objects.create(category=Category.objects.get(id=selected_category),
                 #                       subcategory=Subcategory.objects.get(id=selected_subcategory),
                 #                       total=selected_total, date=selected_date, comment=selected_comment,
                 #                       user=CustomUser.objects.get(email=request.user))
-                return render(request, 'income_page.html', context=data)
+                return render(request, 'expenses_page.html', context=data)
             else:
                 raise Exception("Некорректно введены данные для записи!")
         except Exception as e:
             print(f"Ошибка при записи доходов: {e}")
-            return render(request, 'income_page.html', context=data)
+            return render(request, 'expenses_page.html', context=data)
 
-    return render(request, 'income_page.html', context=data)
+    return render(request, 'expenses_page.html', context=data)
