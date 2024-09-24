@@ -362,44 +362,27 @@
                     </div>
 
                     <div class="tabs-content " id="show">
-                       <table>
+                        <table>
                             <tr>
-                              <th>Категория</th>
-                              <th>Сумма трат</th>
-                              <th>Процентное соотношение</th>
-                              <th>Последняя трата</th>
-                              <th>Дата последней траты</th>
-                              </tr>
-                             <tr>
-                              <td>Microsoft</td>
-                              <td>20.3</td>
-                              <td>30.5</td>
-                              <td>23.5</td>
-                              <td>40.3</td>
-                             </tr>
-                            <tr>
-                              <td>Google</td>
-                              <td>50.2</td>
-                              <td>40.63</td>
-                              <td>45.23</td>
-                              <td>39.3</td>
+                                <th>Категория</th>
+                                <th>Сумма трат</th>
+                                <th>Процентное соотношение</th>
+                                <th>Количество транзакций</th>
+                                <th>Последняя трата</th>
+                                <th>Средняя трата</th>
+                                <th>Максимальная трата</th>
+                                <th>Минимальная трата</th>
+                                <th>Разница между текущим периодом и предыдущим</th>
                             </tr>
+                            {% for row in statistic %}
                             <tr>
-                              <td>Apple</td>
-                              <td>25.4</td>
-                              <td>30.2</td>
-                              <td>33.3</td>
-                              <td>36.7</td>
+                                {% for item in row %}
+                                <td>{{item}}</td>
+                                {% endfor %}
                             </tr>
-                            <tr>
-                              <td>IBM</td>
-                              <td>20.4</td>
-                              <td>15.6</td>
-                              <td>22.3</td>
-                              <td>29.3</td>
-                            </tr>
-                        </table>
+                           {% endfor %}
 
+                        </table>
                         <div class="tariffs" data-tariff-type="it" data-type="yearly">
 
                                 <div class="tariff tariff-purple">

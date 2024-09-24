@@ -1,10 +1,12 @@
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.shortcuts import render, redirect
-from django.db.models import OuterRef, Subquery
+from django.db.models import OuterRef, Subquery, Sum, Count
 from .models import CustomUser, UserProfile, Category, Subcategory, Income, Expenses
-import re
+from django.utils import timezone
 from datetime import datetime
+import math
+import re
 
 
 def is_valid_date(date_str, date_format="%Y-%m-%d"):
@@ -82,25 +84,76 @@ def get_subcategories(request):
     return JsonResponse([], safe=False)
 
 
-def expenses_page(request):
-    # Подзапрос для получения всех id категорий типа "expenses"
-    subquery = Category.objects.filter(type="expenses").values('id')
-    # Основной запрос для получения всех подкатегорий, у которых category_id находится в подзапросе
-    subcategories = Subcategory.objects.filter(category_id__in=Subquery(subquery))
-    # for subcategory in subcategories:
-    #     print(subcategory)
-    #     print(f"Subcategory: {subcategory.name}, Category ID: {subcategory.category_id}")
+def get_expenses_sum(user, category):
+    # Получаем текущую дату
+    today = timezone.now()
+    current_month = today.month
+    current_year = today.year
 
-    subcategories = Subcategory.objects.all()
+    # Фильтруем по пользователю, категории и дате
+    expenses_sum = Expenses.objects.filter(
+        user=user,
+        category=category,
+        date__year=current_year,   # Фильтруем по годам
+        date__month=current_month   # Фильтруем по месяцам
+    ).aggregate(total=Sum('total'))  # Получаем сумму
+    return expenses_sum['total'] or 0  # Возвращаем сумму или 0, если нет трат
+
+
+def get_percentage(user, category):
+    today = timezone.now()
+    current_month = today.month
+    current_year = today.year
+
+    category_sum = get_expenses_sum(user, category)
+    total_sum = Expenses.objects.filter(
+        user=user,
+        date__year=current_year,
+        date__month=current_month
+    ).aggregate(total=Sum('total'))
+    return f"{round(float(category_sum)/float(total_sum['total']) * 100, 2)} %"  or 0
+
+
+def get_amount_of_transactions(user, category):
+    today = timezone.now()
+    current_month = today.month
+    current_year = today.year
+
+    amount_of_transactions = Expenses.objects.filter(
+        user=user,
+        category=category,
+        date__year=current_year,  # Фильтруем по годам
+        date__month=current_month  # Фильтруем по месяцам
+    ).aggregate(total=Count('total'))
+
+    return amount_of_transactions['total'] or 0
+
+def expenses_page(request):
 
     categories_expenses = Category.objects.filter(type="expenses")
+    subcategories = Subcategory.objects.all()
     last_incomes = Expenses.objects.filter(user=(CustomUser.objects.get(email=request.user)).id).order_by('-date')[:10]
+    stats = []
+
+    current_user = (CustomUser.objects.get(email=request.user)).id
+    for category in categories_expenses:
+        stats.append(
+            [
+                category.name,
+                get_expenses_sum(user=current_user, category=Category.objects.get(id=category.id)),
+                get_percentage(user=current_user, category=Category.objects.get(id=category.id)),
+                get_amount_of_transactions(user=current_user, category=Category.objects.get(id=category.id)),
+
+            ]
+        )
 
     data = {
         "category_expenses": categories_expenses,
         "subcategory": subcategories,
-        "last_incomes": last_incomes
+        "last_incomes": last_incomes,
+        "statistic": stats
     }
+
     if request.method == 'POST':
         try:
             selected_category = request.POST.get('category')
