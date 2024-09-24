@@ -32,4 +32,5 @@ urlpatterns = [
     path('expenses/', main_views.expenses_page, name='expenses'),
     path('logout/', registration_views.logout_view, name='logout'),
     path('auth/', include('social_django.urls', namespace='social')),
+    path('get-subcategories/', main_views.get_subcategories, name='get_subcategories'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

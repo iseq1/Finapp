@@ -190,10 +190,10 @@
                                             <ul class="tariff-list-over">
                                                 <li>
                                                     <div class="tariff-value">
-                                                        <select name="category" >
-                                                            <option value=0>Выбрать категорию:</option>
+                                                        <select name="category" id="category-select">
+                                                            <option value="0">Выбрать категорию:</option>
                                                             {% for item in category_expenses %}
-                                                            <option value={{ item.id }}>{{item.name}}</option>
+                                                            <option value="{{ item.id }}">{{ item.name }}</option>
                                                             {% endfor %}
                                                         </select>
                                                     </div>
@@ -232,15 +232,13 @@
                                             <ul class="tariff-list-over">
                                                 <li>
                                                     <div class="tariff-value">
-                                                        <select name="subcategory" >
-                                                            <option value=0>Выбрать подкатегорию:</option>
-                                                            {% for item in subcategory %}
-                                                            <option value={{ item.id }}>{{item.name}}</option>
-                                                            {% endfor %}
+                                                        <select name="subcategory" id="subcategory-select">
+                                                            <option value="0">Выбрать подкатегорию:</option>
                                                         </select>
                                                     </div>
                                                 </li>
-                                            </ul></div>
+                                            </ul>
+                                        </div>
                                         <div class="tariff-btn">
                                         </div>
                                     </div>
@@ -435,7 +433,7 @@
                                             {% for income in last_incomes %}
                                             <li>
                                                 <div class="tariff-value">
-                                                    {% for item in category %}
+                                                    {% for item in category_expenses %}
                                                         {% if item.id == income.category_id %}
                                                             {{ item.name }}
                                                         {% endif %}
@@ -631,5 +629,38 @@
 
     <script src="{% static 'js/tabs-content-shower.js' %}"></script>
     <script src="{% static 'js/income-info-shower.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#category-select').change(function() {
+                var categoryId = $(this).val();
+                if (categoryId > 0) {
+                    $.ajax({
+                        url: '{% url "get_subcategories" %}',
+                        data: {
+                            'category_id': categoryId
+                        },
+                        dataType: 'json',
+                        success: function(data) {
+                            var $subcategorySelect = $('#subcategory-select');
+                            $subcategorySelect.empty();
+                            $subcategorySelect.append('<option value="0">Выбрать подкатегорию:</option>');
+                            $.each(data, function(index, item) {
+                                $subcategorySelect.append('<option value="' + item.id + '">' + item.name + '</option>');
+                            });
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            // Обработка ошибки
+                            console.error('Ошибка при получении подкатегорий:', textStatus, errorThrown);
+                            alert('Произошла ошибка при получении подкатегорий. Пожалуйста, попробуйте снова позже.');
+                        }
+                    });
+                } else {
+                    $('#subcategory-select').empty().append('<option value="0">Выбрать подкатегорию:</option>');
+                }
+            });
+        });
+    </script>
+
 </body>
 </html>

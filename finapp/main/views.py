@@ -1,6 +1,7 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.shortcuts import render, redirect
+from django.db.models import OuterRef, Subquery
 from .models import CustomUser, UserProfile, Category, Subcategory, Income, Expenses
 import re
 from datetime import datetime
@@ -49,7 +50,6 @@ def income_page(request):
     data = {
         "category": categories,
         "category_income": categories_income,
-        "category_expenses": categories_expenses,
         "subcategory": subcategories,
         "last_incomes": last_incomes
     }
@@ -76,15 +76,29 @@ def income_page(request):
     return render(request, 'income_page.html', context=data)
 
 
+def get_subcategories(request):
+    category_id = request.GET.get('category_id')
+    if category_id:
+        subcategories = Subcategory.objects.filter(category_id=category_id).values('id', 'name')
+        return JsonResponse(list(subcategories), safe=False)
+    return JsonResponse([], safe=False)
+
 
 def expenses_page(request):
-    categories = Category.objects.all()
+    # Подзапрос для получения всех id категорий типа "expenses"
+    subquery = Category.objects.filter(type="expenses").values('id')
+    # Основной запрос для получения всех подкатегорий, у которых category_id находится в подзапросе
+    subcategories = Subcategory.objects.filter(category_id__in=Subquery(subquery))
+    # for subcategory in subcategories:
+    #     print(subcategory)
+    #     print(f"Subcategory: {subcategory.name}, Category ID: {subcategory.category_id}")
+
     subcategories = Subcategory.objects.all()
+
     categories_expenses = Category.objects.filter(type="expenses")
     last_incomes = Expenses.objects.filter(user=(CustomUser.objects.get(email=request.user)).id).order_by('-date')[:10]
 
     data = {
-        "category": categories,
         "category_expenses": categories_expenses,
         "subcategory": subcategories,
         "last_incomes": last_incomes
