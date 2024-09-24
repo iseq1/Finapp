@@ -43,12 +43,10 @@ def index(request):
 
 
 def income_page(request):
-    categories = Category.objects.all()
     categories_income = Category.objects.filter(type="income")
     subcategories = Subcategory.objects.all()
     last_incomes = Income.objects.filter(user=(CustomUser.objects.get(email=request.user)).id).order_by('-date')[:10]
     data = {
-        "category": categories,
         "category_income": categories_income,
         "subcategory": subcategories,
         "last_incomes": last_incomes
