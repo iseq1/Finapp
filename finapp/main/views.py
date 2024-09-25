@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from django.db.models import OuterRef, Subquery, Sum, Count
 from .models import CustomUser, UserProfile, Category, Subcategory, Income, Expenses
 from django.utils import timezone
+from calendar import monthrange
 from datetime import datetime
 import math
 import re
@@ -128,6 +129,64 @@ def get_amount_of_transactions(user, category):
 
     return amount_of_transactions['total'] or 0
 
+
+def get_last_transaction(user, category):
+    today = timezone.now()
+    current_month = today.month
+    current_year = today.year
+
+    last_transaction = Expenses.objects.filter(
+        user = user,
+        category = category,
+        date__year = current_year,
+        date__month = current_month,
+    ).order_by('-date').first()
+
+    return f'{last_transaction.date.strftime('%m/%d/%Y')} \n{last_transaction.comment}' or 'Траты отсутствуют'
+
+
+def get_max_transaction(user, category):
+    today = timezone.now()
+    current_month = today.month
+    current_year = today.year
+
+    last_transaction = Expenses.objects.filter(
+        user = user,
+        category = category,
+        date__year = current_year,
+        date__month = current_month,
+    ).order_by('-total').first()
+
+    return f'{last_transaction.date.strftime('%m/%d/%Y')} \n{last_transaction.comment}' or 'Траты отсутствуют'
+
+
+def get_min_transaction(user, category):
+    today = timezone.now()
+    current_month = today.month
+    current_year = today.year
+
+    last_transaction = Expenses.objects.filter(
+        user = user,
+        category = category,
+        date__year = current_year,
+        date__month = current_month,
+    ).order_by('-total').last()
+
+    return f'{last_transaction.date.strftime('%m/%d/%Y')} \n{last_transaction.comment}' or 'Траты отсутствуют'
+
+
+def get_average_transaction(user, category):
+    now = timezone.now()
+
+    # Получаем год и месяц
+    year = now.year
+    month = now.month
+
+    # Получаем количество дней в текущем месяце
+    days_in_month = monthrange(year, month)[1]
+    return f'{round(float(get_expenses_sum(user=user, category=category))/float(days_in_month),2)}' or 'Траты отсутствуют'
+
+
 def expenses_page(request):
 
     categories_expenses = Category.objects.filter(type="expenses")
@@ -143,7 +202,10 @@ def expenses_page(request):
                 get_expenses_sum(user=current_user, category=Category.objects.get(id=category.id)),
                 get_percentage(user=current_user, category=Category.objects.get(id=category.id)),
                 get_amount_of_transactions(user=current_user, category=Category.objects.get(id=category.id)),
-
+                get_average_transaction(user=current_user, category=Category.objects.get(id=category.id)),
+                get_last_transaction(user=current_user, category=Category.objects.get(id=category.id)),
+                get_max_transaction(user=current_user, category=Category.objects.get(id=category.id)),
+                get_min_transaction(user=current_user, category=Category.objects.get(id=category.id)),
             ]
         )
 
