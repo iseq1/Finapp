@@ -374,11 +374,21 @@
                                 <th>Минимальная трата</th>
                                 <th>Разница между текущим периодом и предыдущим</th>
                             </tr>
-                            {% for row in statistic %}
+                            {% for line in statistic %}
                             <tr>
-                                {% for item in row %}
-                                <td>{{item}}</td>
+                                {% for category in category_expenses %}
+                                    {% if category.id == line.category_id %}
+                                        <td>{{category.name}}</td>
+                                    {% endif %}
                                 {% endfor %}
+                                <td>{{line.amount}} ₽</td>
+                                <td>{{line.percentage}} %</td>
+                                <td>{{line.count_of_transactions}}</td>
+                                <td>{{line.average_transaction}}</td>
+                                <td>{{line.last_transaction}}</td>
+                                <td>{{line.max_transaction}}</td>
+                                <td>{{line.min_transaction}}</td>
+                                <td>{{line.monthly_difference}}</td>
                             </tr>
                            {% endfor %}
 

@@ -29,3 +29,16 @@ class Expenses(models.Model):
     date = models.DateField()
     comment = models.CharField(max_length=255, null=True)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+
+
+class Expenses_statistic(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.PROTECT)
+    amount = models.FloatField()
+    percentage = models.FloatField()
+    count_of_transactions = models.IntegerField()
+    average_transaction = models.FloatField()
+    last_transaction = models.CharField(max_length=255, null=True)
+    max_transaction = models.CharField(max_length=255, null=True)
+    min_transaction = models.CharField(max_length=255, null=True)
+    monthly_difference = models.FloatField()

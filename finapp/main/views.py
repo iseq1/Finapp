@@ -2,7 +2,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.shortcuts import render, redirect
 from django.db.models import OuterRef, Subquery, Sum, Count
-from .models import CustomUser, UserProfile, Category, Subcategory, Income, Expenses
+from .models import CustomUser, UserProfile, Category, Subcategory, Income, Expenses, Expenses_statistic
 from django.utils import timezone
 from calendar import monthrange
 from datetime import datetime
@@ -112,7 +112,7 @@ def get_percentage(user, category):
         date__year=current_year,
         date__month=current_month
     ).aggregate(total=Sum('total'))
-    return f"{round(float(category_sum)/float(total_sum['total']) * 100, 2)} %"  or 0
+    return round(float(category_sum)/float(total_sum['total']) * 100, 2) or 0
 
 
 def get_amount_of_transactions(user, category):
@@ -184,7 +184,7 @@ def get_average_transaction(user, category):
 
     # Получаем количество дней в текущем месяце
     days_in_month = monthrange(year, month)[1]
-    return f'{round(float(get_expenses_sum(user=user, category=category))/float(days_in_month),2)}' or 'Траты отсутствуют'
+    return round(float(get_expenses_sum(user=user, category=category))/float(days_in_month),2) or 0
 
 
 def expenses_page(request):
@@ -195,25 +195,13 @@ def expenses_page(request):
     stats = []
 
     current_user = (CustomUser.objects.get(email=request.user)).id
-    for category in categories_expenses:
-        stats.append(
-            [
-                category.name,
-                get_expenses_sum(user=current_user, category=Category.objects.get(id=category.id)),
-                get_percentage(user=current_user, category=Category.objects.get(id=category.id)),
-                get_amount_of_transactions(user=current_user, category=Category.objects.get(id=category.id)),
-                get_average_transaction(user=current_user, category=Category.objects.get(id=category.id)),
-                get_last_transaction(user=current_user, category=Category.objects.get(id=category.id)),
-                get_max_transaction(user=current_user, category=Category.objects.get(id=category.id)),
-                get_min_transaction(user=current_user, category=Category.objects.get(id=category.id)),
-            ]
-        )
+    expenses_stat = Expenses_statistic.objects.filter(user=current_user)
 
     data = {
         "category_expenses": categories_expenses,
         "subcategory": subcategories,
         "last_incomes": last_incomes,
-        "statistic": stats
+        "statistic": expenses_stat
     }
 
     if request.method == 'POST':
@@ -228,6 +216,32 @@ def expenses_page(request):
                                       subcategory=Subcategory.objects.get(id=selected_subcategory),
                                       total=selected_total, date=selected_date, comment=selected_comment,
                                       user=CustomUser.objects.get(email=request.user))
+
+                for category in categories_expenses:
+                    if Expenses.objects.filter(user=CustomUser.objects.get(email=request.user), category=Category.objects.get(id=category.id)):
+                        expenses_statistic, created = Expenses_statistic.objects.update_or_create(
+                            user=CustomUser.objects.get(email=request.user),
+                            category=Category.objects.get(id=category.id),
+                            defaults={
+                                'amount': get_expenses_sum(user=current_user,
+                                                           category=Category.objects.get(id=category.id)),
+                                'percentage': get_percentage(user=current_user,
+                                                             category=Category.objects.get(id=category.id)),
+                                'count_of_transactions': get_amount_of_transactions(user=current_user,
+                                                                                    category=Category.objects.get(
+                                                                                        id=category.id)),
+                                'average_transaction': get_average_transaction(user=current_user,
+                                                                               category=Category.objects.get(
+                                                                                   id=category.id)),
+                                'last_transaction': get_last_transaction(user=current_user,
+                                                                         category=Category.objects.get(id=category.id)),
+                                'max_transaction': get_max_transaction(user=current_user,
+                                                                       category=Category.objects.get(id=category.id)),
+                                'min_transaction': get_min_transaction(user=current_user,
+                                                                       category=Category.objects.get(id=category.id)),
+                                'monthly_difference': 0,
+                            }
+                        )
 
                 return redirect('expenses')
             else:
