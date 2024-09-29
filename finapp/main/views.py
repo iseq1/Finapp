@@ -26,7 +26,6 @@ def is_valid_price(price_str):
         return True
     return False
 
-
 # Create your views here.
 def index(request):
     if request.user.is_authenticated:
@@ -94,8 +93,12 @@ def income_page(request):
                                                                                category=Category.objects.get(
                                                                                    id=category.id),
                                                                                type='income'),
-                                'revenue_growth_rate': 0,
-                                'monthly_difference': 0,
+                                'revenue_growth_rate': revenue_growth_rate(user=current_user,
+                                                                           category=Category.objects.get(id=category.id),
+                                                                           type='income'),
+                                'monthly_difference': get_monthly_difference(user=current_user,
+                                                                             category=Category.objects.get(id=category.id),
+                                                                             type='income'),
                             }
                         )
 
@@ -248,6 +251,96 @@ def get_average_transaction(user, category, type):
     return round(float(get_sum(user=user, category=category, type=type))/float(days_in_month),2) or 0
 
 
+def get_monthly_difference(user, category, type):
+    today = timezone.now()
+    current_month = today.month
+    current_year = today.year
+
+    # Определяем предыдущий месяц и год
+    if current_month == 1:
+        previous_month = 12
+        previous_year = year - 1
+    else:
+        previous_month = current_month - 1
+        previous_year = current_year
+
+    if type == 'expenses':
+
+        current_sum = Expenses.objects.filter(
+            user=user,
+            category=category,
+            date__year=current_year,
+            date__month=current_month
+        ).aggregate(total=Sum('total'))
+
+        previous_sum = Expenses.objects.filter(
+            user=user,
+            category=category,
+            date__year=previous_year,
+            date__month=previous_month
+        ).aggregate(total=Sum('total'))
+
+    elif type == 'income':
+
+        current_sum = Income.objects.filter(
+            user=user,
+            category=category,
+            date__year=current_year,
+            date__month=current_month
+        ).aggregate(total=Sum('total'))
+
+        previous_sum = Income.objects.filter(
+            user=user,
+            category=category,
+            date__year=previous_year,
+            date__month=previous_month
+        ).aggregate(total=Sum('total'))
+
+    else:
+        raise Exception("Некорректный запрос")
+    if current_sum['total'] and previous_sum['total']:
+        return current_sum['total']-previous_sum['total']
+    return 0
+
+
+def revenue_growth_rate(user, category, type):
+    today = timezone.now()
+    current_month = today.month
+    current_year = today.year
+    if current_month == 1:
+        previous_month = 12
+        previous_year = year - 1
+    else:
+        previous_month = current_month - 1
+        previous_year = current_year
+
+    if type == 'expenses':
+        previous_sum = Expenses.objects.filter(
+            user=user,
+            category=category,
+            date__year=previous_year,
+            date__month=previous_month
+        ).aggregate(total=Sum('total'))
+    elif type == 'income':
+        previous_sum = Income.objects.filter(
+            user=user,
+            category=category,
+            date__year=previous_year,
+            date__month=previous_month
+        ).aggregate(total=Sum('total'))
+    else:
+        raise Exception("Некорректный запрос")
+
+    income_difference = get_monthly_difference(user, category, type)
+
+    if previous_sum['total'] and previous_sum['total'] > 0:
+        growth_rate = round(float(income_difference) / float(previous_sum['total']), 2) * 100
+    else:
+        growth_rate = 0
+
+    return growth_rate
+
+
 def expenses_page(request):
 
     categories_expenses = Category.objects.filter(type="expenses")
@@ -304,7 +397,9 @@ def expenses_page(request):
                                                                        category=Category.objects.get(id=category.id)),
                                 'min_transaction': get_min_transaction(user=current_user,
                                                                        category=Category.objects.get(id=category.id)),
-                                'monthly_difference': 0,
+                                'monthly_difference': get_monthly_difference(user=current_user,
+                                                                             category=Category.objects.get(id=category.id),
+                                                                             type='expenses'),
                             }
                         )
 
