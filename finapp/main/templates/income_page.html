@@ -191,8 +191,9 @@
                                                 <li>
                                                     <div class="tariff-value">
                                                         <select name="category" id="category-select">
+                                                            {{categories_income}}
                                                             <option value="0">Выбрать категорию:</option>
-                                                            {% for item in category_expenses %}
+                                                            {% for item in categories_income %}
                                                             <option value="{{ item.id }}">{{ item.name }}</option>
                                                             {% endfor %}
                                                         </select>
@@ -365,18 +366,16 @@
                         <table>
                             <tr>
                                 <th>Категория</th>
-                                <th>Сумма трат</th>
+                                <th>Сумма дохода</th>
                                 <th>Процентное соотношение</th>
                                 <th>Количество транзакций</th>
-                                <th>Средняя трата</th>
-                                <th>Последняя трата</th>
-                                <th>Максимальная трата</th>
-                                <th>Минимальная трата</th>
+                                <th>Средний доход</th>
+                                <th>Коэффициент роста доходов</th>
                                 <th>Разница между текущим периодом и предыдущим</th>
                             </tr>
                             {% for line in statistic %}
                             <tr>
-                                {% for category in category_expenses %}
+                                {% for category in categories_income %}
                                     {% if category.id == line.category_id %}
                                         <td>{{category.name}}</td>
                                     {% endif %}
@@ -385,9 +384,7 @@
                                 <td>{{line.percentage}} %</td>
                                 <td>{{line.count_of_transactions}}</td>
                                 <td>{{line.average_transaction}} ₽</td>
-                                <td>{{line.last_transaction}}</td>
-                                <td>{{line.max_transaction}}</td>
-                                <td>{{line.min_transaction}}</td>
+                                <td>{{line.revenue_growth_rate}}</td>
                                 <td>{{line.monthly_difference}}</td>
                             </tr>
                            {% endfor %}
@@ -426,7 +423,7 @@
                                             {% for income in last_incomes %}
                                             <li>
                                                 <div class="tariff-value">
-                                                    {% for item in category_expenses %}
+                                                    {% for item in categories_income %}
                                                         {% if item.id == income.category_id %}
                                                             {{ item.name }}
                                                         {% endif %}

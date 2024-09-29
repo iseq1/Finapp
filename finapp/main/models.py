@@ -42,3 +42,15 @@ class Expenses_statistic(models.Model):
     max_transaction = models.CharField(max_length=255, null=True)
     min_transaction = models.CharField(max_length=255, null=True)
     monthly_difference = models.FloatField()
+
+
+class Income_statistic(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.PROTECT)
+    amount = models.FloatField()
+    percentage = models.FloatField()
+    count_of_transactions = models.IntegerField()
+    average_transaction = models.FloatField()
+    monthly_difference = models.FloatField()
+    revenue_growth_rate = models.FloatField()
+
