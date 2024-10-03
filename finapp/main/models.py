@@ -12,6 +12,10 @@ class Subcategory(models.Model):
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
 
 
+class Cash_box(models.Model):
+    name = models.CharField(max_length=255)
+    type = models.CharField(max_length=255)
+
 
 class Income(models.Model):
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
@@ -20,6 +24,7 @@ class Income(models.Model):
     date = models.DateField()
     comment = models.CharField(max_length=255, null=True)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    cash_box = models.ForeignKey(Cash_box, on_delete=models.CASCADE)
 
 
 class Expenses(models.Model):
@@ -29,6 +34,8 @@ class Expenses(models.Model):
     date = models.DateField()
     comment = models.CharField(max_length=255, null=True)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    cash_box = models.ForeignKey(Cash_box, on_delete=models.CASCADE)
+
 
 
 class Expenses_statistic(models.Model):
@@ -53,4 +60,5 @@ class Income_statistic(models.Model):
     average_transaction = models.FloatField()
     monthly_difference = models.FloatField()
     revenue_growth_rate = models.FloatField()
+
 

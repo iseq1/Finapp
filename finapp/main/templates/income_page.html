@@ -248,6 +248,48 @@
                                         <div class="tariff-title">
                                             <ul class="tariffs-info-list-title">
                                                 <li>
+                                                    Банк
+                                                    <span>
+
+                                                    </span>
+
+                                                    <div class="tooltip tooltip-info">
+                                                        <p>
+
+                                                        </p>
+                                                    </div>
+                                                </li>
+                                            </ul>
+
+                                        </div>
+                                        <div class="tariffs-switch">
+                                            <div class="tariffs-note">
+                                                <button class="tariffs-note-btn"></button>
+                                                <p>Сэкономьте до 55%<br>на годовой подписке </p>
+                                            </div>
+                                        </div>
+                                        <div class="tariff-lists">
+                                            <ul class="tariff-list-over">
+                                                <li>
+                                                    <div class="tariff-value">
+                                                        <select name="cashbox" id="cash-box-select">
+                                                            <option value="0">Выбрать место списания:</option>
+                                                            {% for item in cash_boxes %}
+                                                                <option value="{{item.id}}">{{item.name}}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="tariff-btn">
+                                        </div>
+                                    </div>
+
+                                    <div class="tariff tariff-purple">
+                                        <div class="tariff-title">
+                                            <ul class="tariffs-info-list-title">
+                                                <li>
                                                     Сумма
                                                     <span>
 
@@ -481,6 +523,51 @@
                                     <div class="tariff-btn">
                                     </div>
                                 </div>
+
+                                <div class="tariff tariff-purple">
+                                    <div class="tariff-title">
+                                        <ul class="tariffs-info-list-title">
+                                            <li>
+                                                Банк
+                                                <span>
+
+                                                </span>
+
+                                                <div class="tooltip tooltip-info">
+                                                    <p>
+
+                                                    </p>
+                                                </div>
+                                            </li>
+                                        </ul>
+
+                                    </div>
+
+                                    <div class="tariffs-switch">
+                                        <div class="tariffs-note">
+                                            <button class="tariffs-note-btn"></button>
+                                            <p>Сэкономьте до 55%<br>на годовой подписке </p>
+                                        </div>
+                                    </div>
+
+                                    <div class="tariff-lists">
+                                        <ul class="tariff-list-over">
+                                            {% for income in last_incomes %}
+                                            <li>
+                                                <div class="tariff-value">
+                                                    {% for item in cash_boxes %}
+                                                        {% if item.id == income.cash_box_id %}
+                                                            {{ item.name }}
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </div>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                    <div class="tariff-btn">
+                                    </div>
+                                        </div>
 
                                 <div class="tariff tariff-purple">
                                     <div class="tariff-title">

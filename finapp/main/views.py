@@ -2,7 +2,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.shortcuts import render, redirect
 from django.db.models import OuterRef, Subquery, Sum, Count
-from .models import CustomUser, UserProfile, Category, Subcategory, Income, Expenses, Expenses_statistic, Income_statistic
+from .models import CustomUser, UserProfile, Category, Subcategory, Income, Expenses, Expenses_statistic, Income_statistic, Cash_box
 from django.utils import timezone
 from calendar import monthrange
 from datetime import datetime
@@ -39,6 +39,14 @@ def index(request):
             "tel": person.phone_number,
             "db": person.date_of_birth,
         }
+
+        # cash_box = Cash_box.objects.create(name='T-Банк')
+        # person.cash_boxes.add(cash_box)
+        #
+        # # Пример получения всех CashBox пользователя:
+        # user_cash_boxes = person.cash_boxes.all()
+        # print(user_cash_boxes)
+
         return render(request, 'index.html', context=user_data)
     else:
         return render(request, 'index.html', context={})
@@ -50,13 +58,17 @@ def income_page(request):
     last_incomes = Income.objects.filter(user=(CustomUser.objects.get(email=request.user)).id).order_by('-date')[:10]
 
     current_user = (CustomUser.objects.get(email=request.user)).id
+    current_person = UserProfile.objects.get(user=current_user)
+
     income_stat = Income_statistic.objects.filter(user=current_user)
+    cash_boxes = current_person.cash_boxes.all()
 
     data = {
         "categories_income": categories_income,
         "subcategory": subcategories,
         "last_incomes": last_incomes,
-        "statistic": income_stat
+        "statistic": income_stat,
+        "cash_boxes": cash_boxes,
     }
 
     if request.method == 'POST':
@@ -66,12 +78,15 @@ def income_page(request):
             selected_total = request.POST.get('total_sum')
             selected_date = request.POST.get('date')
             selected_comment = request.POST.get('comment')
+            selected_cashbox = request.POST.get('cashbox')
+
             if int(selected_category) != 0 and int(selected_subcategory) != 0 and is_valid_price(
                     selected_total) and is_valid_date(selected_date):
                 Income.objects.create(category=Category.objects.get(id=selected_category),
                                         subcategory=Subcategory.objects.get(id=selected_subcategory),
                                         total=selected_total, date=selected_date, comment=selected_comment,
-                                        user=CustomUser.objects.get(email=request.user))
+                                        user=CustomUser.objects.get(email=request.user),
+                                        cash_box=Cash_box.objects.get(id=selected_cashbox))
 
                 for category in categories_income:
                     if Income.objects.filter(user=CustomUser.objects.get(email=request.user), category=Category.objects.get(id=category.id)):
@@ -349,13 +364,19 @@ def expenses_page(request):
     stats = []
 
     current_user = (CustomUser.objects.get(email=request.user)).id
+    current_person = UserProfile.objects.get(user=current_user)
+
     expenses_stat = Expenses_statistic.objects.filter(user=current_user)
+    cash_boxes = current_person.cash_boxes.all()
+
+
 
     data = {
         "category_expenses": categories_expenses,
         "subcategory": subcategories,
         "last_incomes": last_incomes,
-        "statistic": expenses_stat
+        "statistic": expenses_stat,
+        "cash_boxes": cash_boxes,
     }
 
     if request.method == 'POST':
@@ -365,11 +386,14 @@ def expenses_page(request):
             selected_total = request.POST.get('total_sum')
             selected_date = request.POST.get('date')
             selected_comment = request.POST.get('comment')
+            selected_cashbox = request.POST.get('cashbox')
+
             if int(selected_category) != 0 and int(selected_subcategory) != 0 and is_valid_price(selected_total) and is_valid_date(selected_date):
                 Expenses.objects.create(category=Category.objects.get(id=selected_category),
                                       subcategory=Subcategory.objects.get(id=selected_subcategory),
                                       total=selected_total, date=selected_date, comment=selected_comment,
-                                      user=CustomUser.objects.get(email=request.user))
+                                      user=CustomUser.objects.get(email=request.user),
+                                      cash_box=Cash_box.objects.get(id=selected_cashbox))
 
                 for category in categories_expenses:
                     if Expenses.objects.filter(user=CustomUser.objects.get(email=request.user), category=Category.objects.get(id=category.id)):
