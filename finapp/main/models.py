@@ -62,3 +62,10 @@ class Income_statistic(models.Model):
     revenue_growth_rate = models.FloatField()
 
 
+class Budget(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.PROTECT)
+    cash_box = models.ForeignKey(Cash_box, on_delete=models.CASCADE)
+    date = models.DateField()
+    profit = models.FloatField()
+    total = models.FloatField()
