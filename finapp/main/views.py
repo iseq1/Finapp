@@ -2,7 +2,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.shortcuts import render, redirect
 from django.db.models import OuterRef, Subquery, Sum, Count
-from .models import CustomUser, UserProfile, Category, Subcategory, Income, Expenses, Expenses_statistic, Income_statistic, Cash_box
+from .models import CustomUser, UserProfile, Category, Subcategory, Income, Expenses, Expenses_statistic, Income_statistic, Cash_box, Budget
 from django.utils import timezone
 from calendar import monthrange
 from datetime import datetime
@@ -438,5 +438,19 @@ def expenses_page(request):
 
 
 def budget_page(request):
+    current_user = (CustomUser.objects.get(email=request.user)).id
+    current_person = UserProfile.objects.get(user=current_user)
 
-    return render(request, 'budget_page.html')
+    budget_info = Budget.objects.filter(user=current_user)
+    cash_boxes = current_person.cash_boxes.all()
+
+    unique_dates = set(line.date for line in budget_info)
+
+
+    data = {
+        'budget_info': budget_info,
+        'cashbox_list': cash_boxes,
+        'unique_dates': unique_dates,
+    }
+
+    return render(request, 'budget_page.html', context=data)

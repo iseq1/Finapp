@@ -93,79 +93,39 @@
                         </p>
                     </div>
                 </div>
-                <div class="cards-imgs">
-                    <div class="cards-slide">
-                        <div class="card-img">
-                            <img loading="lazy" src="https://www.rush-analytics.ru/wp-content/uploads/2021/10/case-img-purple.svg" width="280" height="280" alt="" title="case-img-purple">
-                            <div class="card-img-title">
-                                Целеустремленность
-                            </div>
-                            <p>
-                                Стремление помочь нашим пользователям порождает еще больший интерес к нашей работе и решению сложных задач
-                            </p>
-                        </div>
-                    </div>
-                    <div class="cards-slide">
-                        <div class="card-img">
-                            <img loading="lazy" src="https://www.rush-analytics.ru/wp-content/uploads/2021/10/case-img-green.svg" width="280" height="280" alt="" title="case-img-green">
-                            <div class="card-img-title">
-                                Эффективность
-                            </div>
-                            <p>
-                                Мы добиваемся большего, затрачивая меньше усилий и ресурсов
-                            </p>
-                        </div>
-                    </div>
-                    <div class="cards-slide">
-                        <div class="card-img">
-                            <img loading="lazy" src="https://www.rush-analytics.ru/wp-content/uploads/2021/10/case-img-pink.svg" width="280" height="280" alt="" title="case-img-pink">
-                            <div class="card-img-title">
-                                Энтузиазм
-                            </div>
-                            <p>
-                                Мы стремимся много работать, учиться, экспериментировать и совершенствоваться. Потому что нам не все равно
-                            </p>
-                        </div>
-                    </div>
-                    <div class="cards-slide">
-                        <div class="card-img">
-                            <img loading="lazy" src="https://www.rush-analytics.ru/wp-content/uploads/2021/10/case-img-blue.svg" width="280" height="280" alt="" title="case-img-blue">
-                            <div class="card-img-title">
-                                Без пустяков
-                            </div>
-                            <p>
-                                Мы четкие и конкретные. Мы стремимся к правде и ясности
-                            </p>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="tabs-content is-active" id="showw">
+
+                <div class="tabs-content is-active" style="padding-top: 52px;">
                         <table>
                             <tr>
-                                <th>Категория</th>
-                                <th>Сумма дохода</th>
-                                <th>Процентное соотношение</th>
-                                <th>Количество транзакций</th>
-                                <th>Средний доход</th>
-                                <th>Коэффициент роста доходов</th>
-                                <th>Разница между текущим периодом и предыдущим</th>
-                            </tr>
-                            {% for line in statistic %}
-                            <tr>
-                                {% for category in categories_income %}
-                                    {% if category.id == line.category_id %}
-                                        <td>{{category.name}}</td>
-                                    {% endif %}
+                                <th>Дата</th>
+                                {% for cashboxes in budget_info %}
+                                    {% for item in  cashbox_list %}
+                                        {% if item.id == cashboxes.id %}
+                                            <th>{{item.name}}</th>
+                                        {% endif %}
+                                    {% endfor %}
                                 {% endfor %}
-                                <td>{{line.amount}} ₽</td>
-                                <td>{{line.percentage}} %</td>
-                                <td>{{line.count_of_transactions}}</td>
-                                <td>{{line.average_transaction}} ₽</td>
-                                <td>{{line.revenue_growth_rate}}</td>
-                                <td>{{line.monthly_difference}}</td>
                             </tr>
-                           {% endfor %}
+                            {% for date in unique_dates %}
+                                <tr>
+                                    <td>{{ date }}</td>
+                                    {% for line in budget_info %}
+                                        {% if line.date == date %}
+                                            {% for item in cashbox_list %}
+                                                {% if item.id == line.cash_box_id %}
+                                                    <td>{{ line.total }}</td>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
+
+
+
+
+
 
                         </table>
 
@@ -173,9 +133,9 @@
 
 
                 <div class="about-worth-action">
-                    <p>Близки наши ценности?</p>
+                    <p>Впервые здесь?</p>
                     <a href="https://www.rush-analytics.ru/career" class="btn btn-bordered btn-arrow">
-                        Присоединяйтесь
+                        Обновить бюджет
                     </a>
                 </div>
             </div>
