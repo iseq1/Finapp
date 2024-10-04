@@ -81,13 +81,22 @@ def income_page(request):
             selected_comment = request.POST.get('comment')
             selected_cashbox = request.POST.get('cashbox')
 
-            if int(selected_category) != 0 and int(selected_subcategory) != 0 and is_valid_price(
+
+
+            if int(selected_category) != 0 and int(selected_subcategory) != 0 and int(selected_cashbox) != 0 and is_valid_price(
                     selected_total) and is_valid_date(selected_date):
                 Income.objects.create(category=Category.objects.get(id=selected_category),
                                         subcategory=Subcategory.objects.get(id=selected_subcategory),
                                         total=selected_total, date=selected_date, comment=selected_comment,
                                         user=CustomUser.objects.get(email=request.user),
                                         cash_box=Cash_box.objects.get(id=selected_cashbox))
+
+                if timezone.now().month == int(selected_date[5:-3]):
+                    budget_update = Budget.objects.filter(user=current_user, cash_box=Cash_box.objects.get(id=selected_cashbox)).order_by('-date')[:1][0]
+                else:
+                    budget_update = Budget.objects.filter(user=current_user, cash_box=Cash_box.objects.get(id=selected_cashbox), date__month=selected_date[5:-3], date__day=1)[0]
+                budget_update.total += float(selected_total)
+                budget_update.save()
 
                 for category in categories_income:
                     if Income.objects.filter(user=CustomUser.objects.get(email=request.user), category=Category.objects.get(id=category.id)):
@@ -396,6 +405,12 @@ def expenses_page(request):
                                       user=CustomUser.objects.get(email=request.user),
                                       cash_box=Cash_box.objects.get(id=selected_cashbox))
 
+                if timezone.now().month == int(selected_date[5:-3]):
+                    budget_update = Budget.objects.filter(user=current_user, cash_box=Cash_box.objects.get(id=selected_cashbox)).order_by('-date')[:1][0]
+                else:
+                    budget_update = Budget.objects.filter(user=current_user, cash_box=Cash_box.objects.get(id=selected_cashbox), date__month=selected_date[5:-3], date__day=1)[0]
+                budget_update.total -= float(selected_total)
+                budget_update.save()
                 for category in categories_expenses:
                     if Expenses.objects.filter(user=CustomUser.objects.get(email=request.user), category=Category.objects.get(id=category.id)):
                         expenses_statistic, created = Expenses_statistic.objects.update_or_create(
@@ -458,7 +473,6 @@ def budget_page(request):
         for line in budget_info_today:
             line.date = current_date
             line.save()
-
 
 
 
