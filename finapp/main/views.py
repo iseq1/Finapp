@@ -435,3 +435,8 @@ def expenses_page(request):
             return render(request, 'expenses_page.html', context=data)
 
     return render(request, 'expenses_page.html', context=data)
+
+
+def budget_page(request):
+
+    return render(request, 'budget_page.html')
