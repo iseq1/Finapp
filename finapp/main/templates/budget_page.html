@@ -106,6 +106,7 @@
                                         {% endif %}
                                     {% endfor %}
                                 {% endfor %}
+                                <th>Сумма</th>
                             </tr>
                             {% for date in unique_dates %}
                                 <tr>
@@ -119,12 +120,13 @@
                                             {% endfor %}
                                         {% endif %}
                                     {% endfor %}
+                                    {% for key, value in amount_per_month.items %}
+                                        {% if key == date %}
+                                            <td>{{ value }} </td>
+                                        {% endif %}
+                                    {% endfor %}
                                 </tr>
                             {% endfor %}
-
-
-
-
 
 
                         </table>

@@ -5,7 +5,8 @@ from django.db.models import OuterRef, Subquery, Sum, Count
 from .models import CustomUser, UserProfile, Category, Subcategory, Income, Expenses, Expenses_statistic, Income_statistic, Cash_box, Budget
 from django.utils import timezone
 from calendar import monthrange
-from datetime import datetime
+from datetime import datetime, date
+
 import math
 import re
 
@@ -443,14 +444,29 @@ def budget_page(request):
 
     budget_info = Budget.objects.filter(user=current_user)
     cash_boxes = current_person.cash_boxes.all()
-
     unique_dates = set(line.date for line in budget_info)
+    amount = {dates:  sum([item.total for item in budget_info if item.date == dates]) for dates in unique_dates}
+
+
+    budget_info_today = Budget.objects.filter(user=current_user).order_by('-date')[:len(cash_boxes)]
+    # Получаем текущую дату
+    current_date = date.today()
+    # Это просто меняет текущую дату в дневных строках
+    # нужно сделать скрипт, который в первый день каждого месяца в 00:00 будет в дневных строках обновлять дату
+    # и создавать новые дневные строки, делая таким образом предыдущие - месячными строками.
+    if budget_info_today and budget_info_today[0].date != current_date and current_date.day != 1:
+        for line in budget_info_today:
+            line.date = current_date
+            line.save()
+
+
 
 
     data = {
         'budget_info': budget_info,
         'cashbox_list': cash_boxes,
         'unique_dates': unique_dates,
+        'amount_per_month': amount,
     }
 
     return render(request, 'budget_page.html', context=data)
