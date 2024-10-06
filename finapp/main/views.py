@@ -460,9 +460,7 @@ def budget_page(request):
     budget_info_today = Budget.objects.filter(user=current_user, fixed=False)
     # Получаем текущую дату
     current_date = date.today()
-    # Это просто меняет текущую дату в дневных строках
-    # нужно сделать скрипт, который в первый день каждого месяца в 00:00 будет в дневных строках обновлять дату
-    # и создавать новые дневные строки, делая таким образом предыдущие - месячными строками.
+
     if budget_info_today and budget_info_today[0].date != current_date and current_date.day != 1:
         for line in budget_info_today:
             line.date = current_date
