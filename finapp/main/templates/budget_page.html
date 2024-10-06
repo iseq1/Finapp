@@ -127,7 +127,23 @@
                                     {% endfor %}
                                 </tr>
                             {% endfor %}
-
+                            <tr>
+                                {% for key, value in today_budget_line.items %}
+                                    {% if key == 'date' %}
+                                        <td>{{ value }} </td>
+                                    {% endif %}
+                                    {% for item in cashbox_list %}
+                                        {% if key == item.name %}
+                                            <td>{{ value }} </td>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endfor %}
+                                {% for key, value in amount_per_month.items %}
+                                    {% if key == 'today' %}
+                                        <td>{{ value }} </td>
+                                    {% endif %}
+                                {% endfor %}
+                            </tr>
 
                         </table>
 

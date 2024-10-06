@@ -24,9 +24,10 @@ class UpdateBudgetCronJob(CronJobBase):
 
             # Обновляем последние по дате строки в таблице
             # (Трогаем "Дневные строки" бюджета -> получаем "Месячные строки" бюджета)
-            budget_lines = Budget.objects.filter(user=user).order_by('-date')[:len(cash_boxes)]
+            budget_lines = Budget.objects.filter(user=user, fixed=False)
             for line in budget_lines:
                 line.date = current_date
+                line.fixed = True
                 line.save()
 
             # Добавляем новые строки в таблицу main_budget для каждого кассового аппарата пользователя
@@ -36,7 +37,8 @@ class UpdateBudgetCronJob(CronJobBase):
                     profit=0,
                     total=Budget.objects.filter(user=user, cash_box=cash_box).order_by('-date')[0].total,
                     cash_box_id=cash_box.id,
-                    user_id=user.id
+                    user_id=user.id,
+                    fixed=False,
                 )
 
 

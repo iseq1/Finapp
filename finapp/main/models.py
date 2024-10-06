@@ -68,3 +68,4 @@ class Budget(models.Model):
     date = models.DateField()
     profit = models.FloatField()
     total = models.FloatField()
+    fixed = models.BooleanField()

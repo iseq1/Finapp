@@ -92,9 +92,9 @@ def income_page(request):
                                         cash_box=Cash_box.objects.get(id=selected_cashbox))
 
                 if timezone.now().month == int(selected_date[5:-3]):
-                    budget_update = Budget.objects.filter(user=current_user, cash_box=Cash_box.objects.get(id=selected_cashbox)).order_by('-date')[:1][0]
+                    budget_update = Budget.objects.filter(user=current_user, cash_box=Cash_box.objects.get(id=selected_cashbox), fixed=False)[0]
                 else:
-                    budget_update = Budget.objects.filter(user=current_user, cash_box=Cash_box.objects.get(id=selected_cashbox), date__month=selected_date[5:-3], date__day=1)[0]
+                    budget_update = Budget.objects.filter(user=current_user, cash_box=Cash_box.objects.get(id=selected_cashbox), fixed=True, date__month=selected_date[5:-3], date__year=selected_date[:4])[0]
                 budget_update.total += float(selected_total)
                 budget_update.save()
 
@@ -406,9 +406,9 @@ def expenses_page(request):
                                       cash_box=Cash_box.objects.get(id=selected_cashbox))
 
                 if timezone.now().month == int(selected_date[5:-3]):
-                    budget_update = Budget.objects.filter(user=current_user, cash_box=Cash_box.objects.get(id=selected_cashbox)).order_by('-date')[:1][0]
+                    budget_update = Budget.objects.filter(user=current_user, cash_box=Cash_box.objects.get(id=selected_cashbox), fixed=False)[0]
                 else:
-                    budget_update = Budget.objects.filter(user=current_user, cash_box=Cash_box.objects.get(id=selected_cashbox), date__month=selected_date[5:-3], date__day=1)[0]
+                    budget_update = Budget.objects.filter(user=current_user, cash_box=Cash_box.objects.get(id=selected_cashbox), fixed=True, date__month=selected_date[5:-3], date__year=selected_date[:4])[0]
                 budget_update.total -= float(selected_total)
                 budget_update.save()
                 for category in categories_expenses:
@@ -456,11 +456,8 @@ def expenses_page(request):
 def budget_page(request):
     current_user = (CustomUser.objects.get(email=request.user)).id
     current_person = UserProfile.objects.get(user=current_user)
-    cash_boxes = current_person.cash_boxes.all()
-    print(cash_boxes)
-    for i in cash_boxes:
-        print(i.name)
-    budget_info_today = Budget.objects.filter(user=current_user).order_by('-date')[:len(cash_boxes)]
+
+    budget_info_today = Budget.objects.filter(user=current_user, fixed=False)
     # Получаем текущую дату
     current_date = date.today()
     # Это просто меняет текущую дату в дневных строках
@@ -471,16 +468,26 @@ def budget_page(request):
             line.date = current_date
             line.save()
 
-    budget_info = Budget.objects.filter(user=current_user)
+    budget_info = Budget.objects.filter(user=current_user, fixed=True)
     cash_boxes = current_person.cash_boxes.all()
     unique_dates = set(line.date for line in budget_info)
-    amount = {dates:  sum([item.total for item in budget_info if item.date == dates]) for dates in unique_dates}
+    amount = {
+        dates: sum(item.total for item in budget_info if item.date == dates) for dates in unique_dates
+    }
+    amount['today'] = sum(unit.total for unit in Budget.objects.filter(user=current_user, fixed=False))
 
+    today_budget_line = {
+        'date': Budget.objects.filter(user=current_user, fixed=False)[0].date,
+        **{item.cash_box.name: item.total for item in Budget.objects.filter(user=current_user, fixed=False)}
+    }
+
+    print(today_budget_line)
     data = {
         'budget_info': budget_info,
         'cashbox_list': cash_boxes,
         'unique_dates': unique_dates,
         'amount_per_month': amount,
+        'today_budget_line': today_budget_line,
     }
 
     return render(request, 'budget_page.html', context=data)
