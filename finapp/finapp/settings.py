@@ -38,12 +38,35 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_cron',
     'social_django',
     'main',
     'registration',
 ]
 
+CRON_CLASSES = [
+    'main.cron.UpdateBudgetCronJob',
+]
 
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'django_cron.log',  # Имя файла для логов
+        },
+    },
+    'loggers': {
+        'django_cron': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
 
 
 AUTHENTICATION_BACKENDS = (

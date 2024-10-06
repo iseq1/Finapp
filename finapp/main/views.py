@@ -456,13 +456,10 @@ def expenses_page(request):
 def budget_page(request):
     current_user = (CustomUser.objects.get(email=request.user)).id
     current_person = UserProfile.objects.get(user=current_user)
-
-    budget_info = Budget.objects.filter(user=current_user)
     cash_boxes = current_person.cash_boxes.all()
-    unique_dates = set(line.date for line in budget_info)
-    amount = {dates:  sum([item.total for item in budget_info if item.date == dates]) for dates in unique_dates}
-
-
+    print(cash_boxes)
+    for i in cash_boxes:
+        print(i.name)
     budget_info_today = Budget.objects.filter(user=current_user).order_by('-date')[:len(cash_boxes)]
     # Получаем текущую дату
     current_date = date.today()
@@ -474,7 +471,10 @@ def budget_page(request):
             line.date = current_date
             line.save()
 
-
+    budget_info = Budget.objects.filter(user=current_user)
+    cash_boxes = current_person.cash_boxes.all()
+    unique_dates = set(line.date for line in budget_info)
+    amount = {dates:  sum([item.total for item in budget_info if item.date == dates]) for dates in unique_dates}
 
     data = {
         'budget_info': budget_info,
