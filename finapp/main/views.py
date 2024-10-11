@@ -2,7 +2,8 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.shortcuts import render, redirect
 from django.db.models import OuterRef, Subquery, Sum, Count
-from .models import CustomUser, UserProfile, Category, Subcategory, Income, Expenses, Expenses_statistic, Income_statistic, Cash_box, Budget
+from .models import CustomUser, UserProfile, Category, Subcategory, Income, Expenses, Expenses_statistic, \
+    Income_statistic, Cash_box, Budget
 from django.utils import timezone
 from calendar import monthrange
 from datetime import datetime, date
@@ -26,6 +27,7 @@ def is_valid_price(price_str):
     if re.match(pattern, price_str):
         return True
     return False
+
 
 # Create your views here.
 def index(request):
@@ -81,25 +83,29 @@ def income_page(request):
             selected_comment = request.POST.get('comment')
             selected_cashbox = request.POST.get('cashbox')
 
-
-
-            if int(selected_category) != 0 and int(selected_subcategory) != 0 and int(selected_cashbox) != 0 and is_valid_price(
+            if int(selected_category) != 0 and int(selected_subcategory) != 0 and int(
+                    selected_cashbox) != 0 and is_valid_price(
                     selected_total) and is_valid_date(selected_date):
                 Income.objects.create(category=Category.objects.get(id=selected_category),
-                                        subcategory=Subcategory.objects.get(id=selected_subcategory),
-                                        total=selected_total, date=selected_date, comment=selected_comment,
-                                        user=CustomUser.objects.get(email=request.user),
-                                        cash_box=Cash_box.objects.get(id=selected_cashbox))
+                                      subcategory=Subcategory.objects.get(id=selected_subcategory),
+                                      total=selected_total, date=selected_date, comment=selected_comment,
+                                      user=CustomUser.objects.get(email=request.user),
+                                      cash_box=Cash_box.objects.get(id=selected_cashbox))
 
                 if timezone.now().month == int(selected_date[5:-3]):
-                    budget_update = Budget.objects.filter(user=current_user, cash_box=Cash_box.objects.get(id=selected_cashbox), fixed=False)[0]
+                    budget_update = \
+                    Budget.objects.filter(user=current_user, cash_box=Cash_box.objects.get(id=selected_cashbox),
+                                          fixed=False)[0]
                 else:
-                    budget_update = Budget.objects.filter(user=current_user, cash_box=Cash_box.objects.get(id=selected_cashbox), fixed=True, date__month=selected_date[5:-3], date__year=selected_date[:4])[0]
+                    budget_update = \
+                    Budget.objects.filter(user=current_user, cash_box=Cash_box.objects.get(id=selected_cashbox),
+                                          fixed=True, date__month=selected_date[5:-3], date__year=selected_date[:4])[0]
                 budget_update.total += float(selected_total)
                 budget_update.save()
 
                 for category in categories_income:
-                    if Income.objects.filter(user=CustomUser.objects.get(email=request.user), category=Category.objects.get(id=category.id)):
+                    if Income.objects.filter(user=CustomUser.objects.get(email=request.user),
+                                             category=Category.objects.get(id=category.id)):
                         income_statistic, created = Income_statistic.objects.update_or_create(
                             user=CustomUser.objects.get(email=request.user),
                             category=Category.objects.get(id=category.id),
@@ -119,10 +125,12 @@ def income_page(request):
                                                                                    id=category.id),
                                                                                type='income'),
                                 'revenue_growth_rate': revenue_growth_rate(user=current_user,
-                                                                           category=Category.objects.get(id=category.id),
+                                                                           category=Category.objects.get(
+                                                                               id=category.id),
                                                                            type='income'),
                                 'monthly_difference': get_monthly_difference(user=current_user,
-                                                                             category=Category.objects.get(id=category.id),
+                                                                             category=Category.objects.get(
+                                                                                 id=category.id),
                                                                              type='income'),
                             }
                         )
@@ -155,8 +163,8 @@ def get_sum(user, category, type):
         category_sum = Expenses.objects.filter(
             user=user,
             category=category,
-            date__year=current_year,   # Фильтруем по годам
-            date__month=current_month   # Фильтруем по месяцам
+            date__year=current_year,  # Фильтруем по годам
+            date__month=current_month  # Фильтруем по месяцам
         ).aggregate(total=Sum('total'))  # Получаем сумму
     elif type == 'income':
         # Фильтруем по пользователю, категории и дате
@@ -192,7 +200,7 @@ def get_percentage(user, category, type):
         ).aggregate(total=Sum('total'))
     else:
         raise Exception("Некорректный запрос")
-    return round(float(category_sum)/float(total_sum['total']) * 100, 2) or 0
+    return round(float(category_sum) / float(total_sum['total']) * 100, 2) or 0
 
 
 def get_amount_of_transactions(user, category, type):
@@ -225,10 +233,10 @@ def get_last_transaction(user, category):
     current_year = today.year
 
     last_transaction = Expenses.objects.filter(
-        user = user,
-        category = category,
-        date__year = current_year,
-        date__month = current_month,
+        user=user,
+        category=category,
+        date__year=current_year,
+        date__month=current_month,
     ).order_by('-date').first()
 
     return f'{last_transaction.date.strftime('%m/%d/%Y')} \n{last_transaction.comment}' or 'Траты отсутствуют'
@@ -240,10 +248,10 @@ def get_max_transaction(user, category):
     current_year = today.year
 
     last_transaction = Expenses.objects.filter(
-        user = user,
-        category = category,
-        date__year = current_year,
-        date__month = current_month,
+        user=user,
+        category=category,
+        date__year=current_year,
+        date__month=current_month,
     ).order_by('-total').first()
 
     return f'{last_transaction.date.strftime('%m/%d/%Y')} \n{last_transaction.comment}' or 'Траты отсутствуют'
@@ -255,10 +263,10 @@ def get_min_transaction(user, category):
     current_year = today.year
 
     last_transaction = Expenses.objects.filter(
-        user = user,
-        category = category,
-        date__year = current_year,
-        date__month = current_month,
+        user=user,
+        category=category,
+        date__year=current_year,
+        date__month=current_month,
     ).order_by('-total').last()
 
     return f'{last_transaction.date.strftime('%m/%d/%Y')} \n{last_transaction.comment}' or 'Траты отсутствуют'
@@ -273,7 +281,7 @@ def get_average_transaction(user, category, type):
 
     # Получаем количество дней в текущем месяце
     days_in_month = monthrange(year, month)[1]
-    return round(float(get_sum(user=user, category=category, type=type))/float(days_in_month),2) or 0
+    return round(float(get_sum(user=user, category=category, type=type)) / float(days_in_month), 2) or 0
 
 
 def get_monthly_difference(user, category, type):
@@ -324,7 +332,7 @@ def get_monthly_difference(user, category, type):
     else:
         raise Exception("Некорректный запрос")
     if current_sum['total'] and previous_sum['total']:
-        return current_sum['total']-previous_sum['total']
+        return current_sum['total'] - previous_sum['total']
     return 0
 
 
@@ -367,7 +375,6 @@ def revenue_growth_rate(user, category, type):
 
 
 def expenses_page(request):
-
     categories_expenses = Category.objects.filter(type="expenses")
     subcategories = Subcategory.objects.all()
     last_incomes = Expenses.objects.filter(user=(CustomUser.objects.get(email=request.user)).id).order_by('-date')[:10]
@@ -378,8 +385,6 @@ def expenses_page(request):
 
     expenses_stat = Expenses_statistic.objects.filter(user=current_user)
     cash_boxes = current_person.cash_boxes.all()
-
-
 
     data = {
         "category_expenses": categories_expenses,
@@ -398,21 +403,27 @@ def expenses_page(request):
             selected_comment = request.POST.get('comment')
             selected_cashbox = request.POST.get('cashbox')
 
-            if int(selected_category) != 0 and int(selected_subcategory) != 0 and is_valid_price(selected_total) and is_valid_date(selected_date):
+            if int(selected_category) != 0 and int(selected_subcategory) != 0 and is_valid_price(
+                    selected_total) and is_valid_date(selected_date):
                 Expenses.objects.create(category=Category.objects.get(id=selected_category),
-                                      subcategory=Subcategory.objects.get(id=selected_subcategory),
-                                      total=selected_total, date=selected_date, comment=selected_comment,
-                                      user=CustomUser.objects.get(email=request.user),
-                                      cash_box=Cash_box.objects.get(id=selected_cashbox))
+                                        subcategory=Subcategory.objects.get(id=selected_subcategory),
+                                        total=selected_total, date=selected_date, comment=selected_comment,
+                                        user=CustomUser.objects.get(email=request.user),
+                                        cash_box=Cash_box.objects.get(id=selected_cashbox))
 
                 if timezone.now().month == int(selected_date[5:-3]):
-                    budget_update = Budget.objects.filter(user=current_user, cash_box=Cash_box.objects.get(id=selected_cashbox), fixed=False)[0]
+                    budget_update = \
+                    Budget.objects.filter(user=current_user, cash_box=Cash_box.objects.get(id=selected_cashbox),
+                                          fixed=False)[0]
                 else:
-                    budget_update = Budget.objects.filter(user=current_user, cash_box=Cash_box.objects.get(id=selected_cashbox), fixed=True, date__month=selected_date[5:-3], date__year=selected_date[:4])[0]
+                    budget_update = \
+                    Budget.objects.filter(user=current_user, cash_box=Cash_box.objects.get(id=selected_cashbox),
+                                          fixed=True, date__month=selected_date[5:-3], date__year=selected_date[:4])[0]
                 budget_update.total -= float(selected_total)
                 budget_update.save()
                 for category in categories_expenses:
-                    if Expenses.objects.filter(user=CustomUser.objects.get(email=request.user), category=Category.objects.get(id=category.id)):
+                    if Expenses.objects.filter(user=CustomUser.objects.get(email=request.user),
+                                               category=Category.objects.get(id=category.id)):
                         expenses_statistic, created = Expenses_statistic.objects.update_or_create(
                             user=CustomUser.objects.get(email=request.user),
                             category=Category.objects.get(id=category.id),
@@ -438,7 +449,8 @@ def expenses_page(request):
                                 'min_transaction': get_min_transaction(user=current_user,
                                                                        category=Category.objects.get(id=category.id)),
                                 'monthly_difference': get_monthly_difference(user=current_user,
-                                                                             category=Category.objects.get(id=category.id),
+                                                                             category=Category.objects.get(
+                                                                                 id=category.id),
                                                                              type='expenses'),
                             }
                         )
@@ -459,6 +471,7 @@ def budget_page(request):
     try:
         # Для обычного пользователя
         if Budget.objects.filter(user=current_user, fixed=False):
+            print('11111111111111')
             budget_info_today = Budget.objects.filter(user=current_user, fixed=False)
             # Получаем текущую дату
             current_date = date.today()
@@ -487,17 +500,45 @@ def budget_page(request):
                 'unique_dates': unique_dates,
                 'amount_per_month': amount,
                 'today_budget_line': today_budget_line,
-            }
 
+                'cashboxes_count': len(current_person.cash_boxes.all()),
+                'budget_empty': False,
+            }
+            print(data)
             return render(request, 'budget_page.html', context=data)
         else:
             # Для нового пользователя (Проверить, выбрал ли он кэшбоксы, и заполнить бюджет)
-
+            current_date = date.today()
             data = {
                 'cashboxes_count': len(current_person.cash_boxes.all()),
-                'cashboxes_list': None if len(current_person.cash_boxes.all())==0 else current_person.cash_boxes.all(),
+                'cashboxes_list': None if len(
+                    current_person.cash_boxes.all()) == 0 else current_person.cash_boxes.all(),
                 'budget_empty': True,
+                'date': current_date,
             }
+            if request.method == 'POST':
+                try:
+                    info = {
+                        int(f'{cb.id}'): float(request.POST.get(f'total_for_cashbox_{cb.id}')) for cb in current_person.cash_boxes.all()
+                    }
+                    print(info)
+                    for key, value in info.items():
+                        Budget.objects.create(user=CustomUser.objects.get(email=request.user),
+                                              cash_box=Cash_box.objects.get(id=key),
+                                              date=current_date,
+                                              profit=0,
+                                              total=value,
+                                              fixed=False,)
+                        Budget.objects.create(user=CustomUser.objects.get(email=request.user),
+                                              cash_box=Cash_box.objects.get(id=key),
+                                              date=current_date,
+                                              profit=0,
+                                              total=value,
+                                              fixed=True,)
+                    return redirect('budget')
+                except Exception as e:
+                    print(f"Ошибка при получении данных о новом бюджете: {e}")
+                    return render(request, 'budget_page.html', context=data)
             return render(request, 'budget_page.html', context=data)
     except Exception as e:
         print(f"Ошибка при доступе к бюджету: {e}")

@@ -168,70 +168,45 @@
                 </div>
 
 
-
+                <form method="post">
                 <div class="tabs-content is-active" style="padding-top: 52px;">
+
+                        {% csrf_token %}
                         <table>
+
                             <tr>
                                 <th>Дата</th>
-                                {% for cashboxes in budget_info %}
-                                    {% for item in  cashbox_list %}
-                                        {% if item.id == cashboxes.id %}
-                                            <th>{{item.name}}</th>
-                                        {% endif %}
-                                    {% endfor %}
+                                {% for cashbox in cashboxes_list %}
+                                    <th>{{cashbox.name}}</th>
                                 {% endfor %}
                                 <th>Сумма</th>
                             </tr>
-                            {% for date in unique_dates %}
                                 <tr>
                                     <td>{{ date }}</td>
-                                    {% for line in budget_info %}
-                                        {% if line.date == date %}
-                                            {% for item in cashbox_list %}
-                                                {% if item.id == line.cash_box_id %}
-                                                    <td>{{ line.total }}</td>
-                                                {% endif %}
-                                            {% endfor %}
-                                        {% endif %}
+                                    {% for item in cashboxes_list %}
+                                    <td>
+                                        <input class="" id="{{cashbox_item.id}}"  placeholder="Введите суму" type="text" name="total_for_cashbox_{{item.id}}" required="required" autocomplete="off">
+                                    </td>
                                     {% endfor %}
-                                    {% for key, value in amount_per_month.items %}
-                                        {% if key == date %}
-                                            <td>{{ value }} </td>
-                                        {% endif %}
-                                    {% endfor %}
+
+                                    <td> Нет данных </td>
+
                                 </tr>
-                            {% endfor %}
-                            <tr>
-                                {% for key, value in today_budget_line.items %}
-                                    {% if key == 'date' %}
-                                        <td>{{ value }} </td>
-                                    {% endif %}
-                                    {% for item in cashbox_list %}
-                                        {% if key == item.name %}
-                                            <td>{{ value }} </td>
-                                        {% endif %}
-                                    {% endfor %}
-                                {% endfor %}
-                                {% for key, value in amount_per_month.items %}
-                                    {% if key == 'today' %}
-                                        <td>{{ value }} </td>
-                                    {% endif %}
-                                {% endfor %}
-                            </tr>
 
                         </table>
 
-                    </div>
+                </div>
 
 
                 <div class="about-worth-action">
-                    <p>Впервые здесь?</p>
-                    <a href="https://www.rush-analytics.ru/career" class="btn btn-bordered btn-arrow">
+                    <p>Готовы к следующему шагу?</p>
+                    <button type="submit" class="btn btn-bordered btn-arrow">
                         Обновить бюджет
-                    </a>
+                    </button>
                 </div>
+                </form>
             </div>
-            {% else %}
+            {% elif cashboxes_count > 0 and budget_empty == False %}
             <div class="container">
                 <div class="about-title">
                     <div class="about-numb">02</div>
@@ -257,7 +232,7 @@
                                 <th>Дата</th>
                                 {% for cashboxes in budget_info %}
                                     {% for item in  cashbox_list %}
-                                        {% if item.id == cashboxes.id %}
+                                        {% if item.id == cashboxes.cash_box_id %}
                                             <th>{{item.name}}</th>
                                         {% endif %}
                                     {% endfor %}
@@ -324,6 +299,33 @@
     <script src="{% static 'js/tabs-content-shower.js' %}"></script>
     <script src="{% static 'js/income-info-shower.js' %}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const form = document.querySelector('form'); // Предположим, что у вас есть элемент формы
+            const inputs = document.querySelectorAll('input[type="text"]');
+
+            form.addEventListener('submit', function(event) {
+                let isValid = true; // Флаг для отслеживания корректности ввода
+
+                inputs.forEach(input => {
+                    const value = input.value.trim();
+                    const regex = /^(0|[1-9]\d*)(,\d{1,2}|(\.\d{1,2}))?$/; // Регулярное выражение для проверки
+
+                    if (!regex.test(value)) {
+                        isValid = false; // Если не корректно, устанавливаем флаг в false
+                        alert("Пожалуйста, введите натуральное число или число в формате X,XX или X.XX. Значение должно быть >= 0.");
+                        input.focus(); // Получаем фокус на инпуте
+                        return; // Прерываем цикл
+                    }
+                });
+
+                if (!isValid) {
+                    event.preventDefault(); // Отменяем отправку формы, если имеются ошибки
+                }
+            });
+        });
+    </script>
+
     <script>
         $(document).ready(function() {
             $('#category-select').change(function() {
