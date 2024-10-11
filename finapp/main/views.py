@@ -456,36 +456,49 @@ def expenses_page(request):
 def budget_page(request):
     current_user = (CustomUser.objects.get(email=request.user)).id
     current_person = UserProfile.objects.get(user=current_user)
+    try:
+        # Для обычного пользователя
+        if Budget.objects.filter(user=current_user, fixed=False):
+            budget_info_today = Budget.objects.filter(user=current_user, fixed=False)
+            # Получаем текущую дату
+            current_date = date.today()
 
-    budget_info_today = Budget.objects.filter(user=current_user, fixed=False)
-    # Получаем текущую дату
-    current_date = date.today()
+            if budget_info_today and budget_info_today[0].date != current_date and current_date.day != 1:
+                for line in budget_info_today:
+                    line.date = current_date
+                    line.save()
 
-    if budget_info_today and budget_info_today[0].date != current_date and current_date.day != 1:
-        for line in budget_info_today:
-            line.date = current_date
-            line.save()
+            budget_info = Budget.objects.filter(user=current_user, fixed=True)
+            cash_boxes = current_person.cash_boxes.all()
+            unique_dates = set(line.date for line in budget_info)
+            amount = {
+                dates: sum(item.total for item in budget_info if item.date == dates) for dates in unique_dates
+            }
+            amount['today'] = sum(unit.total for unit in Budget.objects.filter(user=current_user, fixed=False))
 
-    budget_info = Budget.objects.filter(user=current_user, fixed=True)
-    cash_boxes = current_person.cash_boxes.all()
-    unique_dates = set(line.date for line in budget_info)
-    amount = {
-        dates: sum(item.total for item in budget_info if item.date == dates) for dates in unique_dates
-    }
-    amount['today'] = sum(unit.total for unit in Budget.objects.filter(user=current_user, fixed=False))
+            today_budget_line = {
+                'date': Budget.objects.filter(user=current_user, fixed=False)[0].date,
+                **{item.cash_box.name: item.total for item in Budget.objects.filter(user=current_user, fixed=False)}
+            }
 
-    today_budget_line = {
-        'date': Budget.objects.filter(user=current_user, fixed=False)[0].date,
-        **{item.cash_box.name: item.total for item in Budget.objects.filter(user=current_user, fixed=False)}
-    }
+            data = {
+                'budget_info': budget_info,
+                'cashbox_list': cash_boxes,
+                'unique_dates': unique_dates,
+                'amount_per_month': amount,
+                'today_budget_line': today_budget_line,
+            }
 
-    print(today_budget_line)
-    data = {
-        'budget_info': budget_info,
-        'cashbox_list': cash_boxes,
-        'unique_dates': unique_dates,
-        'amount_per_month': amount,
-        'today_budget_line': today_budget_line,
-    }
+            return render(request, 'budget_page.html', context=data)
+        else:
+            # Для нового пользователя (Проверить, выбрал ли он кэшбоксы, и заполнить бюджет)
 
-    return render(request, 'budget_page.html', context=data)
+            data = {
+                'cashboxes_count': len(current_person.cash_boxes.all()),
+                'cashboxes_list': None if len(current_person.cash_boxes.all())==0 else current_person.cash_boxes.all(),
+                'budget_empty': True,
+            }
+            return render(request, 'budget_page.html', context=data)
+    except Exception as e:
+        print(f"Ошибка при доступе к бюджету: {e}")
+        return render(request, 'budget_page.html')

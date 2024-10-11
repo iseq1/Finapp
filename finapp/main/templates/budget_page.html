@@ -77,6 +77,8 @@
 
 
         <div class="lite pt-middle pb-small" id="section-2">
+
+            {% if cashboxes_count == 0 %}
             <div class="container">
                 <div class="about-title">
                     <div class="about-numb">02</div>
@@ -93,6 +95,78 @@
                         </p>
                     </div>
                 </div>
+
+                <div class="cards-imgs">
+                    <div class="cards-slide">
+                                <div class="card-img">
+                                                            <img loading="lazy" src="https://www.rush-analytics.ru/wp-content/uploads/2021/10/case-img-purple.svg" width="280" height="280" alt="" title="case-img-purple">
+
+
+                                                            <div class="card-img-title">
+                                            Целеустремленность                        </div>
+
+                                                            <p>
+                                            Стремление помочь нашим пользователям порождает еще больший интерес к нашей работе и решению сложных задач                        </p>
+                                                    </div>
+                            </div><div class="cards-slide">
+                                <div class="card-img">
+                                                            <img loading="lazy" src="https://www.rush-analytics.ru/wp-content/uploads/2021/10/case-img-green.svg" width="280" height="280" alt="" title="case-img-green">
+
+
+                                                            <div class="card-img-title">
+                                            Эффективность                        </div>
+
+                                                            <p>
+                                            Мы добиваемся большего, затрачивая меньше усилий и ресурсов                        </p>
+                                                    </div>
+                            </div><div class="cards-slide">
+                                <div class="card-img">
+                                                            <img loading="lazy" src="https://www.rush-analytics.ru/wp-content/uploads/2021/10/case-img-pink.svg" width="280" height="280" alt="" title="case-img-pink">
+
+
+                                                            <div class="card-img-title">
+                                            Энтузиазм                        </div>
+
+                                                            <p>
+                                            Мы стремимся много работать, учиться, экспериментировать и совершенствоваться. Потому что нам не все равно                        </p>
+                                                    </div>
+                            </div><div class="cards-slide">
+                                <div class="card-img">
+                                                            <img loading="lazy" src="https://www.rush-analytics.ru/wp-content/uploads/2021/10/case-img-blue.svg" width="280" height="280" alt="" title="case-img-blue">
+
+
+                                                            <div class="card-img-title">
+                                            Без пустяков                        </div>
+
+                                                            <p>
+                                            Мы четкие и конкретные. Мы стремимся к правде и ясности                        </p>
+                                                    </div>
+                            </div></div>
+
+                <div class="about-worth-action" style="    margin-top: 60px;">
+                    <p>Не выбрали кешбоксы?</p>
+                    <a href="https://www.rush-analytics.ru/career" class="btn btn-bordered btn-arrow">
+                        Вернуться в профиль
+                    </a>
+                </div>
+            </div>
+            {% elif cashboxes_count > 0 and budget_empty == True %}
+            <div class="container">
+                <div class="about-title">
+                    <div class="about-numb">02</div>
+                    <h2>Наши ценности</h2>
+                </div>
+                <div class="about-box">
+                    <div class="about-text">
+                        <p>
+                            Наши ценности лежат в основе идентичности
+                            <br>
+                            компании, не меняются со временем.
+                            <br>
+                        </p>
+                    </div>
+                </div>
+
 
 
                 <div class="tabs-content is-active" style="padding-top: 52px;">
@@ -157,6 +231,90 @@
                     </a>
                 </div>
             </div>
+            {% else %}
+            <div class="container">
+                <div class="about-title">
+                    <div class="about-numb">02</div>
+                    <h2>Наши ценности</h2>
+                </div>
+
+                <div class="about-box">
+                    <div class="about-text">
+                        <p>
+                            Наши ценности лежат в основе идентичности
+                            <br>
+                            компании, не меняются со временем.
+                            <br>
+                        </p>
+                    </div>
+                </div>
+
+
+
+                <div class="tabs-content is-active" style="padding-top: 52px;">
+                        <table>
+                            <tr>
+                                <th>Дата</th>
+                                {% for cashboxes in budget_info %}
+                                    {% for item in  cashbox_list %}
+                                        {% if item.id == cashboxes.id %}
+                                            <th>{{item.name}}</th>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endfor %}
+                                <th>Сумма</th>
+                            </tr>
+                            {% for date in unique_dates %}
+                                <tr>
+                                    <td>{{ date }}</td>
+                                    {% for line in budget_info %}
+                                        {% if line.date == date %}
+                                            {% for item in cashbox_list %}
+                                                {% if item.id == line.cash_box_id %}
+                                                    <td>{{ line.total }}</td>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% for key, value in amount_per_month.items %}
+                                        {% if key == date %}
+                                            <td>{{ value }} </td>
+                                        {% endif %}
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
+                            <tr>
+                                {% for key, value in today_budget_line.items %}
+                                    {% if key == 'date' %}
+                                        <td>{{ value }} </td>
+                                    {% endif %}
+                                    {% for item in cashbox_list %}
+                                        {% if key == item.name %}
+                                            <td>{{ value }} </td>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endfor %}
+                                {% for key, value in amount_per_month.items %}
+                                    {% if key == 'today' %}
+                                        <td>{{ value }} </td>
+                                    {% endif %}
+                                {% endfor %}
+                            </tr>
+
+                        </table>
+
+                    </div>
+
+
+                <div class="about-worth-action">
+                    <p>Впервые здесь?</p>
+                    <a href="https://www.rush-analytics.ru/career" class="btn btn-bordered btn-arrow">
+                        Обновить бюджет
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+
         </div>
 
 
