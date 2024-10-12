@@ -543,3 +543,7 @@ def budget_page(request):
     except Exception as e:
         print(f"Ошибка при доступе к бюджету: {e}")
         return render(request, 'budget_page.html')
+
+
+def profile_page(request):
+    return render(request, 'profile_page.html')

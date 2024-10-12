@@ -31,6 +31,7 @@ urlpatterns = [
     path('income/', main_views.income_page, name='income'),
     path('expenses/', main_views.expenses_page, name='expenses'),
     path('budget/', main_views.budget_page, name='budget'),
+    path('profile/', main_views.profile_page, name='profile'),
     path('logout/', registration_views.logout_view, name='logout'),
     path('auth/', include('social_django.urls', namespace='social')),
     path('get-subcategories/', main_views.get_subcategories, name='get_subcategories'),
