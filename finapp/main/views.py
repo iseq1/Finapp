@@ -546,4 +546,13 @@ def budget_page(request):
 
 
 def profile_page(request):
-    return render(request, 'profile_page.html')
+    current_user = (CustomUser.objects.get(email=request.user)).id
+    current_person = UserProfile.objects.get(user=current_user)
+
+
+    data = {
+        'person': current_person,
+        'user': CustomUser.objects.get(email=request.user),
+        'date_joined': str(CustomUser.objects.get(email=request.user).date_joined)[:4],
+    }
+    return render(request, 'profile_page.html', context=data)
