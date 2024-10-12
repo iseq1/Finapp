@@ -548,11 +548,15 @@ def budget_page(request):
 def profile_page(request):
     current_user = (CustomUser.objects.get(email=request.user)).id
     current_person = UserProfile.objects.get(user=current_user)
-
+    cash_boxes = Cash_box.objects.all()
+    cash_boxes_user = current_person.cash_boxes.all()
 
     data = {
         'person': current_person,
         'user': CustomUser.objects.get(email=request.user),
         'date_joined': str(CustomUser.objects.get(email=request.user).date_joined)[:4],
+        'colors': ['purple', 'orange', 'pink', 'green', 'blue', 'yellow']*math.ceil(len(cash_boxes)/6),
+        'cash_boxes_user': cash_boxes_user,
+        'cash_boxes': cash_boxes,
     }
     return render(request, 'profile_page.html', context=data)

@@ -191,6 +191,32 @@
         <div class="pt-extra pb-big">
             <div class="container">
                 <div class="advantages-wrap">
+                    <ul class="advantages-items">
+                        {% for item in cash_boxes %}
+                        <li class="advantage purple" style="flex-basis: 275px;">
+                            <div class="advantage-icon">
+                                <img loading="lazy" class="advantage-icon-default" src="https://www.rush-analytics.ru/wp-content/uploads/2021/10/img-1-1.svg" alt="" title="img-1" width="60" height="60">
+                                <img loading="lazy" class="advantage-icon-active" src="https://www.rush-analytics.ru/wp-content/uploads/2021/10/img-1-white.svg" alt="" title="img-1-white" width="60" height="60">
+                            </div>
+                            <div class="advantage-title">
+                                {{item.name}}
+                                <br>
+
+                            </div>
+                            <p>
+                                {{item.type}}
+                            </p>
+                        </li>
+                        {% endfor %}
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="pt-extra pb-big">
+            <div class="container">
+                <div class="advantages-wrap">
                     <h2 class="advantages-title is-style-title-attn">
                         <small>
                             Преимущества
@@ -292,6 +318,8 @@
                 </div>
             </div>
         </div>
+
+
 
         <div class="pt-extra pb-big">
             <div class="container">
