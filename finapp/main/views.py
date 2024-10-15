@@ -554,27 +554,27 @@ def profile_page(request):
     cash_boxes_user = current_person.cash_boxes.all()
 
     # create
-    # if request.method == 'POST':
-    #     form = CashBoxForm(request.POST, request.FILES)
-    #     if form.is_valid():
-    #         form.save()
-    #         return redirect('success_url')  # Укажите путь на страницу после успешной загрузки
-    # else:
-    #     form = CashBoxForm()
+    if request.method == 'POST':
+        form = CashBoxForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')  # Укажите путь на страницу после успешной загрузки
+    else:
+        form = CashBoxForm()
 
 
     # update
-    cashbox = get_object_or_404(Cash_box, pk=3)
-
-    if request.method == 'POST':
-        # При POST-запросе обрабатываем форму
-        form = CashBoxForm(request.POST, request.FILES, instance=cashbox)
-        if form.is_valid():
-            form.save()  # Сохраняем изменения
-            return redirect('profile')  # Переход после успешного редактирования
-    else:
-        # При GET-запросе отображаем форму с текущими данными объекта
-        form = CashBoxForm(instance=cashbox)
+    # cashbox = get_object_or_404(Cash_box, pk=3)
+    #
+    # if request.method == 'POST':
+    #     # При POST-запросе обрабатываем форму
+    #     form = CashBoxForm(request.POST, request.FILES, instance=cashbox)
+    #     if form.is_valid():
+    #         form.save()  # Сохраняем изменения
+    #         return redirect('profile')  # Переход после успешного редактирования
+    # else:
+    #     # При GET-запросе отображаем форму с текущими данными объекта
+    #     form = CashBoxForm(instance=cashbox)
 
     data = {
         'person': current_person,
