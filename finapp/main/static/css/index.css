@@ -1031,7 +1031,7 @@ input, button, textarea, select {
     width: 3px;
     height: 60px;
     border-radius: 3px;
-    background-color: #9767ff;
+    background-color: var(--after-color, #9767ff);
 }
 .advantage.orange::after {
     background-color: #e12d05;

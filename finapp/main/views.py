@@ -558,5 +558,6 @@ def profile_page(request):
         'colors': ['purple', 'orange', 'pink', 'green', 'blue', 'yellow']*math.ceil(len(cash_boxes)/6),
         'cash_boxes_user': cash_boxes_user,
         'cash_boxes': cash_boxes,
+        'color': '#9767ff',
     }
     return render(request, 'profile_page.html', context=data)

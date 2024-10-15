@@ -80,10 +80,8 @@
     </div>
 	<main class="ra-main gg">
 
-
         <div class=" pb-extra lite">
             <div class="container">
-
                 <ul class="service-items" style="justify-content: center; display: flex;">
                     <li>
                         <a class="service-item" style="    align-items: center;">
@@ -98,10 +96,7 @@
                     </li>
 
                 </ul>
-
                 <div class="tariffs" data-tariff-type="it" data-type="yearly">
-
-
                     <div class="tariff tariff-purple">
                         <div class="tariff-title">
                             <ul class="tariffs-info-list-title">
@@ -171,49 +166,46 @@
                             <ul class="tariff-list-over">
                                 <li>
                                     <div class="tariff-value">
-                                        <a href="">
+                                        <a class="cashbox-shower" href="javascript:void(0);" onclick="toggleContent()">
                                             нажать
                                         </a>
                                     </div>
                                 </li>
                             </ul>
                         </div>
-
                     </div>
-
-
-
                 </div>
             </div>
         </div>
 
 
-        <div class="pt-extra pb-big">
+        <div class="pb-big" id="cashboxContent" style="display: none;">
             <div class="container">
                 <div class="advantages-wrap">
                     <ul class="advantages-items">
                         {% for item in cash_boxes %}
-                        <li class="advantage purple" style="flex-basis: 275px;">
-                            <div class="advantage-icon">
-                                <img loading="lazy" class="advantage-icon-default" src="https://www.rush-analytics.ru/wp-content/uploads/2021/10/img-1-1.svg" alt="" title="img-1" width="60" height="60">
-                                <img loading="lazy" class="advantage-icon-active" src="https://www.rush-analytics.ru/wp-content/uploads/2021/10/img-1-white.svg" alt="" title="img-1-white" width="60" height="60">
-                            </div>
-                            <div class="advantage-title">
-                                {{item.name}}
-                                <br>
+                            <li class="advantage" style="flex-basis: 275px;  --after-color: {{ color }};"
+                                onmouseover="this.style.backgroundColor='{{ color }}'; this.style.color='white';"
+                                onmouseout="this.style.backgroundColor='transparent'; this.style.color='initial';">
 
-                            </div>
-                            <p>
-                                {{item.type}}
-                            </p>
-                        </li>
+                                <div class="advantage-icon">
+                                    <img loading="lazy" class="advantage-icon-default" src="https://www.rush-analytics.ru/wp-content/uploads/2021/10/img-1-1.svg" alt="" title="icon" width="60" height="60">
+                                    <img loading="lazy" class="advantage-icon-active" src="https://www.rush-analytics.ru/wp-content/uploads/2021/10/img-1-white.svg" alt="" title="icon-active" width="60" height="60">
+                                </div>
+
+                                <div class="advantage-title">
+                                    {{ item.name }}
+                                </div>
+
+                                <p>{{ item.type }}</p>
+                            </li>
                         {% endfor %}
-
-
                     </ul>
                 </div>
+
             </div>
         </div>
+
         <div class="pt-extra pb-big">
             <div class="container">
                 <div class="advantages-wrap">
@@ -318,8 +310,6 @@
                 </div>
             </div>
         </div>
-
-
 
         <div class="pt-extra pb-big">
             <div class="container">
@@ -530,7 +520,6 @@
             </div>
         </div>
 
-
         <section class="call-action-full">
             <div class="container">
                 <h2>
@@ -555,6 +544,16 @@
 <!--    <script src="{% static 'js/slider-track.js' %}"></script>-->
 <!--    <script src="{% static 'js/slider-track-autoswipper.js' %}"></script>-->
     <script src="{% static 'js/advantage-hoover.js' %}"></script>
+    <script>
+        function toggleContent() {
+        var content = document.getElementById("cashboxContent");
+        if (content.style.display === "none") {
+            content.style.display = "block";
+        } else {
+            content.style.display = "none";
+        }
+    }
+    </script>
 
 </body>
 </html>
