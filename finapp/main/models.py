@@ -15,6 +15,9 @@ class Subcategory(models.Model):
 class Cash_box(models.Model):
     name = models.CharField(max_length=255)
     type = models.CharField(max_length=255)
+    active_image = models.FileField(upload_to='svg_images/cashbox_logo', null=True, blank=True)
+    default_image = models.FileField(upload_to='svg_images/cashbox_logo', null=True, blank=True)
+    color = models.CharField(max_length=8, null=True, blank=True)
 
 
 class Income(models.Model):

@@ -22,7 +22,7 @@ from django.urls import path, include
 from registration import views as registration_views
 from main import views as main_views
 
-urlpatterns = [
+urlpatterns = ([
     path('admin/', admin.site.urls),
     path('', main_views.index, name='home'),
     path('registration/', registration_views.register_view, name='register'),
@@ -35,4 +35,7 @@ urlpatterns = [
     path('logout/', registration_views.logout_view, name='logout'),
     path('auth/', include('social_django.urls', namespace='social')),
     path('get-subcategories/', main_views.get_subcategories, name='get_subcategories'),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT))
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

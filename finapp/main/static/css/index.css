@@ -1299,6 +1299,19 @@ section {
     color: white;
 }
 
+.icon-container {
+    width: 100px;  /* Фиксированная ширина */
+    height: 100px; /* Фиксированная высота */
+    overflow: hidden; /* Обрезка переполняющего содержимого */
+    display: flex;
+    justify-content: center; /* Центрирование содержимого */
+    align-items: center; /* Выравнивание по вертикали */
+}
+
+.advantage-icon-default {
+    max-width: 100%;
+    max-height: 100%;
+}
 
 
 

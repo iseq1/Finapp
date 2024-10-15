@@ -184,21 +184,55 @@
                 <div class="advantages-wrap">
                     <ul class="advantages-items">
                         {% for item in cash_boxes %}
-                            <li class="advantage" style="flex-basis: 275px;  --after-color: {{ color }};"
-                                onmouseover="this.style.backgroundColor='{{ color }}'; this.style.color='white';"
-                                onmouseout="this.style.backgroundColor='transparent'; this.style.color='initial';">
+                            {% if item in cash_boxes_user %}
+                                <li class="advantage" style="flex-basis: 275px;  --after-color: {{ item.color }};"
+                                    onmouseover="this.style.backgroundColor='{{ item.color }}'; this.style.color='white';"
+                                    onmouseout="this.style.backgroundColor='transparent'; this.style.color='initial';">
 
-                                <div class="advantage-icon">
-                                    <img loading="lazy" class="advantage-icon-default" src="https://www.rush-analytics.ru/wp-content/uploads/2021/10/img-1-1.svg" alt="" title="icon" width="60" height="60">
-                                    <img loading="lazy" class="advantage-icon-active" src="https://www.rush-analytics.ru/wp-content/uploads/2021/10/img-1-white.svg" alt="" title="icon-active" width="60" height="60">
-                                </div>
+                                    <div class="advantage-icon">
+                                        <div class="icon-container">
+                                        {% if item.default_image %}
+                                        <img loading="lazy" class="advantage-icon-default" src="{{ item.default_image.url }}" alt="" title="icon" style="max-width: 150%;" width="100" height="100">
+                                        <img loading="lazy" class="advantage-icon-active" src="{{ item.active_image.url }}" alt="" title="icon-active" style="max-width: 150%;" width="100" height="100">
+                                        {% else %}
+                                            <p>No image available</p>
+                                        {% endif %}
+                                        </div>
+                                    </div>
 
-                                <div class="advantage-title">
-                                    {{ item.name }}
-                                </div>
+                                    <div class="advantage-title">
+                                        {{ item.name }}
+                                    </div>
 
-                                <p>{{ item.type }}</p>
-                            </li>
+                                    <p>{{ item.type }}</p>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% for item in cash_boxes %}
+                            {% if item not in cash_boxes_user %}
+                                <li class="advantage" style="flex-basis: 275px;  --after-color: {{ item.color }};"
+                                    onmouseover="this.style.backgroundColor='{{ item.color }}'; this.style.color='white';"
+                                    onmouseout="this.style.backgroundColor='transparent'; this.style.color='initial';">
+
+                                    <div class="advantage-icon">
+                                        <div class="icon-container">
+                                        {% if item.default_image %}
+                                        <img loading="lazy" class="advantage-icon-default" src="{{ item.default_image.url }}" alt="" title="icon" style="max-width: 150%;" width="100" height="100">
+                                        <img loading="lazy" class="advantage-icon-active" src="{{ item.active_image.url }}" alt="" title="icon-active" style="max-width: 150%;" width="100" height="100">
+                                        {% else %}
+                                            <p>No image available</p>
+                                        {% endif %}
+                                        </div>
+                                    </div>
+
+                                    <div class="advantage-title">
+                                        {{ item.name }}
+                                    </div>
+
+                                    <p>{{ item.type }}</p>
+                                </li>
+                            {% endif %}
                         {% endfor %}
                     </ul>
                 </div>
@@ -519,6 +553,11 @@
                 </div>
             </div>
         </div>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Upload</button>
+        </form>
 
         <section class="call-action-full">
             <div class="container">

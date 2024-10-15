@@ -1,12 +1,13 @@
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import OuterRef, Subquery, Sum, Count
 from .models import CustomUser, UserProfile, Category, Subcategory, Income, Expenses, Expenses_statistic, \
     Income_statistic, Cash_box, Budget
 from django.utils import timezone
 from calendar import monthrange
 from datetime import datetime, date
+from .forms import CashBoxForm
 
 import math
 import re
@@ -545,11 +546,35 @@ def budget_page(request):
         return render(request, 'budget_page.html')
 
 
+
 def profile_page(request):
     current_user = (CustomUser.objects.get(email=request.user)).id
     current_person = UserProfile.objects.get(user=current_user)
     cash_boxes = Cash_box.objects.all()
     cash_boxes_user = current_person.cash_boxes.all()
+
+    # create
+    # if request.method == 'POST':
+    #     form = CashBoxForm(request.POST, request.FILES)
+    #     if form.is_valid():
+    #         form.save()
+    #         return redirect('success_url')  # Укажите путь на страницу после успешной загрузки
+    # else:
+    #     form = CashBoxForm()
+
+
+    # update
+    cashbox = get_object_or_404(Cash_box, pk=3)
+
+    if request.method == 'POST':
+        # При POST-запросе обрабатываем форму
+        form = CashBoxForm(request.POST, request.FILES, instance=cashbox)
+        if form.is_valid():
+            form.save()  # Сохраняем изменения
+            return redirect('profile')  # Переход после успешного редактирования
+    else:
+        # При GET-запросе отображаем форму с текущими данными объекта
+        form = CashBoxForm(instance=cashbox)
 
     data = {
         'person': current_person,
@@ -559,5 +584,7 @@ def profile_page(request):
         'cash_boxes_user': cash_boxes_user,
         'cash_boxes': cash_boxes,
         'color': '#9767ff',
+        'form': form
     }
     return render(request, 'profile_page.html', context=data)
+
