@@ -181,63 +181,76 @@
 
         <div class="pb-big" id="cashboxContent" style="display: none;">
             <div class="container">
-                <div class="advantages-wrap">
-                    <ul class="advantages-items">
-                        {% for item in cash_boxes %}
-                            {% if item in cash_boxes_user %}
-                                <li class="advantage" style="flex-basis: 275px;  --after-color: {{ item.color }};"
-                                    onmouseover="this.style.backgroundColor='{{ item.color }}'; this.style.color='white';"
-                                    onmouseout="this.style.backgroundColor='transparent'; this.style.color='initial';">
+                <form method="post" id="cashbox-form">
+                    {% csrf_token %}
+                    <div class="advantages-wrap">
+                        <ul class="advantages-items">
+                            {% for item in cash_boxes %}
+                                {% if item in cash_boxes_user %}
+                                        <li class="advantage selectable-cashbox" style="flex-basis: 275px; --after-color: {{ item.color }}; background-color: {{ item.color }}; color: white; border: 1px solid transparent;"
+                                            onmouseover="this.style.borderColor = '#ebedf1'; this.style.backgroundColor = 'transparent'; this.style.color = 'initial'; changeStyle('cb{{item.id}}-type__active', '#696782');"
+                                            onmouseout="this.style.borderColor = 'transparent'; this.style.backgroundColor = '{{ item.color }}'; this.style.color = 'white'; changeStyle('cb{{item.id}}-type__active', 'white');"
+                                            data-id="{{ item.id }}"
+                                        >
 
-                                    <div class="advantage-icon">
-                                        <div class="icon-container">
-                                        {% if item.default_image %}
-                                        <img loading="lazy" class="advantage-icon-default" src="{{ item.default_image.url }}" alt="" title="icon" style="max-width: 150%;" width="100" height="100">
-                                        <img loading="lazy" class="advantage-icon-active" src="{{ item.active_image.url }}" alt="" title="icon-active" style="max-width: 150%;" width="100" height="100">
-                                        {% else %}
-                                            <p>No image available</p>
-                                        {% endif %}
+                                        <div class="advantage-icon">
+                                            <div class="icon-container">
+                                            {% if item.default_image %}
+                                            <img loading="lazy" class="advantage-icon-active" src="{{ item.default_image.url }}" alt="" title="icon" style="max-width: 150%;" width="100" height="100">
+                                            <img loading="lazy" class="advantage-icon-default" src="{{ item.active_image.url }}" alt="" title="icon-active" style="max-width: 150%;" width="100" height="100">
+                                            {% else %}
+                                                <p>No image available</p>
+                                            {% endif %}
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="advantage-title">
-                                        {{ item.name }}
-                                    </div>
-
-                                    <p>
-                                        {{ item.type }}
-                                    </p>
-                                </li>
-                            {% endif %}
-                        {% endfor %}
-
-                        {% for item in cash_boxes %}
-                            {% if item not in cash_boxes_user %}
-                                <li class="advantage" style="flex-basis: 275px;  --after-color: {{ item.color }};"
-                                    onmouseover="this.style.backgroundColor='{{ item.color }}'; this.style.color='white';"
-                                    onmouseout="this.style.backgroundColor='transparent'; this.style.color='initial';">
-
-                                    <div class="advantage-icon">
-                                        <div class="icon-container">
-                                        {% if item.default_image %}
-                                        <img loading="lazy" class="advantage-icon-default" src="{{ item.default_image.url }}" alt="" title="icon" style="max-width: 150%;" width="100" height="100">
-                                        <img loading="lazy" class="advantage-icon-active" src="{{ item.active_image.url }}" alt="" title="icon-active" style="max-width: 150%;" width="100" height="100">
-                                        {% else %}
-                                            <p>No image available</p>
-                                        {% endif %}
+                                        <div class="advantage-title">
+                                            {{ item.name }}
                                         </div>
-                                    </div>
+                                        <p id="cb{{item.id}}-type__active" style="color: white;">
+                                            {{ item.type }}
+                                        </p>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
 
-                                    <div class="advantage-title">
-                                        {{ item.name }}
-                                    </div>
+                            {% for item in cash_boxes %}
+                                {% if item not in cash_boxes_user %}
+                                    <li class="advantage selectable-cashbox" style="flex-basis: 275px;  --after-color: {{ item.color }};"
+                                        onmouseover="this.style.backgroundColor='{{ item.color }}'; this.style.color='white';"
+                                        onmouseout="this.style.backgroundColor='transparent'; this.style.color='initial';"
+                                        data-id="{{ item.id }}"
+                                    >
 
-                                    <p>{{ item.type }}</p>
-                                </li>
-                            {% endif %}
-                        {% endfor %}
-                    </ul>
-                </div>
+                                        <div class="advantage-icon">
+                                            <div class="icon-container">
+                                            {% if item.default_image %}
+                                            <img loading="lazy" class="advantage-icon-default" src="{{ item.default_image.url }}" alt="" title="icon" style="max-width: 150%;" width="100" height="100">
+                                            <img loading="lazy" class="advantage-icon-active" src="{{ item.active_image.url }}" alt="" title="icon-active" style="max-width: 150%;" width="100" height="100">
+                                            {% else %}
+                                                <p>No image available</p>
+                                            {% endif %}
+                                            </div>
+                                        </div>
+
+                                        <div class="advantage-title">
+                                            {{ item.name }}
+                                        </div>
+
+                                        <p>
+                                            {{ item.type }}
+                                        </p>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="about-worth-action" style="margin-top:70px;">
+                        <button type="button" id="confirm-selection" class="btn pink-button btn-bordered btn-arrow btn-primary">
+                            Зафиксировать
+                        </button>
+                    </div>
+                </form>
 
             </div>
         </div>
@@ -595,6 +608,66 @@
         }
     }
     </script>
+    <script>
+    function changeStyle(elementId, color) {
+        document.getElementById(elementId).style.color = color;
+    }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const selectedCashboxes = new Set();  // Массив для хранения выбранных cashbox-ов
+
+            // Функция для выбора/отмены выбора cashbox-а
+            document.querySelectorAll('.selectable-cashbox').forEach(item => {
+                item.addEventListener('click', function() {
+                    const cashboxId = this.getAttribute('data-id');
+                    if (selectedCashboxes.has(cashboxId)) {
+                        selectedCashboxes.delete(cashboxId);
+                        this.style.borderColor = 'transparent';
+                    } else {
+                        selectedCashboxes.add(cashboxId);
+                        this.style.borderColor = '#000';  // Пример стиля для выбранного элемента
+                    }
+                });
+            });
+
+            // Обработчик для кнопки "Зафиксировать"
+            document.getElementById('confirm-selection').addEventListener('click', function() {
+                if (selectedCashboxes.size === 0) {
+                    alert('Выберите хотя бы один элемент');
+                    return;
+                }
+
+                // AJAX-запрос для отправки данных на сервер
+                const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+                const formData = new FormData();
+                formData.append('selected_cashboxes', Array.from(selectedCashboxes).join(','));  // Преобразуем Set в строку
+
+                fetch('{% url "save_selected_cashboxes" %}', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': csrftoken
+                    },
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Выбор сохранен!');
+                        // Дополнительные действия, например, перезагрузка страницы или обновление UI
+                    } else {
+                        alert('Ошибка при сохранении!');
+                    }
+                })
+                .catch(error => {
+                    console.error('Ошибка:', error);
+                    alert('Ошибка при сохранении!');
+                });
+            });
+        });
+    </script>
+
+
 
 </body>
 </html>

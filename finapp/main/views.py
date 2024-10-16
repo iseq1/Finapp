@@ -1,5 +1,5 @@
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import OuterRef, Subquery, Sum, Count
 from .models import CustomUser, UserProfile, Category, Subcategory, Income, Expenses, Expenses_statistic, \
@@ -8,7 +8,6 @@ from django.utils import timezone
 from calendar import monthrange
 from datetime import datetime, date
 from .forms import CashBoxForm
-
 import math
 import re
 
@@ -588,3 +587,45 @@ def profile_page(request):
     }
     return render(request, 'profile_page.html', context=data)
 
+
+@csrf_exempt
+def save_selected_cashboxes(request):
+    if request.method == 'POST':
+        selected_cashboxes = request.POST.get('selected_cashboxes', '')
+
+        if selected_cashboxes:
+            # Преобразуем строку в список
+            selected_cashboxes = selected_cashboxes.split(',')
+
+            current_user = CustomUser.objects.get(email=request.user.email)
+            current_person = UserProfile.objects.get(user=current_user)
+
+            # Получаем все cash_boxes пользователя
+            current_cash_boxes = set(current_person.cash_boxes.values_list('id', flat=True))
+
+            # Преобразуем выбранные кассы в set для сравнения
+            selected_cashbox_ids = set(map(int, selected_cashboxes))  # Преобразуем в int и set
+
+            # Кассы для добавления (выбранные, но еще не привязанные)
+            to_add = selected_cashbox_ids - current_cash_boxes
+            # Кассы для удаления (пересечение выбранных и уже привязанных)
+            to_remove = current_cash_boxes.intersection(selected_cashbox_ids)
+            # ТУТ НАДО ПРОДУМАТЬ ЛОГИКУ СВЯЗИ МЕЖДУ КБ И БЮДЖЕТОМ, ЧТОБЫ АВТОМАТИЧЕСКО ВСЕ ОПРЕДЕЛЯЛОСЬ
+            # ТУТ НАДО ПРОДУМАТЬ ЛОГИКУ СВЯЗИ МЕЖДУ КБ И БЮДЖЕТОМ, ЧТОБЫ АВТОМАТИЧЕСКО ВСЕ ОПРЕДЕЛЯЛОСЬ
+            # ТУТ НАДО ПРОДУМАТЬ ЛОГИКУ СВЯЗИ МЕЖДУ КБ И БЮДЖЕТОМ, ЧТОБЫ АВТОМАТИЧЕСКО ВСЕ ОПРЕДЕЛЯЛОСЬ
+            # ТУТ НАДО ПРОДУМАТЬ ЛОГИКУ СВЯЗИ МЕЖДУ КБ И БЮДЖЕТОМ, ЧТОБЫ АВТОМАТИЧЕСКО ВСЕ ОПРЕДЕЛЯЛОСЬ
+            # ТУТ НАДО ПРОДУМАТЬ ЛОГИКУ СВЯЗИ МЕЖДУ КБ И БЮДЖЕТОМ, ЧТОБЫ АВТОМАТИЧЕСКО ВСЕ ОПРЕДЕЛЯЛОСЬ
+            # ТУТ НАДО ПРОДУМАТЬ ЛОГИКУ СВЯЗИ МЕЖДУ КБ И БЮДЖЕТОМ, ЧТОБЫ АВТОМАТИЧЕСКО ВСЕ ОПРЕДЕЛЯЛОСЬ
+            # Добавление новых связей
+            for cashbox_id in to_add:
+                cashbox = Cash_box.objects.get(id=cashbox_id)
+                current_person.cash_boxes.add(cashbox)
+
+            # Удаление ненужных связей
+            for cashbox_id in to_remove:
+                cashbox = Cash_box.objects.get(id=cashbox_id)
+                current_person.cash_boxes.remove(cashbox)
+
+        return JsonResponse({'success': True})
+
+    return JsonResponse({'success': False})
