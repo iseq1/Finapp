@@ -187,7 +187,7 @@
                         <ul class="advantages-items">
                             {% for item in cash_boxes %}
                                 {% if item in cash_boxes_user %}
-                                        <li class="advantage selectable-cashbox" style="flex-basis: 275px; --after-color: {{ item.color }}; background-color: {{ item.color }}; color: white; border: 1px solid transparent;"
+                                        <li class="advantage selectable-cashbox already-have" style="flex-basis: 275px; --after-color: {{ item.color }}; background-color: {{ item.color }}; color: white; border: 1px solid transparent;"
                                             onmouseover="this.style.borderColor = '#ebedf1'; this.style.backgroundColor = 'transparent'; this.style.color = 'initial'; changeStyle('cb{{item.id}}-type__active', '#696782');"
                                             onmouseout="this.style.borderColor = 'transparent'; this.style.backgroundColor = '{{ item.color }}'; this.style.color = 'white'; changeStyle('cb{{item.id}}-type__active', 'white');"
                                             data-id="{{ item.id }}"
@@ -599,73 +599,11 @@
 <!--    <script src="{% static 'js/slider-track-autoswipper.js' %}"></script>-->
     <script src="{% static 'js/advantage-hoover.js' %}"></script>
     <script>
-        function toggleContent() {
-        var content = document.getElementById("cashboxContent");
-        if (content.style.display === "none") {
-            content.style.display = "block";
-        } else {
-            content.style.display = "none";
-        }
-    }
+        const saveSelectedCashboxesUrl = "{% url 'save_selected_cashboxes' %}";
     </script>
-    <script>
-    function changeStyle(elementId, color) {
-        document.getElementById(elementId).style.color = color;
-    }
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const selectedCashboxes = new Set();  // Массив для хранения выбранных cashbox-ов
-
-            // Функция для выбора/отмены выбора cashbox-а
-            document.querySelectorAll('.selectable-cashbox').forEach(item => {
-                item.addEventListener('click', function() {
-                    const cashboxId = this.getAttribute('data-id');
-                    if (selectedCashboxes.has(cashboxId)) {
-                        selectedCashboxes.delete(cashboxId);
-                        this.style.borderColor = 'transparent';
-                    } else {
-                        selectedCashboxes.add(cashboxId);
-                        this.style.borderColor = '#000';  // Пример стиля для выбранного элемента
-                    }
-                });
-            });
-
-            // Обработчик для кнопки "Зафиксировать"
-            document.getElementById('confirm-selection').addEventListener('click', function() {
-                if (selectedCashboxes.size === 0) {
-                    alert('Выберите хотя бы один элемент');
-                    return;
-                }
-
-                // AJAX-запрос для отправки данных на сервер
-                const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-                const formData = new FormData();
-                formData.append('selected_cashboxes', Array.from(selectedCashboxes).join(','));  // Преобразуем Set в строку
-
-                fetch('{% url "save_selected_cashboxes" %}', {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRFToken': csrftoken
-                    },
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert('Выбор сохранен!');
-                        // Дополнительные действия, например, перезагрузка страницы или обновление UI
-                    } else {
-                        alert('Ошибка при сохранении!');
-                    }
-                })
-                .catch(error => {
-                    console.error('Ошибка:', error);
-                    alert('Ошибка при сохранении!');
-                });
-            });
-        });
-    </script>
+    <script src="{% static 'js/cashbox-selection.js' %}"></script>
+    <script src="{% static 'js/cashbox-container-shower.js' %}"></script>
+    <script src="{% static 'js/color-changer.js' %}"></script>
 
 
 
