@@ -482,32 +482,18 @@ def budget_page(request):
                     line.save()
 
             budget_info = Budget.objects.filter(user=current_user, fixed=True)
-            budget_info_double = Budget.objects.filter(user=current_user, fixed=False)
             cash_boxes = current_person.cash_boxes.all()
             unique_dates = set(line.date for line in budget_info)
-            amount = {
-                dates: sum(item.total for item in budget_info if item.date == dates) for dates in unique_dates
-            }
-            amount['today'] = sum(unit.total for unit in Budget.objects.filter(user=current_user, fixed=False))
-
-            today_budget_line = {
-                'date': Budget.objects.filter(user=current_user, fixed=False)[0].date,
-                **{item.cash_box.name: item.total for item in Budget.objects.filter(user=current_user, fixed=False)}
-            }
-            cb_ids = [item.cash_box_id for item in budget_info]
-
             # Данные о каждом банке в каждую дату
-            data = {}
-
-            # Создаем новый уровень вложенности с ключом "fixed_date"
-            data['fixed_date'] = {
+            data = {'fixed_date': {
                 str(dates): {
                     cashbox.id: Budget.objects.get(user=current_user, fixed=True, date=dates, cash_box=cashbox).total
                     if Budget.objects.filter(user=current_user, fixed=True, date=dates,
                                              cash_box=cashbox).exists() else '-'
                     for cashbox in cash_boxes
                 } for dates in sorted(unique_dates)  # Сортируем даты для порядка
-            }
+            }}
+            # Создаем новый уровень вложенности с ключом "fixed_date"
 
             # Добавляем 'total_sum' для каждой даты внутри 'fixed_date'
             for dates in unique_dates:
@@ -535,23 +521,6 @@ def budget_page(request):
             data['cashbox_list'] = cash_boxes
 
             print(data)
-            # ХОЧУ ПРЕДСТАВИТЬ ТАБЛИЦУ БЮДЖЕТА В ВИДЕ МАТРИЦЫ ИЛИ СЛОВАРЯ {date: info{}}}
-            # ХОЧУ ПРЕДСТАВИТЬ ТАБЛИЦУ БЮДЖЕТА В ВИДЕ МАТРИЦЫ ИЛИ СЛОВАРЯ {date: info{}}}
-            # ХОЧУ ПРЕДСТАВИТЬ ТАБЛИЦУ БЮДЖЕТА В ВИДЕ МАТРИЦЫ ИЛИ СЛОВАРЯ {date: info{}}}
-            # ХОЧУ ПРЕДСТАВИТЬ ТАБЛИЦУ БЮДЖЕТА В ВИДЕ МАТРИЦЫ ИЛИ СЛОВАРЯ {date: info{}}}
-            # ХОЧУ ПРЕДСТАВИТЬ ТАБЛИЦУ БЮДЖЕТА В ВИДЕ МАТРИЦЫ ИЛИ СЛОВАРЯ {date: info{}}}
-            # data = {
-            #     'budget_info': budget_info,
-            #     'budget_info_double': budget_info_double,
-            #     'cashbox_list': cash_boxes,
-            #     'unique_dates': unique_dates,
-            #     'amount_per_month': amount,
-            #     'today_budget_line': today_budget_line,
-            #     'cb_ids': cb_ids,
-            #
-            #     'cashboxes_count': len(current_person.cash_boxes.all()),
-            #     'budget_empty': False,
-            # }
             return render(request, 'budget_page.html', context=data)
         else:
             # Для нового пользователя (Проверить, выбрал ли он кэшбоксы, и заполнить бюджет)
@@ -689,7 +658,14 @@ def save_selected_cashboxes(request):
             for cashbox_id in to_remove:
                 cashbox = Cash_box.objects.get(id=cashbox_id)
                 current_person.cash_boxes.remove(cashbox)
-                Budget.objects.filter(user=current_user, cashbox=cashbox, fixed=False).delete()
+                try:
+                    # Тут надо подумать - удалять все записи в бюджете или только нефиксированную
+                    # Тут надо подумать - удалять все записи в бюджете или только нефиксированную
+                    # Тут надо подумать - удалять все записи в бюджете или только нефиксированную
+                    # Тут надо подумать - удалять все записи в бюджете или только нефиксированную
+                    Budget.objects.filter(user=current_user, cash_box=cashbox, fixed=False).delete()
+                except Exception as e:
+                    print(f"Ошибка при удалении бюджета после удаления КБ: {e}")
 
         return JsonResponse({'success': True})
 
