@@ -227,58 +227,46 @@
 
 
                 <div class="tabs-content is-active" style="padding-top: 52px;">
-                        <table>
-                            <tr>
-                                <th>Дата</th>
-                                {% for cashboxes in budget_info %}
-                                    {% for item in  cashbox_list %}
-                                        {% if item.id == cashboxes.cash_box_id %}
-                                            <th>{{item.name}}</th>
-                                        {% endif %}
-                                    {% endfor %}
-                                {% endfor %}
-                                <th>Сумма</th>
-                            </tr>
-                            {% for date in unique_dates %}
-                                <tr>
-                                    <td>{{ date }}</td>
-                                    {% for line in budget_info %}
-                                        {% if line.date == date %}
-                                            {% for item in cashbox_list %}
-                                                {% if item.id == line.cash_box_id %}
-                                                    <td>{{ line.total }}</td>
-                                                {% endif %}
-                                            {% endfor %}
-                                        {% endif %}
-                                    {% endfor %}
-                                    {% for key, value in amount_per_month.items %}
-                                        {% if key == date %}
-                                            <td>{{ value }} </td>
-                                        {% endif %}
-                                    {% endfor %}
-                                </tr>
+                    <table>
+                        <tr>
+                            <th>Дата</th>
+                            {% for cashbox in cashbox_list %}
+                                <th>{{cashbox.name}}</th>
                             {% endfor %}
-                            <tr>
-                                {% for key, value in today_budget_line.items %}
-                                    {% if key == 'date' %}
-                                        <td>{{ value }} </td>
+                            <th>Сумма</th>
+                        </tr>
+                        {% for key, value in fixed_date.items %}
+                        <tr>
+                            <td>{{ key }}</td>
+                            {% for key, value in value.items %}
+                                {% for cashbox in cashbox_list %}
+                                    {% if key == cashbox.id %}
+                                        <td>{{ value }}</td>
                                     {% endif %}
-                                    {% for item in cashbox_list %}
-                                        {% if key == item.name %}
-                                            <td>{{ value }} </td>
+                                {% endfor %}
+                                {% if key == 'total_sum' %}
+                                <td>{{ value }} </td>
+                                {% endif %}
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                        <tr>
+                            {% for key, value in no_fixed_date.items %}
+                                <td>{{ key }}</td>
+                                {% for key, value in value.items %}
+                                    {% for cashbox in cashbox_list %}
+                                        {% if key == cashbox.id %}
+                                            <td>{{ value }}</td>
                                         {% endif %}
                                     {% endfor %}
-                                {% endfor %}
-                                {% for key, value in amount_per_month.items %}
-                                    {% if key == 'today' %}
-                                        <td>{{ value }} </td>
+                                    {% if key == 'total_sum' %}
+                                    <td>{{ value }} </td>
                                     {% endif %}
                                 {% endfor %}
-                            </tr>
-
-                        </table>
-
-                    </div>
+                            {% endfor %}
+                        </tr>
+                    </table>
+                </div>
 
 
                 <div class="about-worth-action">

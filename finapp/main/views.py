@@ -471,17 +471,18 @@ def budget_page(request):
     try:
         # Для обычного пользователя
         if Budget.objects.filter(user=current_user, fixed=False):
-            print('11111111111111')
+
             budget_info_today = Budget.objects.filter(user=current_user, fixed=False)
             # Получаем текущую дату
             current_date = date.today()
 
-            if budget_info_today and budget_info_today[0].date != current_date and current_date.day != 1:
+            if budget_info_today and any([line.date for line in budget_info_today]) != current_date and current_date.day != 1:
                 for line in budget_info_today:
                     line.date = current_date
                     line.save()
 
             budget_info = Budget.objects.filter(user=current_user, fixed=True)
+            budget_info_double = Budget.objects.filter(user=current_user, fixed=False)
             cash_boxes = current_person.cash_boxes.all()
             unique_dates = set(line.date for line in budget_info)
             amount = {
@@ -493,18 +494,64 @@ def budget_page(request):
                 'date': Budget.objects.filter(user=current_user, fixed=False)[0].date,
                 **{item.cash_box.name: item.total for item in Budget.objects.filter(user=current_user, fixed=False)}
             }
+            cb_ids = [item.cash_box_id for item in budget_info]
 
-            data = {
-                'budget_info': budget_info,
-                'cashbox_list': cash_boxes,
-                'unique_dates': unique_dates,
-                'amount_per_month': amount,
-                'today_budget_line': today_budget_line,
+            # Данные о каждом банке в каждую дату
+            data = {}
 
-                'cashboxes_count': len(current_person.cash_boxes.all()),
-                'budget_empty': False,
+            # Создаем новый уровень вложенности с ключом "fixed_date"
+            data['fixed_date'] = {
+                str(dates): {
+                    cashbox.id: Budget.objects.get(user=current_user, fixed=True, date=dates, cash_box=cashbox).total
+                    if Budget.objects.filter(user=current_user, fixed=True, date=dates,
+                                             cash_box=cashbox).exists() else '-'
+                    for cashbox in cash_boxes
+                } for dates in sorted(unique_dates)  # Сортируем даты для порядка
             }
+
+            # Добавляем 'total_sum' для каждой даты внутри 'fixed_date'
+            for dates in unique_dates:
+                data['fixed_date'][str(dates)]['total_sum'] = sum(
+                    item.total for item in Budget.objects.filter(user=current_user, fixed=True, date=dates)
+                )
+
+            # Добавляем 'no_fixed_date'
+            data['no_fixed_date'] = {
+                str(current_date): {  # Добавляем уровень 'today'
+                    cashbox.id: Budget.objects.get(user=current_user, fixed=False, cash_box=cashbox).total
+                    if Budget.objects.filter(user=current_user, fixed=False, cash_box=cashbox).exists() else '-'
+                    for cashbox in cash_boxes
+                }
+            }
+
+            # Добавляем 'total_sum' для 'today' внутри 'no_fixed_date'
+            data['no_fixed_date'][str(current_date)]['total_sum'] = sum(
+                item.total for item in Budget.objects.filter(user=current_user, fixed=False)
+            )
+
+            # Добавляем дополнительные данные для HTML-страницы
+            data['cashboxes_count'] = len(current_person.cash_boxes.all())
+            data['budget_empty'] = False
+            data['cashbox_list'] = cash_boxes
+
             print(data)
+            # ХОЧУ ПРЕДСТАВИТЬ ТАБЛИЦУ БЮДЖЕТА В ВИДЕ МАТРИЦЫ ИЛИ СЛОВАРЯ {date: info{}}}
+            # ХОЧУ ПРЕДСТАВИТЬ ТАБЛИЦУ БЮДЖЕТА В ВИДЕ МАТРИЦЫ ИЛИ СЛОВАРЯ {date: info{}}}
+            # ХОЧУ ПРЕДСТАВИТЬ ТАБЛИЦУ БЮДЖЕТА В ВИДЕ МАТРИЦЫ ИЛИ СЛОВАРЯ {date: info{}}}
+            # ХОЧУ ПРЕДСТАВИТЬ ТАБЛИЦУ БЮДЖЕТА В ВИДЕ МАТРИЦЫ ИЛИ СЛОВАРЯ {date: info{}}}
+            # ХОЧУ ПРЕДСТАВИТЬ ТАБЛИЦУ БЮДЖЕТА В ВИДЕ МАТРИЦЫ ИЛИ СЛОВАРЯ {date: info{}}}
+            # data = {
+            #     'budget_info': budget_info,
+            #     'budget_info_double': budget_info_double,
+            #     'cashbox_list': cash_boxes,
+            #     'unique_dates': unique_dates,
+            #     'amount_per_month': amount,
+            #     'today_budget_line': today_budget_line,
+            #     'cb_ids': cb_ids,
+            #
+            #     'cashboxes_count': len(current_person.cash_boxes.all()),
+            #     'budget_empty': False,
+            # }
             return render(request, 'budget_page.html', context=data)
         else:
             # Для нового пользователя (Проверить, выбрал ли он кэшбоксы, и заполнить бюджет)
@@ -599,9 +646,13 @@ def save_selected_cashboxes(request):
 
             current_user = CustomUser.objects.get(email=request.user.email)
             current_person = UserProfile.objects.get(user=current_user)
+            current_date = date.today()
 
             # Получаем все cash_boxes пользователя
             current_cash_boxes = set(current_person.cash_boxes.values_list('id', flat=True))
+
+            new_user = len(current_cash_boxes)==0
+
 
             # Преобразуем выбранные кассы в set для сравнения
             selected_cashbox_ids = set(map(int, selected_cashboxes))  # Преобразуем в int и set
@@ -617,14 +668,28 @@ def save_selected_cashboxes(request):
             # ТУТ НАДО ПРОДУМАТЬ ЛОГИКУ СВЯЗИ МЕЖДУ КБ И БЮДЖЕТОМ, ЧТОБЫ АВТОМАТИЧЕСКО ВСЕ ОПРЕДЕЛЯЛОСЬ
             # ТУТ НАДО ПРОДУМАТЬ ЛОГИКУ СВЯЗИ МЕЖДУ КБ И БЮДЖЕТОМ, ЧТОБЫ АВТОМАТИЧЕСКО ВСЕ ОПРЕДЕЛЯЛОСЬ
             # Добавление новых связей
-            for cashbox_id in to_add:
-                cashbox = Cash_box.objects.get(id=cashbox_id)
-                current_person.cash_boxes.add(cashbox)
+
+            if new_user:
+                for cashbox_id in to_add:
+                    cashbox = Cash_box.objects.get(id=cashbox_id)
+                    current_person.cash_boxes.add(cashbox)
+            else:
+                for cashbox_id in to_add:
+                    cashbox = Cash_box.objects.get(id=cashbox_id)
+                    current_person.cash_boxes.add(cashbox)
+                    Budget.objects.create(user=current_user,
+                                          cash_box=cashbox,
+                                          date=current_date,
+                                          profit=0,
+                                          total=0,
+                                          fixed=False,)
+
 
             # Удаление ненужных связей
             for cashbox_id in to_remove:
                 cashbox = Cash_box.objects.get(id=cashbox_id)
                 current_person.cash_boxes.remove(cashbox)
+                Budget.objects.filter(user=current_user, cashbox=cashbox, fixed=False).delete()
 
         return JsonResponse({'success': True})
 
