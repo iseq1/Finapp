@@ -300,44 +300,12 @@
 
     <script src="{% static 'js/tabs-content-shower.js' %}"></script>
     <script src="{% static 'js/income-info-shower.js' %}"></script>
+    <script src="{% static 'js/budget-correct-input.js' %}"></script>
+    <script src="{% static 'js/budget-change-bttn.js' %}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        document.getElementById("budget-change-button").addEventListener("click", function(event) {
-            event.preventDefault(); // Предотвращает перезагрузку страницы при нажатии на ссылку
-
-            // Переключение для show-fixed и show-nofixed
-            let showFixedElements = document.querySelectorAll("#show-fixed");
-            let showNoFixedElements = document.querySelectorAll("#show-nofixed");
-
-            showFixedElements.forEach(function(element) {
-                element.style.display = "none";
-            });
-
-            showNoFixedElements.forEach(function(element) {
-                element.style.display = "none";
-            });
-
-            // Переключение для write-fixed и write-nofixed
-            let writeFixedElements = document.querySelectorAll("#write-fixed");
-            let writeNoFixedElements = document.querySelectorAll("#write-nofixed");
-
-            writeFixedElements.forEach(function(element) {
-                element.style.display = "table-cell";
-            });
-
-            writeNoFixedElements.forEach(function(element) {
-                element.style.display = "table-cell";
-            });
-
-            // Изменение стиля кнопки "Сохранить изменения"
-            document.getElementById("budget-save-changes-button").style.display = "block"; // Изменяем на block, чтобы кнопка появилась
-            document.getElementById("budget-change-button").style.display = "none"; // Изменяем на block, чтобы кнопка пропала
-            document.getElementById("budget-change-p").style.display = "none"; // Изменяем на none, чтобы фраза пропала
-        });
-    </script>
-    <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const form = document.querySelector('form'); // Предположим, что у вас есть элемент формы
+            const form = document.querySelector('form');
             const inputs = document.querySelectorAll('input[type="text"]');
 
             form.addEventListener('submit', function(event) {
@@ -400,37 +368,7 @@
             }
         });
     </script>
-    <script>
-        $(document).ready(function() {
-            $('#category-select').change(function() {
-                var categoryId = $(this).val();
-                if (categoryId > 0) {
-                    $.ajax({
-                        url: '{% url "get_subcategories" %}',
-                        data: {
-                            'category_id': categoryId
-                        },
-                        dataType: 'json',
-                        success: function(data) {
-                            var $subcategorySelect = $('#subcategory-select');
-                            $subcategorySelect.empty();
-                            $subcategorySelect.append('<option value="0">Выбрать подкатегорию:</option>');
-                            $.each(data, function(index, item) {
-                                $subcategorySelect.append('<option value="' + item.id + '">' + item.name + '</option>');
-                            });
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            // Обработка ошибки
-                            console.error('Ошибка при получении подкатегорий:', textStatus, errorThrown);
-                            alert('Произошла ошибка при получении подкатегорий. Пожалуйста, попробуйте снова позже.');
-                        }
-                    });
-                } else {
-                    $('#subcategory-select').empty().append('<option value="0">Выбрать подкатегорию:</option>');
-                }
-            });
-        });
-    </script>
+
 
 </body>
 </html>

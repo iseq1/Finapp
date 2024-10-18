@@ -86,7 +86,7 @@ def income_page(request):
 
             if int(selected_category) != 0 and int(selected_subcategory) != 0 and int(
                     selected_cashbox) != 0 and is_valid_price(
-                    selected_total) and is_valid_date(selected_date):
+                selected_total) and is_valid_date(selected_date):
                 Income.objects.create(category=Category.objects.get(id=selected_category),
                                       subcategory=Subcategory.objects.get(id=selected_subcategory),
                                       total=selected_total, date=selected_date, comment=selected_comment,
@@ -95,12 +95,13 @@ def income_page(request):
 
                 if timezone.now().month == int(selected_date[5:-3]):
                     budget_update = \
-                    Budget.objects.filter(user=current_user, cash_box=Cash_box.objects.get(id=selected_cashbox),
-                                          fixed=False)[0]
+                        Budget.objects.filter(user=current_user, cash_box=Cash_box.objects.get(id=selected_cashbox),
+                                              fixed=False)[0]
                 else:
                     budget_update = \
-                    Budget.objects.filter(user=current_user, cash_box=Cash_box.objects.get(id=selected_cashbox),
-                                          fixed=True, date__month=selected_date[5:-3], date__year=selected_date[:4])[0]
+                        Budget.objects.filter(user=current_user, cash_box=Cash_box.objects.get(id=selected_cashbox),
+                                              fixed=True, date__month=selected_date[5:-3],
+                                              date__year=selected_date[:4])[0]
                 budget_update.total += float(selected_total)
                 budget_update.save()
 
@@ -414,12 +415,13 @@ def expenses_page(request):
 
                 if timezone.now().month == int(selected_date[5:-3]):
                     budget_update = \
-                    Budget.objects.filter(user=current_user, cash_box=Cash_box.objects.get(id=selected_cashbox),
-                                          fixed=False)[0]
+                        Budget.objects.filter(user=current_user, cash_box=Cash_box.objects.get(id=selected_cashbox),
+                                              fixed=False)[0]
                 else:
                     budget_update = \
-                    Budget.objects.filter(user=current_user, cash_box=Cash_box.objects.get(id=selected_cashbox),
-                                          fixed=True, date__month=selected_date[5:-3], date__year=selected_date[:4])[0]
+                        Budget.objects.filter(user=current_user, cash_box=Cash_box.objects.get(id=selected_cashbox),
+                                              fixed=True, date__month=selected_date[5:-3],
+                                              date__year=selected_date[:4])[0]
                 budget_update.total -= float(selected_total)
                 budget_update.save()
                 for category in categories_expenses:
@@ -477,7 +479,8 @@ def budget_page(request):
             # Получаем текущую дату
             current_date = date.today()
 
-            if budget_info_today and any([line.date for line in budget_info_today]) != current_date and current_date.day != 1:
+            if budget_info_today and any(
+                    [line.date for line in budget_info_today]) != current_date and current_date.day != 1:
                 for line in budget_info_today:
                     line.date = current_date
                     line.save()
@@ -535,7 +538,8 @@ def budget_page(request):
             if request.method == 'POST':
                 try:
                     info = {
-                        int(f'{cb.id}'): float(request.POST.get(f'total_for_cashbox_{cb.id}')) for cb in current_person.cash_boxes.all()
+                        int(f'{cb.id}'): float(request.POST.get(f'total_for_cashbox_{cb.id}')) for cb in
+                        current_person.cash_boxes.all()
                     }
                     print(info)
                     for key, value in info.items():
@@ -544,13 +548,13 @@ def budget_page(request):
                                               date=current_date,
                                               profit=0,
                                               total=value,
-                                              fixed=False,)
+                                              fixed=False, )
                         Budget.objects.create(user=CustomUser.objects.get(email=request.user),
                                               cash_box=Cash_box.objects.get(id=key),
                                               date=current_date,
                                               profit=0,
                                               total=value,
-                                              fixed=True,)
+                                              fixed=True, )
                     return redirect('budget')
                 except Exception as e:
                     print(f"Ошибка при получении данных о новом бюджете: {e}")
@@ -559,7 +563,6 @@ def budget_page(request):
     except Exception as e:
         print(f"Ошибка при доступе к бюджету: {e}")
         return render(request, 'budget_page.html')
-
 
 
 def profile_page(request):
@@ -576,7 +579,6 @@ def profile_page(request):
             return redirect('profile')  # Укажите путь на страницу после успешной загрузки
     else:
         form = CashBoxForm()
-
 
     # update
     # cashbox = get_object_or_404(Cash_box, pk=3)
@@ -595,7 +597,7 @@ def profile_page(request):
         'person': current_person,
         'user': CustomUser.objects.get(email=request.user),
         'date_joined': str(CustomUser.objects.get(email=request.user).date_joined)[:4],
-        'colors': ['purple', 'orange', 'pink', 'green', 'blue', 'yellow']*math.ceil(len(cash_boxes)/6),
+        'colors': ['purple', 'orange', 'pink', 'green', 'blue', 'yellow'] * math.ceil(len(cash_boxes) / 6),
         'cash_boxes_user': cash_boxes_user,
         'cash_boxes': cash_boxes,
         'color': '#9767ff',
@@ -620,8 +622,7 @@ def save_selected_cashboxes(request):
             # Получаем все cash_boxes пользователя
             current_cash_boxes = set(current_person.cash_boxes.values_list('id', flat=True))
 
-            new_user = len(current_cash_boxes)==0
-
+            new_user = len(current_cash_boxes) == 0
 
             # Преобразуем выбранные кассы в set для сравнения
             selected_cashbox_ids = set(map(int, selected_cashboxes))  # Преобразуем в int и set
@@ -644,8 +645,7 @@ def save_selected_cashboxes(request):
                                           date=current_date,
                                           profit=0,
                                           total=0,
-                                          fixed=False,)
-
+                                          fixed=False, )
 
             # Удаление ненужных связей
             for cashbox_id in to_remove:
@@ -666,13 +666,28 @@ def save_selected_cashboxes(request):
 
 
 def update_budget(request):
+    current_user = CustomUser.objects.get(email=request.user)
     if request.method == 'POST':
         data = json.loads(request.body)  # Получаем данные
         # Обработка данных
-        # Пример:
-        for input_id, value in data.items():
-            # Логика сохранения изменений в базе данных
-            print(f'ID: {input_id}, Value: {value}')
+        try:
+            for input_id, value in data.items():
+                if len(value) != 0:
+                    info_line = input_id.split('__')
+                    if len(info_line) == 2:
+                        date, cashbox_id = info_line[0], info_line[1]
+                        budget = Budget.objects.get(date=date, cash_box_id=Cash_box.objects.get(id=cashbox_id),
+                                                    user=current_user, fixed=True)
+                        budget.total = value
+                        budget.save()
+                    elif len(info_line) == 3:
+                        date, cashbox_id = info_line[0], info_line[1]
+                        budget = Budget.objects.get(date=date, cash_box_id=Cash_box.objects.get(id=cashbox_id),
+                                                    user=current_user, fixed=False)
+                        budget.total = value
+                        budget.save()
+        except Exception as e:
+            print(f"Ошибка при обновлении бюджета: {e}")
 
         return JsonResponse({"status": "success", "message": "Данные успешно обновлены."})
 
