@@ -1,4 +1,5 @@
 from django.http import HttpResponse, JsonResponse
+import json
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db.models import OuterRef, Subquery, Sum, Count
@@ -520,7 +521,6 @@ def budget_page(request):
             data['budget_empty'] = False
             data['cashbox_list'] = cash_boxes
 
-            print(data)
             return render(request, 'budget_page.html', context=data)
         else:
             # Для нового пользователя (Проверить, выбрал ли он кэшбоксы, и заполнить бюджет)
@@ -630,14 +630,7 @@ def save_selected_cashboxes(request):
             to_add = selected_cashbox_ids - current_cash_boxes
             # Кассы для удаления (пересечение выбранных и уже привязанных)
             to_remove = current_cash_boxes.intersection(selected_cashbox_ids)
-            # ТУТ НАДО ПРОДУМАТЬ ЛОГИКУ СВЯЗИ МЕЖДУ КБ И БЮДЖЕТОМ, ЧТОБЫ АВТОМАТИЧЕСКО ВСЕ ОПРЕДЕЛЯЛОСЬ
-            # ТУТ НАДО ПРОДУМАТЬ ЛОГИКУ СВЯЗИ МЕЖДУ КБ И БЮДЖЕТОМ, ЧТОБЫ АВТОМАТИЧЕСКО ВСЕ ОПРЕДЕЛЯЛОСЬ
-            # ТУТ НАДО ПРОДУМАТЬ ЛОГИКУ СВЯЗИ МЕЖДУ КБ И БЮДЖЕТОМ, ЧТОБЫ АВТОМАТИЧЕСКО ВСЕ ОПРЕДЕЛЯЛОСЬ
-            # ТУТ НАДО ПРОДУМАТЬ ЛОГИКУ СВЯЗИ МЕЖДУ КБ И БЮДЖЕТОМ, ЧТОБЫ АВТОМАТИЧЕСКО ВСЕ ОПРЕДЕЛЯЛОСЬ
-            # ТУТ НАДО ПРОДУМАТЬ ЛОГИКУ СВЯЗИ МЕЖДУ КБ И БЮДЖЕТОМ, ЧТОБЫ АВТОМАТИЧЕСКО ВСЕ ОПРЕДЕЛЯЛОСЬ
-            # ТУТ НАДО ПРОДУМАТЬ ЛОГИКУ СВЯЗИ МЕЖДУ КБ И БЮДЖЕТОМ, ЧТОБЫ АВТОМАТИЧЕСКО ВСЕ ОПРЕДЕЛЯЛОСЬ
             # Добавление новых связей
-
             if new_user:
                 for cashbox_id in to_add:
                     cashbox = Cash_box.objects.get(id=cashbox_id)
@@ -670,3 +663,17 @@ def save_selected_cashboxes(request):
         return JsonResponse({'success': True})
 
     return JsonResponse({'success': False})
+
+
+def update_budget(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)  # Получаем данные
+        # Обработка данных
+        # Пример:
+        for input_id, value in data.items():
+            # Логика сохранения изменений в базе данных
+            print(f'ID: {input_id}, Value: {value}')
+
+        return JsonResponse({"status": "success", "message": "Данные успешно обновлены."})
+
+    return JsonResponse({"status": "error", "message": "Неверный метод запроса."})

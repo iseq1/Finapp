@@ -33,6 +33,7 @@ urlpatterns = ([
     path('budget/', main_views.budget_page, name='budget'),
     path('profile/', main_views.profile_page, name='profile'),
     path('save-cashboxes/', main_views.save_selected_cashboxes, name='save_selected_cashboxes'),
+    path('update-budget/', main_views.update_budget, name='update_budget'),
     path('logout/', registration_views.logout_view, name='logout'),
     path('auth/', include('social_django.urls', namespace='social')),
     path('get-subcategories/', main_views.get_subcategories, name='get_subcategories'),

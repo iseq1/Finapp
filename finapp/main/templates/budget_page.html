@@ -225,56 +225,70 @@
                 </div>
 
 
-
-                <div class="tabs-content is-active" style="padding-top: 52px;">
-                    <table>
-                        <tr>
-                            <th>Дата</th>
-                            {% for cashbox in cashbox_list %}
-                                <th>{{cashbox.name}}</th>
-                            {% endfor %}
-                            <th>Сумма</th>
-                        </tr>
-                        {% for key, value in fixed_date.items %}
-                        <tr>
-                            <td>{{ key }}</td>
-                            {% for key, value in value.items %}
+                <form id="budget-form">
+                    {% csrf_token %}
+                    <div class="tabs-content is-active" style="padding-top: 52px;">
+                        <table>
+                            <tr>
+                                <th>Дата</th>
                                 {% for cashbox in cashbox_list %}
-                                    {% if key == cashbox.id %}
-                                        <td>{{ value }}</td>
-                                    {% endif %}
+                                    <th>{{cashbox.name}}</th>
                                 {% endfor %}
-                                {% if key == 'total_sum' %}
-                                <td>{{ value }} </td>
-                                {% endif %}
-                            {% endfor %}
-                        </tr>
-                        {% endfor %}
-                        <tr>
-                            {% for key, value in no_fixed_date.items %}
+                                <th>Сумма</th>
+                            </tr>
+                            {% for key, value in fixed_date.items %}
+                            <tr>
                                 <td>{{ key }}</td>
-                                {% for key, value in value.items %}
+                                {% for inner_key, inner_value in value.items %}
                                     {% for cashbox in cashbox_list %}
-                                        {% if key == cashbox.id %}
-                                            <td>{{ value }}</td>
+                                        {% if inner_key == cashbox.id %}
+                                            <td id="show-fixed" style="display: table-cell">{{ inner_value }}</td>
+                                                <td id="write-fixed" style="display: none">
+                                                <input id="{{ key }}__{{ inner_key }}" data-initial-value="{{ inner_value }}" class="editable-input" placeholder="{{ inner_value }}" type="text" name="" required="required" autocomplete="off">
+                                            </td>
                                         {% endif %}
                                     {% endfor %}
-                                    {% if key == 'total_sum' %}
-                                    <td>{{ value }} </td>
+                                    {% if inner_key == 'total_sum' %}
+                                    <td>{{ inner_value }} </td>
                                     {% endif %}
                                 {% endfor %}
+                            </tr>
                             {% endfor %}
-                        </tr>
-                    </table>
-                </div>
+
+                            <tr>
+                                {% for key, value in no_fixed_date.items %}
+                                    <td>{{ key }}</td>
+                                    {% for inner_key, inner_value in value.items %}
+                                        {% for cashbox in cashbox_list %}
+                                            {% if inner_key == cashbox.id %}
+                                                <td id="show-nofixed" style="display: table-cell">{{ inner_value }}</td>
+                                                <td id="write-nofixed" style="display: none">
+                                                    <input id="{{ key }}__{{ inner_key }}__" data-initial-value="{{ inner_value }}" class="editable-input" placeholder="{{ inner_value }}" type="text" name="" required="required" autocomplete="off">
+                                                </td>
+                                            {% endif %}
+                                        {% endfor %}
+                                        {% if inner_key == 'total_sum' %}
+                                        <td>{{ inner_value }} </td>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endfor %}
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="about-worth-action" style="margin-top: 70px;">
+                        <p id="budget-change-p">Что-то изменилось?</p>
+                        <button type="submit" class="btn btn-bordered btn-arrow" id="budget-change-button" style="display: block;">
+                            Обновить бюджет
+                        </button>
+                        <button type="submit" class="btn btn-bordered btn-arrow" id="budget-save-changes-button" style="display: none;">
+                            Сохранить изменения
+                        </button>
+                    </div>
+                </form>
 
 
-                <div class="about-worth-action">
-                    <p>Впервые здесь?</p>
-                    <a href="https://www.rush-analytics.ru/career" class="btn btn-bordered btn-arrow">
-                        Обновить бюджет
-                    </a>
-                </div>
+
             </div>
             {% endif %}
 
@@ -287,6 +301,40 @@
     <script src="{% static 'js/tabs-content-shower.js' %}"></script>
     <script src="{% static 'js/income-info-shower.js' %}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        document.getElementById("budget-change-button").addEventListener("click", function(event) {
+            event.preventDefault(); // Предотвращает перезагрузку страницы при нажатии на ссылку
+
+            // Переключение для show-fixed и show-nofixed
+            let showFixedElements = document.querySelectorAll("#show-fixed");
+            let showNoFixedElements = document.querySelectorAll("#show-nofixed");
+
+            showFixedElements.forEach(function(element) {
+                element.style.display = "none";
+            });
+
+            showNoFixedElements.forEach(function(element) {
+                element.style.display = "none";
+            });
+
+            // Переключение для write-fixed и write-nofixed
+            let writeFixedElements = document.querySelectorAll("#write-fixed");
+            let writeNoFixedElements = document.querySelectorAll("#write-nofixed");
+
+            writeFixedElements.forEach(function(element) {
+                element.style.display = "table-cell";
+            });
+
+            writeNoFixedElements.forEach(function(element) {
+                element.style.display = "table-cell";
+            });
+
+            // Изменение стиля кнопки "Сохранить изменения"
+            document.getElementById("budget-save-changes-button").style.display = "block"; // Изменяем на block, чтобы кнопка появилась
+            document.getElementById("budget-change-button").style.display = "none"; // Изменяем на block, чтобы кнопка пропала
+            document.getElementById("budget-change-p").style.display = "none"; // Изменяем на none, чтобы фраза пропала
+        });
+    </script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const form = document.querySelector('form'); // Предположим, что у вас есть элемент формы
@@ -313,7 +361,45 @@
             });
         });
     </script>
+    <script>
+        document.getElementById("budget-save-changes-button").addEventListener("click", function(event) {
+            event.preventDefault(); // Предотвращаем отправку формы по умолчанию
 
+            let formData = {}; // Объект для хранения данных
+            let changedInputs = document.querySelectorAll(".editable-input"); // Все инпуты
+
+            changedInputs.forEach(function(input) {
+                if (input.value !== input.getAttribute("data-initial-value")) { // Проверяем, изменилось ли значение по сравнению с начальным
+                    formData[input.id] = input.value; // Сохраняем ID и новое значение
+                }
+            });
+
+            if (Object.keys(formData).length > 0) {
+                fetch("/update-budget/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRFToken": "{{ csrf_token }}"
+                    },
+                    body: JSON.stringify(formData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === "success") {
+                        // После успешного ответа, выполняем редирект
+                        window.location.href = "/budget/";  // Укажите правильный URL для редиректа
+                    } else {
+                        alert("Ошибка: " + data.message);
+                    }
+                })
+                .catch((error) => {
+                    console.error("Ошибка:", error);
+                });
+            } else {
+                alert("Нет изменений для сохранения.");
+            }
+        });
+    </script>
     <script>
         $(document).ready(function() {
             $('#category-select').change(function() {
