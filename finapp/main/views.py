@@ -672,20 +672,42 @@ def update_budget(request):
         # Обработка данных
         try:
             for input_id, value in data.items():
-                if len(value) != 0:
+                if len(value) != 0 and value != '-':
+                    info_line = input_id.split('__')
+                    if len(info_line) == 2:
+                        date, cashbox_id = info_line[0], info_line[1]
+                        budget, created = Budget.objects.update_or_create(
+                            date=date,
+                            cash_box=Cash_box.objects.get(id=cashbox_id),
+                            user=current_user,
+                            fixed=True,
+                            profit=0,
+                            defaults={'total': value}
+                        )
+                    elif len(info_line) == 3:
+                        date, cashbox_id = info_line[0], info_line[1]
+                        budget, created = Budget.objects.update_or_create(
+                            date=date,
+                            cash_box=Cash_box.objects.get(id=cashbox_id),
+                            user=current_user,
+                            fixed=False,
+                            profit=0,
+                            defaults={'total': value}
+                        )
+                elif value == '-':
                     info_line = input_id.split('__')
                     if len(info_line) == 2:
                         date, cashbox_id = info_line[0], info_line[1]
                         budget = Budget.objects.get(date=date, cash_box_id=Cash_box.objects.get(id=cashbox_id),
                                                     user=current_user, fixed=True)
-                        budget.total = value
-                        budget.save()
+                        budget.delete()
+
                     elif len(info_line) == 3:
                         date, cashbox_id = info_line[0], info_line[1]
                         budget = Budget.objects.get(date=date, cash_box_id=Cash_box.objects.get(id=cashbox_id),
                                                     user=current_user, fixed=False)
-                        budget.total = value
-                        budget.save()
+                        budget.delete()
+
         except Exception as e:
             print(f"Ошибка при обновлении бюджета: {e}")
 
